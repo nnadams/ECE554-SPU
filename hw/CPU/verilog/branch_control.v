@@ -13,7 +13,6 @@ reg _take_branch;
 reg src1_sel;
 
 wire [31:0] add_src1; 
-wire [31:0] add_src2;
 
 assign add_src1 = (src1_sel == 1'b0) ? PC_4 : reg_read;
 

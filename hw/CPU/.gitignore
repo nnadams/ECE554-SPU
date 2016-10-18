@@ -5,3 +5,4 @@ test/verilogsim.log
 test/vsim.wlf
 test/verilogsim.trace
 test/dumpfile
+test/loadfile.img
