@@ -63,7 +63,7 @@ rf regfile (
 
 /* ALU Control Decode Block */
 alucontrol alucont (
-		   .opcode(instr[15:11]),
+		   .opcode(instr[31:26]),
 		   .aluop(instr[1:0]), 
 		   .Op(alu_op_out),
 		   .invA(invA),

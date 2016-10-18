@@ -34,28 +34,27 @@
 
 module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
 
-   output  [15:0] data_out;
-   input [15:0]   data_in;
-   input [15:0]   addr;
+   output  [31:0] data_out;
+   input [31:0]   data_in;
+   input [31:0]   addr;
    input          enable;
    input          wr;
    input          createdump;
    input          clk;
    input          rst;
 
-   wire [15:0]    data_out;
+   wire [31:0]    data_out;
    
    reg [7:0]      mem [0:65535];
    reg            loaded;
-   reg [16:0]     largest;
+   reg [31:0]     largest;
 
    integer        mcd;
    integer        i;
 
 
-   //    assign data_temp_0 = mem[addr];
-   //    assign data_temp_2 = mem[{addr+8'h1];
-   assign         data_out = (enable & (~wr))? {mem[addr],mem[addr+8'h1]}: 0;
+   assign         data_out = (enable & (~wr))? {mem[addr],mem[addr+8'h1], mem[addr+8'h2], mem[addr+8'h3]}: 0;
+   
    initial begin
       loaded = 0;
       largest = 0;
@@ -74,8 +73,10 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
       end
       else begin
          if (enable & wr) begin
-	        mem[addr] = data_in[15:8];       // The actual write
-	        mem[addr+1] = data_in[7:0];    // The actual write
+	        mem[addr] = data_in[31:24];       // The actual write
+	        mem[addr+1] = data_in[23:16];    // The actual write
+			mem[addr+2] = data_in[15:8];    // The actual write
+			mem[addr+3] = data_in[0:0];    // The actual write
             if ({1'b0, addr} > largest) largest = addr;  // avoid negative numbers
          end
          if (createdump) begin

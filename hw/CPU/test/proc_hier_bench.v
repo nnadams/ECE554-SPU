@@ -18,9 +18,9 @@ module proc_hier_bench();
      
 	reg clk; 
 	reg rst; 
-
-   proc DUT(clk, rst);;
-   
+	wire err; 
+   proc DUT(.clk(clk), .rst(rst), .err(err));
+  
 
    initial begin
       $display("Hello world...simulation starting");
@@ -35,8 +35,8 @@ module proc_hier_bench();
 	  rst = 0; 
    end
 
-   always @ (posedge DUT.c0.clk) begin
-      if (!DUT.c0.rst) begin
+   always @ (posedge DUT.clk) begin
+      if (!DUT.rst) begin
          if (Halt || RegWrite || MemWrite) begin
             inst_count = inst_count + 1;
          end
@@ -122,7 +122,7 @@ module proc_hier_bench();
    assign MemRead =  DUT.mem_read;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = (DUT.mem_enable & DUT.p0.mem_write);
+   assign MemWrite = (DUT.mem_enable & DUT.mem_write);
    // Is memory being written to (1 bit signal)
    
    assign MemAddress = DUT.alu_out;

@@ -5,12 +5,12 @@ module flag_instr_logic(
 	input N,
 	input A_Sign,
 	input B_Sign,
-	output [15:0] Out
+	output [31:0] Out
 );
 
 reg _out;
 
-assign Out = {{14{1'b0}}, _out};
+assign Out = {{30{1'b0}}, _out};
 
 always @(*)
 begin

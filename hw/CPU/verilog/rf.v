@@ -161,7 +161,7 @@ assign read1data =
 		(read1regsel == 5'b11101) ? r29Data:
 		(read1regsel == 5'b11110) ? r31Data:
 		(read1regsel == 5'b11111) ? r31Data:
-		16'h0000;
+		32'h0000;
 
 assign read2data =
 		(read2regsel == 5'b00000) ? r0Data:
@@ -196,20 +196,20 @@ assign read2data =
 		(read2regsel == 5'b11101) ? r29Data:
 		(read2regsel == 5'b11110) ? r31Data:
 		(read2regsel == 5'b11111) ? r31Data:
-		16'h0000;
+		32'h0000;
 
 
 // Assert the write for the correct register, if necessary
-assign r0Write = (writeregsel == 5'b00000) ? write : 0;
-assign r1Write = (writeregsel == 5'b00001) ? write : 0;
-assign r2Write = (writeregsel == 5'b00010) ? write : 0;
-assign r3Write = (writeregsel == 5'b00011) ? write : 0;
-assign r4Write = (writeregsel == 5'b00100) ? write : 0;
-assign r5Write = (writeregsel == 5'b00101) ? write : 0;
-assign r6Write = (writeregsel == 5'b00110) ? write : 0;
-assign r7Write = (writeregsel == 5'b00111) ? write : 0;
-assign r8Write = (writeregsel == 5'b01000) ? write : 0;
-assign r9Write = (writeregsel == 5'b01001) ? write : 0;
+assign r0Write =  (writeregsel == 5'b00000) ? write : 0;
+assign r1Write =  (writeregsel == 5'b00001) ? write : 0;
+assign r2Write =  (writeregsel == 5'b00010) ? write : 0;
+assign r3Write =  (writeregsel == 5'b00011) ? write : 0;
+assign r4Write =  (writeregsel == 5'b00100) ? write : 0;
+assign r5Write =  (writeregsel == 5'b00101) ? write : 0;
+assign r6Write =  (writeregsel == 5'b00110) ? write : 0;
+assign r7Write =  (writeregsel == 5'b00111) ? write : 0;
+assign r8Write =  (writeregsel == 5'b01000) ? write : 0;
+assign r9Write =  (writeregsel == 5'b01001) ? write : 0;
 assign r10Write = (writeregsel == 5'b01010) ? write : 0;
 assign r11Write = (writeregsel == 5'b01011) ? write : 0;
 assign r12Write = (writeregsel == 5'b01100) ? write : 0;

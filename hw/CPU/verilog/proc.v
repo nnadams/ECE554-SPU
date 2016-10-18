@@ -11,7 +11,7 @@ module proc (
 
    // Fetch Outputs  
    wire [31:0] instruction; 
-   wire [31:0] PC_2; 
+   wire [31:0] PC_4; 
    wire        HALT; 
    
    // Decode Outputs  
@@ -123,7 +123,7 @@ module proc (
 		 /* Inputs */
 		 .alu_out(alu_out),
 		 .mem_out(mem_out),
-		 .PC_2(PC_2),
+		 .PC_4(PC_4),
 		 .write_reg_sel(write_reg_sel),
 		 .flag_opcode(instruction[12:11]),
 		 .Z(Z),

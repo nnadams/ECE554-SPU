@@ -17,7 +17,7 @@ wire [31:0] add_src2;
 
 assign add_src1 = (src1_sel == 1'b0) ? PC_4 : reg_read;
 
-add16 pc_adder(
+add32 pc_adder(
 			.A(add_src1), 
 			.B(immediate),
 			.Cin(1'b0), 
