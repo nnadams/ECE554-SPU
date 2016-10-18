@@ -1,26 +1,14 @@
-/* $Author: karu $ */
-/* $LastChangedDate: 2009-03-04 23:09:45 -0600 (Wed, 04 Mar 2009) $ */
-/* $Rev: 45 $ */
 module proc_hier_bench();
 
-   /* BEGIN DO NOT TOUCH */
-   
-   /*AUTOWIRE*/
-   // Beginning of automatic wires (for undeclared instantiated-module outputs)
-   // End of automatics
-   
-
-   wire [15:0] PC;
-   wire [15:0] Inst;           /* This should be the 15 bits of the FF that
-                                  stores instructions fetched from instruction memory
-                               */
-   wire        RegWrite;       /* Whether register file is being written to */
-   wire [2:0]  WriteRegister;  /* What register is written */
-   wire [15:0] WriteData;      /* Data */
-   wire        MemWrite;       /* Similar as above but for memory */
+   wire [31:0] PC;
+   wire [31:0] Inst; 
+   wire        RegWrite;       
+   wire [2:0]  WriteRegister;  
+   wire [31:0] WriteData;     
+   wire        MemWrite;      
    wire        MemRead;
-   wire [15:0] MemAddress;
-   wire [15:0] MemData;
+   wire [31:0] MemAddress;
+   wire [31:0] MemData;
 
    wire        Halt;         /* Halt executed and in Memory or writeback stage */
         
@@ -28,8 +16,10 @@ module proc_hier_bench();
    integer     trace_file;
    integer     sim_log_file;
      
+	reg clk; 
+	reg rst; 
 
-   proc_hier DUT();
+   proc DUT(clk, rst);;
    
 
    initial begin
@@ -39,6 +29,10 @@ module proc_hier_bench();
       trace_file = $fopen("verilogsim.trace");
       sim_log_file = $fopen("verilogsim.log");
       
+	  clk = 0; 
+	  rst = 1; 
+	  #50; 
+	  rst = 0; 
    end
 
    always @ (posedge DUT.c0.clk) begin
@@ -46,8 +40,7 @@ module proc_hier_bench();
          if (Halt || RegWrite || MemWrite) begin
             inst_count = inst_count + 1;
          end
-         $fdisplay(sim_log_file, "SIMLOG:: Cycle %d PC: %8x I: %8x R: %d %3d %8x M: %d %d %8x %8x",
-                  DUT.c0.cycle_count,
+         $fdisplay(sim_log_file, "SIMLOG:: PC: %8x I: %8x R: %d %3d %8x M: %d %d %8x %8x",
                   PC,
                   Inst,
                   RegWrite,
@@ -60,8 +53,8 @@ module proc_hier_bench();
          if (RegWrite) begin
             if (MemWrite) begin
                // stu
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%04x REG: %d VALUE: 0x%04x ADDR: 0x%04x VALUE: 0x%04x",
-                         (inst_count-1),
+               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x REG: %d VALUE: 0x%08x ADDR: 0x%08x VALUE: 0x%08x",
+                        (inst_count-1),
                         PC,
                         WriteRegister,
                         WriteData,
@@ -69,22 +62,21 @@ module proc_hier_bench();
                         MemData);
             end else if (MemRead) begin
                // ld
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%04x REG: %d VALUE: 0x%04x ADDR: 0x%04x",
-                         (inst_count-1),
+               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x REG: %d VALUE: 0x%08x ADDR: 0x%08x",
+                        (inst_count-1),
                         PC,
                         WriteRegister,
                         WriteData,
                         MemAddress);
             end else begin
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%04x REG: %d VALUE: 0x%04x",
-                         (inst_count-1),
+               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x REG: %d VALUE: 0x%08x",
+                        (inst_count-1),
                         PC,
                         WriteRegister,
                         WriteData );
             end
          end else if (Halt) begin
             $fdisplay(sim_log_file, "SIMLOG:: Processor halted\n");
-            $fdisplay(sim_log_file, "SIMLOG:: sim_cycles %d\n", DUT.c0.cycle_count);
             $fdisplay(sim_log_file, "SIMLOG:: inst_count %d\n", inst_count);
             $fdisplay(trace_file, "INUM: %8d PC: 0x%04x",
                       (inst_count-1),
@@ -97,7 +89,7 @@ module proc_hier_bench();
          end else begin // if (RegWrite)
             if (MemWrite) begin
                // st
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%04x ADDR: 0x%04x VALUE: 0x%04x",
+               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x ADDR: 0x%08x VALUE: 0x%08x",
                          (inst_count-1),
                         PC,
                         MemAddress,
@@ -106,7 +98,7 @@ module proc_hier_bench();
                // conditional branch or NOP
                // Need better checking in pipelined testbench
                inst_count = inst_count + 1;
-               $fdisplay(trace_file, "INUM: %8d PC: 0x%04x",
+               $fdisplay(trace_file, "INUM: %8d PC: 0x%08x",
                          (inst_count-1),
                          PC );
             end
@@ -115,45 +107,33 @@ module proc_hier_bench();
       
    end
 
-   /* END DO NOT TOUCH */
-
-   /* Assign internal signals to top level wires
-      The internal module names and signal names will vary depending
-      on your naming convention and your design */
-
-   // Edit the example below. You must change the signal
-   // names on the right hand side
-    
-   assign PC = DUT.p0.F.ifetch.PC_curr;
-   assign Inst = DUT.p0.F.ifetch.instr;
+   assign PC = DUT.F.ifetch.PC_curr;
+   assign Inst = DUT.instruction;
    
-   assign RegWrite = DUT.p0.D.regfile.write;
+   assign RegWrite = DUT.D.regfile.write;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign WriteRegister = DUT.p0.D.regfile.writeregsel;
+   assign WriteRegister = DUT.D.regfile.writeregsel;
    // The name of the register being written to. (3 bit signal)
 
-   assign WriteData = DUT.p0.D.regfile.writedata;
+   assign WriteData = DUT.D.regfile.writedata;
    // Data being written to the register. (16 bits)
    
-   assign MemRead =  DUT.p0.mem_read;
+   assign MemRead =  DUT.mem_read;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign MemWrite = (DUT.p0.mem_enable & DUT.p0.mem_write);
+   assign MemWrite = (DUT.mem_enable & DUT.p0.mem_write);
    // Is memory being written to (1 bit signal)
    
-   assign MemAddress = DUT.p0.alu_out;
+   assign MemAddress = DUT.alu_out;
    // Address to access memory with (for both reads and writes to memory, 16 bits)
    
-   assign MemData = DUT.p0.reg_data_2;
+   assign MemData = DUT.reg_data_2;
    // Data to be written to memory for memory writes (16 bits)
    
-   assign Halt = DUT.p0.HALT;
+   assign Halt = DUT.HALT;
    // Is processor halted (1 bit signal)
-   
-   /* Add anything else you want here */
 
+   always #5 clk = ~clk; 
    
 endmodule
-
-// DUMMY LINE FOR REV CONTROL :0:

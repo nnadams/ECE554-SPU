@@ -1,5 +1,5 @@
 module alucontrol(
-	input [4:0] opcode,
+	input [5:0] opcode,
 	input [1:0] aluop,
 	output [3:0] Op,
 	output invA,

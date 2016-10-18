@@ -1,139 +1,138 @@
 module imm_decode(
-	input [15:0] instr,
-	output [15:0] imm_value
+	input [31:0] instr,
+	output [31:0] imm_value
 );
 
-
-reg [15:0] _imm_value;
+reg [31:0] _imm_value;
 
 assign imm_value = _imm_value;
  
 always @(*) begin
-	casex ({instr[15:11]})
+	casex ({instr[31:26]})
 		// ADDI 
-		5'b01000: 
+		6'b001000: 
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{16{instr[15]}},instr[15:0]};
 		end
 		
 		// SUBI
-		5'b01001:
+		6'b001001:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// XORI
-		5'b01010:
+		6'b001010:
 		begin
-			_imm_value = {{11{1'b0}},instr[4:0]};
+			_imm_value = {{15{1'b0}},instr[15:0]};
 		end
 		
 		// ANDNI 
-		5'b01011:
+		6'b001011:
 		begin
-			_imm_value = {{11{1'b0}},instr[4:0]};
+			_imm_value = {{15{1'b0}},instr[15:0]};
 		end
 		
 		// ROLI
-		5'b10100:
+		6'b010100:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// SLLI 
-		5'b10101:
+		6'b010101:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// RORI 
-		5'b10110:
+		6'b010110:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// SRLI
-		5'b10111:
+		6'b010111:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// ST
-		5'b10000:
+		6'b010000:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// LD
-		5'b10001:
+		6'b010001:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// STU
-		5'b10011:
+		6'b010011:
 		begin
-			_imm_value = {{11{instr[4]}},instr[4:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// BEQZ
-		5'b01100:
+		6'b001100:
 		begin
-			_imm_value = {{8{instr[7]}},instr[7:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// BNEZ
-		5'b01101:
+		6'b001101:
 		begin
-			_imm_value = {{8{instr[7]}},instr[7:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// BLTZ
-		5'b01110:
+		6'b001110:
 		begin
-			_imm_value = {{8{instr[7]}},instr[7:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 	
 		// BGEZ
-		5'b01111:
+		6'b001111:
 		begin
-			_imm_value = {{8{instr[7]}},instr[7:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// LBI
-		5'b11000:
+		6'b011000:
 		begin
-			_imm_value = {{8{instr[7]}},instr[7:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// SLBI
-		5'b10010:
+		6'b010010:
 		begin
-			_imm_value = {{8{1'b0}},instr[7:0]};
+			_imm_value = {{15{1'b0}},instr[15:0]};
 		end
 			
 		// J
-		5'b00100:
+		6'b000100:
 		begin
-			_imm_value = {{5{instr[10]}},instr[10:0]};
+			_imm_value = {{6{instr[25]}},instr[25:0]};
 		end
 		
 		// JR
-		5'b00101:
+		6'b000101:
 		begin
-			_imm_value = {{8{instr[7]}},instr[7:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		// JAL
-		5'b00110:
+		6'b000110:
 		begin
-			_imm_value = {{5{instr[10]}},instr[10:0]};
+			_imm_value = {{6{instr[25]}},instr[10:0]};
 		end
 		
 		// JALR
-		5'b00111:
+		6'b000111:
 		begin
-			_imm_value = {{8{instr[7]}},instr[7:0]};
+			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
 		
 		
@@ -141,7 +140,7 @@ always @(*) begin
 		// This includes all BEQZ BNEZ BGEZ BLTZ LBI all Jumps HALT
 		default:
 		begin
-			_imm_value = 15'hxxxx;
+			_imm_value = 32'hxxxx;
 		end
 	endcase
 end 

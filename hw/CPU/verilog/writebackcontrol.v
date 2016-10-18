@@ -1,6 +1,6 @@
 module writebackcontrol(
-	input [15:0] instr,
-	output [2:0] reg_write,
+	input [31:0] instr,
+	output [4:0] reg_write,
 	output write_reg,
 	output [1:0] write_reg_sel
 );
@@ -10,7 +10,7 @@ module writebackcontrol(
 `define WRITE_REG_PC     2'b10
 `define WRITE_REG_FLAGS  2'b11
 
-reg [2:0] _reg_write; 
+reg [4:0] _reg_write; 
 reg _write_reg;
 reg [1:0] _write_reg_sel;
 
@@ -19,219 +19,219 @@ assign write_reg = _write_reg;
 assign write_reg_sel = _write_reg_sel;
 
 always @(*) begin
-	casex ({instr[15:11]}) 
+	casex ({instr[31:26]}) 
 		// ADDI 
-		5'b01000: 
+		6'b001000: 
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SUBI
-		5'b01001:
+		6'b001001:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// XORI
-		5'b01010:
+		6'b001010:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// ANDNI 
-		5'b01011:
+		6'b001011:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// ROLI
-		5'b10100:
+		6'b010100:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SLLI 
-		5'b10101:
+		6'b010101:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// RORI 
-		5'b10110:
+		6'b010110:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SRLI
-		5'b10111:
+		6'b010111:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// ADD
-		5'b11011:
+		6'b011011:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SUB
-		5'b11011:
+		6'b011011:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// XOR 
-		5'b11011:
+		6'b011011:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// ANDN
-		5'b11011:
+		6'b011011:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// ROL 
-		5'b11010:
+		6'b011010:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SLL
-		5'b11010:
+		6'b011010:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// ROR
-		5'b11010:
+		6'b011010:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SRL
-		5'b11010:
+		6'b011010:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// BTR
-		5'b11001:
+		6'b011001:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SEQ
-		5'b11100:
+		6'b011100:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_FLAGS;
 		end
 		
 		// SLT 
-		5'b11101:
+		6'b011101:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_FLAGS;
 		end
 		
 		// SLE
-		5'b11110:
+		6'b011110:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_FLAGS;
 		end
 		
 		// SCO
-		5'b11111:
+		6'b011111:
 		begin
-			_reg_write = instr[4:2]; 
+			_reg_write = instr[15:11]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_FLAGS;
 		end
 
 		// LBI
-		5'b11000:
+		6'b011000:
 		begin
-			_reg_write = instr[10:8]; 
+			_reg_write = instr[25:21]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// SLBI
-		5'b10010:
+		6'b010010:
 		begin
-			_reg_write = instr[10:8]; 
+			_reg_write = instr[25:21]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 		
 		// LD
-		5'b10001:
+		6'b010001:
 		begin
-			_reg_write = instr[7:5]; 
+			_reg_write = instr[20:16]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_MEM;
 		end
 		
 		// STU
-		5'b10011:
+		6'b010011:
 		begin
-			_reg_write = instr[10:8]; 
+			_reg_write = instr[25:21]; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_ALU;
 		end
 			
 		// JAL 
-		5'b00110:
+		6'b000110:
 		begin
-			_reg_write = 3'b111; 
+			_reg_write = 5'b11111; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_PC;
 		end
 		
 		// JALR
-		5'b00111:
+		6'b000111:
 		begin
-			_reg_write = 3'b111; 
+			_reg_write = 5'b11111; 
 			_write_reg = 1'b1;
 			_write_reg_sel = `WRITE_REG_PC;
 		end

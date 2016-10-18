@@ -1,7 +1,4 @@
-/* $Author: karu $ */
-/* $LastChangedDate: 2009-03-04 23:09:45 -0600 (Wed, 04 Mar 2009) $ */
-/* $Rev: 45 $ */
-module proc (/*AUTOARG*/
+module proc (
    // Outputs
    err, 
    // Inputs
@@ -10,26 +7,16 @@ module proc (/*AUTOARG*/
 
    input clk;
    input rst;
-
    output err;
 
-   // None of the above lines can be modified
-
-   // OR all the err ouputs for every sub-module and assign it as this
-   // err output
-   
-   // As desribed in the homeworks, use the err signal to trap corner
-   // cases that you think are illegal in your statemachines
-   
- 
    // Fetch Outputs  
-   wire [15:0] instruction; 
-   wire [15:0] PC_2; 
+   wire [31:0] instruction; 
+   wire [31:0] PC_2; 
    wire        HALT; 
    
    // Decode Outputs  
-   wire [15:0] reg_data_1;
-   wire [15:0] reg_data_2;
+   wire [31:0] reg_data_1;
+   wire [31:0] reg_data_2;
    wire        rf_err;
    wire [3:0] aluop;    
    wire       invA; 
@@ -37,7 +24,7 @@ module proc (/*AUTOARG*/
    wire       Cin; 
    wire       sign;
    wire       alusrc;
-   wire [15:0] imm_value;  
+   wire [31:0] imm_value;  
    wire        mem_write; 
    wire        mem_enable; 
    wire        mem_read; 
@@ -47,16 +34,13 @@ module proc (/*AUTOARG*/
    wire        ofl; 
    wire        Z;
    wire        N; 
-   wire [15:0] alu_out; 
+   wire [31:0] alu_out; 
    
    // Memory Outputs 
-   wire [15:0] mem_out;
+   wire [31:0] mem_out;
    
    // WriteBack Outputs    
-   wire [15:0] reg_write_data;
-
-
-   
+   wire [31:0] reg_write_data; 
 	
    // Fetch Unit
    fetch F ( 
@@ -66,10 +50,12 @@ module proc (/*AUTOARG*/
 	     .N(N),
 	     .Z(Z),
 	     .reg_data_1(reg_data_1),
+		 .immediate(imm_value),
 	     /*Outputs*/
 	     .instruction(instruction),
-	     .PC_2(PC_2),
-	     .HALT(HALT));
+	     .PC_4(PC_4),
+	     .HALT(HALT)
+		);
    
    // Decode Unit
    decode D  (
@@ -96,8 +82,7 @@ module proc (/*AUTOARG*/
 	      .mem_read(mem_read), 
 	      /*Writeback Outputs*/
 	      .write_reg_sel(write_reg_sel)
-	      );
-
+	    );
 
    // Execute Unit
    execute EX (
@@ -116,7 +101,7 @@ module proc (/*AUTOARG*/
 	       .Z(Z),
 	       .N(N),
 	       .ofl(ofl)
-	       );
+	    );
    
    // MEM Unit
    memory MEM (
@@ -130,7 +115,7 @@ module proc (/*AUTOARG*/
 	       .rst(rst),
 	       /*Outputs*/
 	       .data_out(mem_out)
-	       );
+	    );
    
 						
    // WriteBack Unit
@@ -149,7 +134,6 @@ module proc (/*AUTOARG*/
 		 
 		 /*Outputs*/
 		 .reg_write_data(reg_write_data)
-		 );
+		);
    
-endmodule // proc
-// DUMMY LINE FOR REV CONTROL :0:
+endmodule

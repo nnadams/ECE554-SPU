@@ -1,9 +1,9 @@
 // 32 Bit Full Adder
 module add32(
-	     input  [15:0] A,
-	     input  [15:0] B,
+	     input  [31:0] A,
+	     input  [31:0] B,
 	     input  Cin,
-	     output [15:0] S,
+	     output [31:0] S,
 	     output Cout
 );
 
