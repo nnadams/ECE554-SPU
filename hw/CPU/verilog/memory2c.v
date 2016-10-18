@@ -65,9 +65,9 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
 
    always @(posedge clk) begin
       if (rst) begin
-         // first init to 0, then load loadfile_all.img
+         // first init to 0, then load loadfile.img
          if (!loaded) begin
-            $readmemh("loadfile_all.img", mem);
+            $readmemh("loadfile.img", mem);
             loaded = 1;
          end
       end

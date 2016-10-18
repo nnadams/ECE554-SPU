@@ -22,7 +22,7 @@ reg_32 pc_reg(
 			.clk(clk), 
 			.rst(rst), 
 			.writeData(PC_new), 
-			.write(HALT_NOW),
+			.write(_continue),
 			.data(PC_curr)
 		);
 

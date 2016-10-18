@@ -1,3 +1,7 @@
 test/work/
 test/cpu.cr.mti
 test/transcript
+test/verilogsim.log
+test/vsim.wlf
+test/verilogsim.trace
+test/dumpfile

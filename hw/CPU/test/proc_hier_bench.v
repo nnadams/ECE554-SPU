@@ -3,7 +3,7 @@ module proc_hier_bench();
    wire [31:0] PC;
    wire [31:0] Inst; 
    wire        RegWrite;       
-   wire [2:0]  WriteRegister;  
+   wire [4:0]  WriteRegister;  
    wire [31:0] WriteData;     
    wire        MemWrite;      
    wire        MemRead;
@@ -16,9 +16,9 @@ module proc_hier_bench();
    integer     trace_file;
    integer     sim_log_file;
      
-	reg clk; 
-	reg rst; 
-	wire err; 
+    reg clk; 
+    reg rst; 
+    wire err; 
    proc DUT(.clk(clk), .rst(rst), .err(err));
   
 
@@ -29,10 +29,10 @@ module proc_hier_bench();
       trace_file = $fopen("verilogsim.trace");
       sim_log_file = $fopen("verilogsim.log");
       
-	  clk = 0; 
-	  rst = 1; 
-	  #50; 
-	  rst = 0; 
+      clk = 0; 
+      rst = 1; 
+      repeat (5) @(posedge clk);
+      rst = 0; 
    end
 
    always @ (posedge DUT.clk) begin
@@ -78,7 +78,7 @@ module proc_hier_bench();
          end else if (Halt) begin
             $fdisplay(sim_log_file, "SIMLOG:: Processor halted\n");
             $fdisplay(sim_log_file, "SIMLOG:: inst_count %d\n", inst_count);
-            $fdisplay(trace_file, "INUM: %8d PC: 0x%04x",
+            $fdisplay(trace_file, "INUM: %8d PC: 0x%08x",
                       (inst_count-1),
                       PC );
 
