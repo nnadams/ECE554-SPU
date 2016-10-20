@@ -2,7 +2,6 @@ module rf (
            // Outputs
            read1data, 
 		   read2data, 
-		   err,
            // Inputs
            clk,
 		   rst,
@@ -22,7 +21,6 @@ input        write;
 
 output [31:0] read1data;
 output [31:0] read2data;
-output        err;
 
 // Output data from each register
 wire [31:0] 	 r0Data;

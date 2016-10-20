@@ -9,7 +9,7 @@ module proc_hier_bench();
    wire        MemRead;
    wire [31:0] MemAddress;
    wire [31:0] MemData;
-
+   wire [31:0] MemReadData; 
    wire        Halt;         /* Halt executed and in Memory or writeback stage */
         
    integer     inst_count;
@@ -18,10 +18,44 @@ module proc_hier_bench();
      
     reg clk; 
     reg rst; 
-    wire err; 
-   proc DUT(.clk(clk), .rst(rst), .err(err));
+    wire err;
+
+	
+   proc DUT(
+		.clk(clk), 
+		.rst(rst),
+		.data_mem_addr(MemAddress),
+		.data_mem_write_data(MemData),
+		.data_mem_wr(MemWrite),
+		.data_mem_en(MemEnable),
+		.PC_curr(PC),
+		.data_mem_data(MemReadData),
+		.instruction(Inst)
+	);
   
 
+	memory2c d_mem(
+		.data_out(MemReadData),
+		.data_in(MemData),
+		.addr(MemAddress),
+		.enable(MemEnable),
+		.wr(MemWrite),
+		.createdump(1'b0),
+		.clk(clk),
+		.rst(rst)
+	);
+	
+	memory2c i_mem(
+		.data_out(Inst),
+		.data_in(32'h0),
+		.addr(PC),
+		.enable(1'b1),
+		.wr(1'b0),
+		.createdump(1'b0),
+		.clk(clk),
+		.rst(rst)
+	);
+	
    initial begin
       $display("Hello world...simulation starting");
       $display("See verilogsim.log and verilogsim.trace for output");
@@ -106,9 +140,6 @@ module proc_hier_bench();
       end
       
    end
-
-   assign PC = DUT.F.ifetch.PC_curr;
-   assign Inst = DUT.instruction;
    
    assign RegWrite = DUT.D.regfile.write;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
@@ -121,15 +152,6 @@ module proc_hier_bench();
    
    assign MemRead =  DUT.mem_read;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
-   
-   assign MemWrite = (DUT.mem_enable & DUT.mem_write);
-   // Is memory being written to (1 bit signal)
-   
-   assign MemAddress = DUT.alu_out;
-   // Address to access memory with (for both reads and writes to memory, 16 bits)
-   
-   assign MemData = DUT.reg_data_2;
-   // Data to be written to memory for memory writes (16 bits)
    
    assign Halt = DUT.HALT;
    // Is processor halted (1 bit signal)

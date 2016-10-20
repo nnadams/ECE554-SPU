@@ -9,7 +9,6 @@ module decode(
 	/* Register Outputs */ 
 	output [31:0] read1data,
 	output [31:0] read2data,
-	output rf_err,
  
 	/* ALU Control Outputs */ 
 	output [3:0] alu_op_out,
@@ -57,8 +56,7 @@ rf regfile (
 	   .read2regsel(read_reg_2), 
 	   .writedata(write_reg_data),
 	   .write(write_reg),
-	   .writeregsel(reg_write), 
-	   .err(rf_err)
+	   .writeregsel(reg_write)
 	);
 
 /* ALU Control Decode Block */

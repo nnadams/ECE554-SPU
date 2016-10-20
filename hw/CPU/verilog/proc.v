@@ -1,23 +1,24 @@
 module proc (
-   // Outputs
-   err, 
+   // Outputs 
+   output [31:0] data_mem_addr, 
+   output [31:0] data_mem_write_data,
+   output data_mem_wr,
+   output data_mem_en,
+   output [31:0] PC_curr,
    // Inputs
-   clk, rst
+   input clk,
+   input rst,
+   input [31:0] data_mem_data, 
+   input [31:0] instruction 
    );
 
-   input clk;
-   input rst;
-   output err;
-
    // Fetch Outputs  
-   wire [31:0] instruction; 
    wire [31:0] PC_4; 
    wire        HALT; 
    
    // Decode Outputs  
    wire [31:0] reg_data_1;
    wire [31:0] reg_data_2;
-   wire        rf_err;
    wire [3:0] aluop;    
    wire       invA; 
    wire       invB;
@@ -36,9 +37,6 @@ module proc (
    wire        N; 
    wire [31:0] alu_out; 
    
-   // Memory Outputs 
-   wire [31:0] mem_out;
-   
    // WriteBack Outputs    
    wire [31:0] reg_write_data; 
 	
@@ -51,8 +49,9 @@ module proc (
 	     .Z(Z),
 	     .reg_data_1(reg_data_1),
 		 .immediate(imm_value),
+		 .instruction(instruction),
 	     /*Outputs*/
-	     .instruction(instruction),
+		 .PC_curr(PC_curr),
 	     .PC_4(PC_4),
 	     .HALT(HALT)
 		);
@@ -67,7 +66,6 @@ module proc (
 	      /*Register File Outputs*/
 	      .read1data(reg_data_1), 
 	      .read2data(reg_data_2), 
-	      .rf_err(rf_err), 
 	      /*ALU Control Outputs*/ 
 	      .alu_op_out(aluop), 
 	      .invA(invA),
@@ -103,26 +101,18 @@ module proc (
 	       .ofl(ofl)
 	    );
    
-   // MEM Unit
-   memory MEM (
-	       /*Inputs*/
-	       .data_in(reg_data_2), 
-	       .addr(alu_out),
-	       .enable(mem_enable), 
-	       .wr(mem_write),
-	       .createdump(HALT),
-	       .clk(clk),
-	       .rst(rst),
-	       /*Outputs*/
-	       .data_out(mem_out)
-	    );
+   // External Memory Unit
+   assign data_mem_write_data = reg_data_2;
+   assign data_mem_addr = alu_out;
+   assign data_mem_wr = mem_write;
+   assign data_mem_en = mem_enable;
    
 						
    // WriteBack Unit
    writeback WB (
 		 /* Inputs */
 		 .alu_out(alu_out),
-		 .mem_out(mem_out),
+		 .mem_out(data_mem_data),
 		 .PC_4(PC_4),
 		 .write_reg_sel(write_reg_sel),
 		 .flag_opcode(instruction[12:11]),
