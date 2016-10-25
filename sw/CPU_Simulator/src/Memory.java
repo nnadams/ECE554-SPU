@@ -2,11 +2,11 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Memory {
-	private int mem[];
+	private byte mem[];
 	
 	public Memory(int MemSize)
 	{
-		mem = new int[MemSize];
+		mem = new byte[MemSize];
 		
 		for(int i = 0; i < MemSize; i++)
 		{
@@ -16,7 +16,7 @@ public class Memory {
 	
 	public Memory(int MemSize, String LoadFile)
 	{
-		mem = new int[MemSize];
+		mem = new byte[MemSize];
 		
 		for(int i = 0; i < MemSize; i++)
 		{
@@ -31,7 +31,9 @@ public class Memory {
 			while(s.hasNextLine())
 			{
 				String line = s.nextLine();
-				if(line.startsWith("//"))
+				line = line.trim();
+				
+				if(line.startsWith("//") || line.isEmpty())
 				{
 					// Comment. do nothing
 				}
@@ -41,7 +43,7 @@ public class Memory {
 				}
 				else
 				{
-					mem[currIndex] = Integer.parseInt(line,16);
+					mem[currIndex] = (byte)Integer.parseInt(line, 16);
 					currIndex++;
 				}
 			}
@@ -62,11 +64,21 @@ public class Memory {
 	
 	public int Read(int Address)
 	{
-		return mem[Address];
+		// Big Endian
+		int ret = (((int)(mem[Address]) & 0xff) << 24);
+		ret |= (((int)(mem[Address + 1]) & 0xff) << 16);
+		ret |= (((int)(mem[Address + 2]) & 0xff) << 8);
+		ret |= (((int)(mem[Address + 3]) & 0xff) << 0);
+		
+		return ret;
 	}
 	
 	public void Write(int Addres, int Data)
 	{
-		mem[Addres] = Data; 
+		// Big Endian
+		mem[Addres] = (byte)((Data >> 24) & 0xff); 
+		mem[Addres + 1] = (byte)((Data >> 16) & 0xff); 
+		mem[Addres + 2] = (byte)((Data >> 8) & 0xff); 
+		mem[Addres + 3] = (byte)((Data >> 0) & 0xff); 
 	}
 }

@@ -30,7 +30,7 @@ public class Simulator {
 		
 		Halted = false;
 		PC = 0; 
-		InstrCount = 0;
+		InstrCount = -1; // Start at zero based index
 		
 		while(!Halted)
 		{
@@ -43,11 +43,13 @@ public class Simulator {
 			switch(OpCode)
 			{
 				case ISA.HALT:
+					ir = new InstructionResult();
 					Halted = true;
 					break;
 				
 				case ISA.NOP:
 					// Nothing
+					ir = new InstructionResult();
 					break;
 				
 				case ISA.ALU:
@@ -169,9 +171,9 @@ public class Simulator {
 			}
 			
 			str.append("INUM: ");
-			str.append(InstrCount);
+			str.append(String.format("%8d", InstrCount));
 			str.append(" PC: 0x");
-			str.append(Integer.toHexString(PC));
+			str.append(String.format("%08x", PC));
 			
 			// Process Result 
 			if(ir.WriteRegister)
@@ -179,28 +181,24 @@ public class Simulator {
 				RegFile.WriteRegister(ir.RegisterToWrite, ir.RegisterWriteData);
 				
 				str.append(" REG: ");
-				str.append(ir.RegisterToWrite);
+				str.append(String.format("%2d", ir.RegisterToWrite));
 				str.append(" VALUE: 0x");
-				str.append(Integer.toHexString(ir.RegisterWriteData));
+				str.append(String.format("%08x", ir.RegisterWriteData));
 		
 				if(ir.WriteMemory)
 				{
 					// STU 
 					DMem.Write(ir.MemoryAddress, ir.MemoryDataToWrite);
 					str.append(" ADDR: 0x");
-					str.append(Integer.toHexString(ir.MemoryAddress));
+					str.append(String.format("%08x", ir.MemoryAddress));
 					str.append(" VALUE: 0x");
-					str.append(Integer.toHexString(ir.MemoryDataToWrite));
+					str.append(String.format("%08x", ir.MemoryDataToWrite));
 				}
 				else if(ir.ReadMemory)
 				{
 					// LD
 					str.append(" ADDR: 0x");
-					str.append(Integer.toHexString(ir.MemoryAddress));
-				}
-				else
-				{
-					
+					str.append(String.format("%08x", ir.MemoryAddress));
 				}
 			}
 			else if(ir.WriteMemory) 
@@ -209,9 +207,9 @@ public class Simulator {
 				DMem.Write(ir.MemoryAddress, ir.MemoryDataToWrite);
 				
 				str.append(" ADDR: 0x");
-				str.append(Integer.toHexString(ir.MemoryAddress));
+				str.append(String.format("%08x", ir.MemoryAddress));
 				str.append(" VALUE: 0x");
-				str.append(Integer.toHexString(ir.MemoryDataToWrite));
+				str.append(String.format("%08x",ir.MemoryDataToWrite));
 			}
 			else 
 			{
@@ -222,7 +220,7 @@ public class Simulator {
 			{
 				PC = ir.NewPC;
 			}
-			else
+			else if(!Halted)
 			{
 				PC += 4; 
 			}
@@ -230,14 +228,8 @@ public class Simulator {
 			TraceFile.println(str.toString());
 		}
 		
-		StringBuilder HaltString = new StringBuilder();
-		
-		HaltString.append("INUM: ");
-		HaltString.append(InstrCount);
-		HaltString.append(" PC: 0x");
-		HaltString.append(Integer.toHexString(PC));
-		TraceFile.println(HaltString.toString());
-		
 		TraceFile.close();
+		
+		System.out.println("Program Execution Finshed");
 	}
 }

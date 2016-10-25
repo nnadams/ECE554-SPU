@@ -91,7 +91,7 @@ public class Execute {
 		Val1 = GetFirstSourceRegisterValue(RegFile, Instruction);
 		Val2 = GetSecondSourceRegisterValue(RegFile, Instruction);
 		WriteReg = GetDestRegisterNonImmed(Instruction);
-		Result = Val1 - Val2; 
+		Result = Val2 - Val1; 
 		
 		ir.RegisterToWrite = WriteReg; 
 		ir.RegisterWriteData = Result; 
