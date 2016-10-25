@@ -6,6 +6,7 @@ module fetch(
 	    input [31:0] reg_data_1,
 		input [31:0] immediate,
 		input [31:0] instruction,
+		input SPART_STALL_DBG_ONLY,
 		output [31:0] PC_curr, 
 	    output [31:0] PC_4,
 	    output HALT
@@ -18,7 +19,10 @@ wire [31:0] PC_new;
 wire _continue;
 
 // HALT instruction
-assign _continue = (instruction[31:26] == 6'b000000) ? 1'b0 : 1'b1;
+// OR halt while the spart fifo is full for debug only
+assign _continue = (instruction[31:26] == 6'b000000) ? 1'b0 : 
+					SPART_STALL_DBG_ONLY ? 1'b0 : 1'b1;
+					
 assign HALT = ~_continue;
 
 assign PC_new = take_branch ? PC_branch : PC_4; 

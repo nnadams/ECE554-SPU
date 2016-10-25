@@ -9,7 +9,10 @@ module proc (
    input clk,
    input rst,
    input [31:0] data_mem_data, 
-   input [31:0] instruction 
+   input [31:0] instruction,
+   
+   // DBG ONLY
+   input SPART_STALL_DBG_ONLY
    );
 
    // Fetch Outputs  
@@ -50,6 +53,8 @@ module proc (
 	     .reg_data_1(reg_data_1),
 		 .immediate(imm_value),
 		 .instruction(instruction),
+		 // DBG ONLY
+		 .SPART_STALL_DBG_ONLY(SPART_STALL_DBG_ONLY),
 	     /*Outputs*/
 		 .PC_curr(PC_curr),
 	     .PC_4(PC_4),
