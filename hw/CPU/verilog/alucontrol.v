@@ -42,7 +42,7 @@ assign Cin = _Cin;
 always @(*) begin
 	casex ({opcode,aluop})
 		// ADDI 
-		7'b01000_xx: 
+		8'b001000_xx: 
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -53,7 +53,7 @@ always @(*) begin
 		end
 		
 		// SUBI
-		7'b01001_xx:
+		8'b001001_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b1; 
@@ -64,7 +64,7 @@ always @(*) begin
 		end
 		
 		// XORI
-		7'b01010_xx:
+		8'b001010_xx:
 		begin
 			_Op     = `OPCODE_XOR;
 			_invA   = 1'b0; 
@@ -75,7 +75,7 @@ always @(*) begin
 		end
 		
 		// ANDNI 
-		7'b01011_xx:
+		8'b001011_xx:
 		begin
 			_Op     = `OPCODE_AND;
 			_invA   = 1'b0; 
@@ -86,7 +86,7 @@ always @(*) begin
 		end
 		
 		// ROLI
-		7'b10100_xx:
+		8'b010100_xx:
 		begin
 			_Op     = `OPCODE_ROT_L;
 			_invA   = 1'b0; 
@@ -97,7 +97,7 @@ always @(*) begin
 		end
 		
 		// SLLI 
-		7'b10101_xx:
+		8'b010101_xx:
 		begin
 			_Op     = `OPCODE_SHFT_L;
 			_invA   = 1'b0; 
@@ -108,7 +108,7 @@ always @(*) begin
 		end
 		
 		// RORI 
-		7'b10110_xx:
+		8'b010110_xx:
 		begin
 			_Op     = `OPCODE_ROT_R;
 			_invA   = 1'b0; 
@@ -119,7 +119,7 @@ always @(*) begin
 		end
 		
 		// SRLI
-		7'b10111_xx:
+		8'b010111_xx:
 		begin
 			_Op     = `OPCODE_SHFT_R;
 			_invA   = 1'b0; 
@@ -130,7 +130,7 @@ always @(*) begin
 		end
 		
 		// ADD
-		7'b11011_00:
+		8'b011011_00:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -141,7 +141,7 @@ always @(*) begin
 		end
 		
 		// SUB
-		7'b11011_01:
+		8'b011011_01:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b1; 
@@ -152,7 +152,7 @@ always @(*) begin
 		end
 		
 		// XOR 
-		7'b11011_10:
+		8'b011011_10:
 		begin
 			_Op     = `OPCODE_XOR;
 			_invA   = 1'b0; 
@@ -163,7 +163,7 @@ always @(*) begin
 		end
 		
 		// ANDN
-		7'b11011_11:
+		8'b011011_11:
 		begin
 			_Op     = `OPCODE_AND;
 			_invA   = 1'b0; 
@@ -174,7 +174,7 @@ always @(*) begin
 		end
 		
 		// ROL 
-		7'b11010_00:
+		8'b011010_00:
 		begin
 			_Op     = `OPCODE_ROT_L;
 			_invA   = 1'b0; 
@@ -185,7 +185,7 @@ always @(*) begin
 		end
 		
 		// SLL
-		7'b11010_01:
+		8'b011010_01:
 		begin
 			_Op     = `OPCODE_SHFT_L;
 			_invA   = 1'b0; 
@@ -196,7 +196,7 @@ always @(*) begin
 		end
 		
 		// ROR
-		7'b11010_10:
+		8'b011010_10:
 		begin
 			_Op     = `OPCODE_ROT_R;
 			_invA   = 1'b0; 
@@ -207,7 +207,7 @@ always @(*) begin
 		end
 		
 		// SRL
-		7'b11010_11:
+		8'b011010_11:
 		begin
 			_Op     = `OPCODE_SHFT_R;
 			_invA   = 1'b0; 
@@ -218,7 +218,7 @@ always @(*) begin
 		end
 		
 		// BTR
-		7'b11001_xx:
+		8'b011001_xx:
 		begin
 			_Op     = `OPCODE_BTR;
 			_invA   = 1'b0; 
@@ -229,7 +229,7 @@ always @(*) begin
 		end
 		
 		// SEQ
-		7'b11100_xx:
+		8'b011100_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -240,7 +240,7 @@ always @(*) begin
 		end
 		
 		// SLT 
-		7'b11101_xx:
+		8'b011101_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -251,7 +251,7 @@ always @(*) begin
 		end
 		
 		// SLE
-		7'b11110_xx:
+		8'b011110_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -262,7 +262,7 @@ always @(*) begin
 		end
 		
 		// SCO
-		7'b11111_xx:
+		8'b011111_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -273,7 +273,7 @@ always @(*) begin
 		end
 
 		// LBI
-		7'b11000_xx:
+		8'b011000_xx:
 		begin
 			_Op     = `OPCODE_LBI;
 			_invA   = 1'b0; 
@@ -284,7 +284,7 @@ always @(*) begin
 		end
 		
 		// SLBI
-		7'b10010_xx:
+		8'b010010_xx:
 		begin
 			_Op     = `OPCODE_SLBI;
 			_invA   = 1'b0; 
@@ -295,7 +295,7 @@ always @(*) begin
 		end
 		
 		// ST
-		7'b10000_xx:
+		8'b010000_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -306,7 +306,7 @@ always @(*) begin
 		end
 		
 		// LD
-		7'b10001_xx:
+		8'b010001_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 
@@ -317,7 +317,7 @@ always @(*) begin
 		end
 		
 		// STU
-		7'b10011_xx:
+		8'b010011_xx:
 		begin
 			_Op     = `OPCODE_ADD;
 			_invA   = 1'b0; 

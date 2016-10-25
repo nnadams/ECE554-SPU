@@ -157,7 +157,7 @@ assign read1data =
 		(read1regsel == 5'b11011) ? r27Data:
 		(read1regsel == 5'b11100) ? r28Data:
 		(read1regsel == 5'b11101) ? r29Data:
-		(read1regsel == 5'b11110) ? r31Data:
+		(read1regsel == 5'b11110) ? r30Data:
 		(read1regsel == 5'b11111) ? r31Data:
 		32'h0000;
 
