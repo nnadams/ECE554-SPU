@@ -30,7 +30,9 @@ module proc_hier_bench();
 		.data_mem_en(MemEnable),
 		.PC_curr(PC),
 		.data_mem_data(MemReadData),
-		.instruction(Inst)
+		.instruction(Inst),
+		.HALTED(Halt),
+		.SPART_STALL_DBG_ONLY(1'b0)
 	);
   
 
@@ -153,9 +155,6 @@ module proc_hier_bench();
    assign MemRead =  DUT.mem_read;
    // Is memory being read, one bit signal (1 means yes, 0 means no)
    
-   assign Halt = DUT.HALT;
-   // Is processor halted (1 bit signal)
-
    always #5 clk = ~clk; 
    
 endmodule

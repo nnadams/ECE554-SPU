@@ -9,7 +9,7 @@ module fetch(
 		input SPART_STALL_DBG_ONLY,
 		output [31:0] PC_curr, 
 	    output [31:0] PC_4,
-	    output HALT
+	    output HALTED
 );
 
 wire [31:0] PC_branch;
@@ -23,7 +23,7 @@ wire _continue;
 assign _continue = (instruction[31:26] == 6'b000000) ? 1'b0 : 
 					SPART_STALL_DBG_ONLY ? 1'b0 : 1'b1;
 					
-assign HALT = ~_continue;
+assign HALTED = ~_continue;
 
 assign PC_new = take_branch ? PC_branch : PC_4; 
 

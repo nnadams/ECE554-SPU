@@ -30,6 +30,7 @@ module CPU_Test_FPGA_TopLevel(
    wire data_mem_wr;
    wire data_mem_en;
    wire [31:0] PC_curr;
+   wire HALTED; 
    
    // Inputs to CPU
    wire [31:0] data_mem_data;
@@ -61,6 +62,7 @@ module CPU_Test_FPGA_TopLevel(
 		.PC_curr(PC_curr),
 		.data_mem_data(data_mem_data),
 		.instruction(instruction),
+		.HALTED(HALTED),
 		
 		// TEST signal only, used to stall proc until 
 		// Theres room in the fifo to send more uart data_mem_addr
@@ -106,7 +108,16 @@ module CPU_Test_FPGA_TopLevel(
 		.TX(txd)
 	);
 	
-
+	wire cpu_done; 
+	reg cpu_done_flop;
+	
+	assign cpu_done = instruction[31:26] == 6'b000000; 
+	
+	// CPU Done Flop
+	always @(posedge clk, posedge rst) begin
+		if(rst) cpu_done_flop <= 0;
+		else cpu_done_flop <= cpu_done;
+	end
 	// State machine for CPU Debug 
 	always @(posedge clk, posedge rst) begin
 		if(rst) state <= 0;
@@ -120,10 +131,10 @@ module CPU_Test_FPGA_TopLevel(
 		trmt = 0; 
 		fifo_rd = 0; 
 		fifo_wr = 0; 
-		
+				
 		case(state) 
 			3'b000: begin
-				if(fifo_empty)begin
+				if(fifo_empty & ~cpu_done_flop)begin
 					next_state = 2'b01;
 					HALT_CPU = 0; 
 				end 
@@ -137,14 +148,14 @@ module CPU_Test_FPGA_TopLevel(
 			
 			// Cpu runs for this cycle. Halt next and store instruction in fifo. 
 			3'b001: begin
-				HALT_CPU = 1; 
+				HALT_CPU = 1;
 				next_state = 3'b010;
 				fifo_wr = 1;
 			end
 			
 			3'b010: begin
 				HALT_CPU = 1;  
-				next_state = 3'b010; 
+				next_state = 3'b011; 
 				fifo_wr = 1;
 			end 
 			

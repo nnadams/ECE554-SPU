@@ -5,6 +5,7 @@ module proc (
    output data_mem_wr,
    output data_mem_en,
    output [31:0] PC_curr,
+   output HALTED,
    // Inputs
    input clk,
    input rst,
@@ -17,7 +18,6 @@ module proc (
 
    // Fetch Outputs  
    wire [31:0] PC_4; 
-   wire        HALT; 
    
    // Decode Outputs  
    wire [31:0] reg_data_1;
@@ -58,7 +58,7 @@ module proc (
 	     /*Outputs*/
 		 .PC_curr(PC_curr),
 	     .PC_4(PC_4),
-	     .HALT(HALT)
+	     .HALTED(HALTED)
 		);
    
    // Decode Unit
