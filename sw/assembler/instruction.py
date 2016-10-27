@@ -10,6 +10,8 @@ IMM    = "(?P<imm>-?[0-9][x0-9A-Fa-f]*)\s*"
 FIRST  = "(?P<first>\$[0-9a-zA-Z]+)\s*"
 SECOND = "(?P<second>\$[0-9a-zA-Z]+)\s*"
 THIRD  = "(?P<third>\$[0-9a-zA-Z]+)\s*"
+SPACE  = "\s* \s*"
+SEPERATOR  = "\s*(,| )\s*"
 COMMA  = "\s*,\s*"
 EOL    = "\s*(#.*)?$"
 
@@ -17,22 +19,22 @@ LINE_BEGIN = r"(?i)^[^#]*?"
 
 instruction_types = [
     re.compile(LINE_BEGIN +
-      NAME + FIRST + COMMA + SECOND + COMMA + THIRD + EOL),
+      NAME + FIRST + SEPERATOR + SECOND + SEPERATOR + THIRD + EOL),
 
     re.compile(LINE_BEGIN +
-      NAME + FIRST + COMMA + SECOND + COMMA + LABEL + EOL),
+      NAME + FIRST + SEPERATOR + SECOND + SEPERATOR + LABEL + EOL),
 
     re.compile(LINE_BEGIN +
-      NAME + FIRST + COMMA + SECOND + COMMA + IMM + EOL),
+      NAME + FIRST + SEPERATOR + SECOND + SEPERATOR + IMM + EOL),
 
     re.compile(LINE_BEGIN +
-      NAME + FIRST + COMMA + IMM + "\(\s*" + SECOND + "\s*\)\s*" + EOL),
+      NAME + FIRST + SEPERATOR + IMM + "\(\s*" + SECOND + "\s*\)\s*" + EOL),
 
     re.compile(LINE_BEGIN +
-      NAME + FIRST + COMMA + LABEL + EOL),
+      NAME + FIRST + SEPERATOR + LABEL + EOL),
 
     re.compile(LINE_BEGIN +
-      NAME + FIRST + COMMA + IMM + EOL),
+      NAME + FIRST + SEPERATOR + IMM + EOL),
 
     re.compile(LINE_BEGIN +
       NAME + FIRST + EOL),
@@ -48,9 +50,10 @@ instruction_types = [
 ]
 
 r_type = {
-  "add":     (0x0,0b100000, ["rd", "rs", "rt"]),
+  "add":     (0x0,0b011011, ["rd", "rs", "rt"]),
   "addu":    (0x0,0b100001, ["rd", "rs", "rt"]),
   "and":     (0x0,0b100100, ["rd", "rs", "rt"]),
+  "andn":    (0x0,0b011011, ["rd", "rs", "rt"]),
   "break":   (0x0,0b001101, []),
   "div":     (0x0,0b011010, ["rd", "rs", "rt"]),
   "divu":    (0x0,0b011011, ["rs", "rt"]),
@@ -64,32 +67,44 @@ r_type = {
   "multu":   (0x0,0b011001, ["rs", "rt"]),
   "nor":     (0x0,0b100111, ["rd", "rs", "rt"]),
   "or":      (0x0,0b100101, ["rd", "rs", "rt"]),
-  "sll":     (0x0,0b000000, ["rd", "rt"]),
+  "sll":     (0x0,0b011010, ["rd", "rt"]),
   "sllv":    (0x0,0b000100, ["rd", "rt"]),
-  "slt":     (0x0,0b101010, ["rd", "rs", "rt"]),
+  "slt":     (0x0,0b011101, ["rd", "rs", "rt"]),
   "sltu":    (0x0,0b101011, ["rd", "rs", "rt"]),
   "sra":     (0x0,0b000011, ["rd", "rt"]),
   "srav":    (0x0,0b000111, ["rd", "rt"]),
   "srl":     (0x0,0b000010, ["rd", "rt"]),
   "srlv":    (0x0,0b000110, ["rd", "rt", "rs"]),
-  "sub":     (0x0,0b100010, ["rd", "rs", "rt"]),
+  "sub":     (0x0,0b011011, ["rd", "rs", "rt"]),
   "subu":    (0x0,0b100011, ["rd", "rs", "rt"]),
   "syscall": (0x0,0b001100, []),
   "xor":     (0x0,0b100110, ["rd", "rs", "rt"]),
-  "move":     (0x0,0b100111, ["rd", "rs", "rt"]),
+  "move":    (0x0,0b100111, ["rd", "rs", "rt"]),
+  "rol":     (0x0,0b011010, ["rd", "rs", "rt"]),
+  "ror":     (0x0,0b011010, ["rd", "rs", "rt"]),
+  "srl":     (0x0,0b011010, ["rd", "rs"]),
+  "seq":     (0x0,0b011100, ["rd", "rs", "rt"]),
+  "sle":     (0x0,0b011110, ["rd", "rs", "rt"]),
+  "sco":     (0x0,0b011111, ["rd", "rs", "rt"]),
 }
 
 i_type = {
   "addi":  (0b001000,["rt", "rs"]),
   "addiu": (0b001001,["rt", "rs"]),
+  "subi":  (0b001001,["rt", "rs"]),
   "andi":  (0b001100,["rt", "rs"]),
   "beq":   (0b000100,["rs", "rt"]),
-  "bgez":  (0b000001,0b00001,["rs"]),
+  "bgez":  (0b001111,0b00001,["rs"]),
   "bgtz":  (0b000111,0b00000,["rs"]),
   "blez":  (0b000110,0b00000,["rs"]),
-  "bltz":  (0b000001,0b00000,["rs"]),
+  "bltz":  (0b001110,0b00000,["rs"]),
+  "beqz":  (0b001100,0b00000,["rs"]),
+  "bnez":  (0b001101,0b00000,["rs"]),
   "bne":   (0b000101,["rs", "rt"]),
   "lb":    (0b100000,["rt", "rs"]),
+  "ld":    (0b010001,["rt", "rs"]),
+  "lbi":   (0b011000,["rt", "rs"]),
+  "slbi":  (0b010010,["rt", "rs"]),
   "lbu":   (0b100100,["rt", "rs"]),
   "lh":    (0b100001,["rt", "rs"]),
   "lhu":   (0b100101,["rt", "rs"]),
@@ -102,14 +117,23 @@ i_type = {
   "sltiu": (0b001011,["rt", "rs"]),
   "sh":    (0b101001,["rt", "rs"]),
   "sw":    (0b101011,["rt", "rs"]),
+  "st":    (0b010000,["rt", "rs"]),
+  "stu":   (0b010011,["rt", "rs"]),
   "sc":    (0b111000,["rt", "rs"]),
   "swc1":  (0b111001,["rt", "rs"]),
-  "xori":  (0b001110,["rt", "rs"]),
+  "xori":  (0b001010,["rt", "rs"]),
+  "andni": (0b001010,["rt", "rs"]),
+  "roli":  (0b010100,["rt", "rs"]),
+  "slli":  (0b010101,["rt", "rs"]),
+  "rori":  (0b010110,["rt", "rs"]),
+  "srli":  (0b010111,["rt", "rs"]),
 }
 
 j_type = {
-"j":       (0b000010,[]),
-"jal":     (0b000011,[]),
+"j":       (0b000100,[]),
+"jal":     (0b000110,[]),
+"jr":      (0b000101,[]),
+"jalr":    (0b000111,[]),
 }
 
 supported_pseudoinstructions = ['li', 'nop']
@@ -276,9 +300,12 @@ class PseudoInstruction:
         self.instructions.append(Instruction(self.program, position+1,
           name="ori", first=first, second=first,
           imm=(eval(imm) & 0xFFFF)))
-    elif name == "nop":
+    elif name == "hault":
       self.instructions.append(Instruction(self.program, position,
         name="sll", first="$0", second="$0", imm="0x0"))
+    elif name == "nop":
+      self.instructions.append(Instruction(self.program, position,
+        name="bltz", first="$0", imm="0x0"))
     else:
       raise "'%s' not support/not a pseudoinstruction"%(name)
 

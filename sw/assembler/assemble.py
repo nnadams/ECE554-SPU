@@ -56,5 +56,5 @@ if 'data_out' in args:
 if 'verbose' in args or 'output' not in args:
   binary = mp.Bytes(endian=endianness)
   for j in range(len(binary)/4):
-    print "%02x %02x %02x %02x"%tuple(binary[j*4:j*4+4])
+    print "%02x\n%02x\n%02x\n%02x\n"%tuple(binary[j*4:j*4+4])
 

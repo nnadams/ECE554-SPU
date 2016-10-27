@@ -133,6 +133,12 @@ def t_newline(t):
       linenumber = linenumber + 1
       t.lexer.lineno += t.value.count("\n")        
 
+      
+# TODO add regex to recognize string functions here
+
+
+
+
 t_ignore = " \t\r\v\a\f"
 
 
@@ -509,7 +515,7 @@ def p_postfix_expression_4(t):
 	  intcode=intcode+coded
 	  coded="\n\tlw $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
 	  finalcode=finalcode+coded
-	  coded="\tli $v0 1\n"
+	  coded="\tli $r1 1\n"
 	  finalcode=finalcode+coded
 	  coded="\tmove $a0 $t0\n"
 	  finalcode=finalcode+coded
@@ -3643,7 +3649,7 @@ def p_jump_statement_4(t):
       if error_flag == 0:
 	    coded = "\tRETURN return_value 0\n"   
 	    t[0].icode=coded
-	    coded = "\tlw $ra "+toAddr(0)+"\n" 
+	    coded = "\tlw $ret "+toAddr(0)+"\n" 
 	    t[0].code=coded
 	    coded = "\tsw $0 "+toAddr(0)+"\n"
 	    t[0].code=t[0].code+coded
@@ -3690,7 +3696,7 @@ def p_jump_statement_5(t):
 	    coded = t[2].icode+"\tRETURN return_value "+str(t[2].id)+"\n"   
 	    t[0].icode=coded
 	    #print "HUHUHU \n"+ t[2].code
-	    coded = t[2].code+"\tlw $ra "+toAddr(0)+"\n" 
+	    coded = t[2].code+"\tlw $ret "+toAddr(0)+"\n" 
 	    t[0].code=coded
 	    coded = "\tlw $t0 "+toAddr(t[2].offset)+"\n"
 	    t[0].code=t[0].code+coded
@@ -3858,13 +3864,13 @@ def p_function_definition_1(t):
       intcode = intcode +  t[3].icode + t[6].icode      
       coded = "\tRETURN : END OF SUB ROUTINE\n"
       intcode = intcode + coded
-      coded = "\tsw $ra 0($sp)\n"
+      coded = "\tsw $ret 0($sp)\n"
       finalcode = finalcode + coded + t[3].code + t[6].code           
-      coded = "\tlw $ra "+toAddr(0)+"\n"      
+      coded = "\tlw $ret "+toAddr(0)+"\n"      
       finalcode = finalcode + coded      
       coded = "\t"+funcEndLabel+" :\n"
       finalcode = finalcode + coded
-      coded = "\tjr $ra\n"
+      coded = "\tjr $ret\n"
       finalcode= finalcode +coded
       t[0].code=finalcode
       t[0].icode=intcode
@@ -3887,13 +3893,13 @@ def p_function_definition_2(t):
       intcode= coded + t[5].icode
       coded= "\tRETURN : END OF SUB ROUTINE\n"
       intcode = intcode + coded 
-      coded= "\tsw $ra 0($sp)\n"
+      coded= "\tsw $ret 0($sp)\n"
       finalcode=finalcode + coded + t[5].code
-      coded= "\tlw $ra " + toAddr(0)+"\n"
+      coded= "\tlw $ret " + toAddr(0)+"\n"
       finalcode = finalcode +coded
       coded= "\t" + funcEndLabel +" :\n"
       finalcode = finalcode +coded
-      coded= "\tjr $ra\n"
+      coded= "\tjr $ret\n"
       finalcode= finalcode+coded
       t[0].code=finalcode
       t[0].icode=intcode
@@ -3919,13 +3925,13 @@ def p_function_definition_3(t):
       coded = "\tRETURN : END SUB ROUTINE\n"
       intcode = intcode  + coded
    
-      coded = "\tsw $ra 0($sp)\n"
+      coded = "\tsw $ret 0($sp)\n"
       finalcode = finalcode + coded + t[2].code + t[5].code
-      coded = "\tlw $ra "+ toAddr(0)+"\n"
+      coded = "\tlw $ret "+ toAddr(0)+"\n"
       finalcode = finalcode  + coded    
       coded = "\t"+funcEndLabel+" :\n"
       finalcode = finalcode + coded
-      coded = "\tjr $ra\n"
+      coded = "\tjr $ret\n"
       finalcode  = finalcode + coded
       t[0].code = finalcode
       t[0].icode = intcode
@@ -3957,14 +3963,14 @@ def p_function_definition_4(t):
       intcode= intcode+ t[4].icode
       coded = "\tRETURN : END SUB ROUTINE\n"
       intcode = intcode + coded     
-      coded = "\tsw $ra 0($sp)\n"
+      coded = "\tsw $ret 0($sp)\n"
       finalcode=coded
       finalcode = finalcode+ t[4].code
-      coded = "\tlw $ra "+toAddr(0)+"\n"
+      coded = "\tlw $ret "+toAddr(0)+"\n"
       finalcode = finalcode + coded
       coded = "\t"+funcEndLabel+" :\n"
       finalcode = finalcode + coded
-      coded = "\tjr $ra\n"
+      coded = "\tjr $ret\n"
       finalcode = finalcode + coded      
       t[0].code = finalcode
       t[0].icode = intcode
@@ -4154,7 +4160,7 @@ import ply.yacc as yacc
 yacc.yacc()
 import sys
 
-fcgFile.write("\t.data\n")
+fcgFile.write(".data\n")
 fcgFile.write("str:\n")
 fcgFile.write(".asciiz \" : is answer \\n\"\n")
 fcgFile.write(".text\n")
