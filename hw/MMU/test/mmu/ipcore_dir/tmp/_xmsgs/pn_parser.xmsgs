@@ -8,7 +8,7 @@
 <!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/mmu/ipcore_dir/instruction_mem.v&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/mmu/ipcore_dir/instruction_memory.v&quot; into library work</arg>
 </msg>
 
 </messages>

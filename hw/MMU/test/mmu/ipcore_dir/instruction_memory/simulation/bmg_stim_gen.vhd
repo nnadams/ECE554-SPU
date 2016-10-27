@@ -202,7 +202,7 @@ BEGIN
 
 SIM_COE:  IF(C_ROM_SYNTH =0 ) GENERATE
 
-type mem_type is array (999 downto 0) of std_logic_vector(31 downto 0);
+type mem_type is array (1023 downto 0) of std_logic_vector(31 downto 0);
 CONSTANT RATIO : integer := DIVROUNDUP(32,32);
 
   FUNCTION bit_to_sl(input: BIT) RETURN STD_LOGIC IS
@@ -309,7 +309,7 @@ constant c_init : mem_type := init_memory(0,
 										  "instruction_memory.mif",
                                           DEFAULT_DATA,
                                           32,
-                                          1000);
+                                          1024);
 
 constant rom : mem_type := c_init;
 BEGIN
@@ -317,7 +317,7 @@ BEGIN
  EXPECTED_DATA <= rom(conv_integer(unsigned(check_read_addr)));
 
   CHECKER_RD_ADDR_GEN_INST:ENTITY work.ADDR_GEN
-    GENERIC MAP( C_MAX_DEPTH => 1000 )
+    GENERIC MAP( C_MAX_DEPTH => 1024 )
 
      PORT MAP(
         CLK => CLKA,
@@ -331,7 +331,7 @@ BEGIN
 
 
   CHECKER_RD_ADDRB_GEN_INST:ENTITY work.ADDR_GEN
-    GENERIC MAP( C_MAX_DEPTH => 1000 )
+    GENERIC MAP( C_MAX_DEPTH => 1024 )
 
      PORT MAP(
         CLK => CLKB,
@@ -422,7 +422,7 @@ END GENERATE;
 
 
   RD_ADDR_GEN_INST:ENTITY work.ADDR_GEN
-    GENERIC MAP( C_MAX_DEPTH => 1000 )
+    GENERIC MAP( C_MAX_DEPTH => 1024 )
 
      PORT MAP(
         CLK => CLKA,
@@ -435,7 +435,7 @@ END GENERATE;
 
 
   RD_ADDR_B_GEN_INST:ENTITY work.ADDR_GEN
-    GENERIC MAP( C_MAX_DEPTH => 1000 )
+    GENERIC MAP( C_MAX_DEPTH => 1024 )
 
      PORT MAP(
         CLK => CLKB,

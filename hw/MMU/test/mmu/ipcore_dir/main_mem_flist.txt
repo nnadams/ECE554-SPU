@@ -1,4 +1,5 @@
 # Output products list for <main_mem>
+_xmsgs\pn_parser.xmsgs
 main_mem.asy
 main_mem.gise
 main_mem.ngc
