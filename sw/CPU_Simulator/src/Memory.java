@@ -89,7 +89,7 @@ public class Memory {
 			PrintWriter RegFileLog = new PrintWriter(new File("mem_dump.sim"));
 			for(int i = 0; i < mem.length; i++)
 			{
-				RegFileLog.println(String.format("%02x", mem[i]));
+				RegFileLog.println(String.format("%08x %02x", i, mem[i]));
 			}
 			
 			RegFileLog.close();

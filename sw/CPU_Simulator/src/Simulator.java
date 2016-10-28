@@ -1,7 +1,7 @@
 import java.io.*;
 
 public class Simulator {
-	private static final int MEM_SIZE = 65535; 
+	private static final int MEM_SIZE = 65536; 
 	private static final int NUM_REGISTERS = 32; 
 	
 	public static void main(String[] args)
