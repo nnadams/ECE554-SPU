@@ -22,7 +22,7 @@ module Bin2Ascii(
 		output [7:0] ascii
     );
 	 
-	reg [3:0] _ascii; 
+	reg [7:0] _ascii; 
 	assign ascii = _ascii; 
 	
 	always@(*) begin

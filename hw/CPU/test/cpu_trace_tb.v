@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module cpu_trace_tb();
 
 	reg clk;
@@ -14,10 +15,10 @@ module cpu_trace_tb();
 		.clk(clk),
 		.rst(rst),
 		.instruction(instruction),
-		.data_mem_addr(data_mem_addr),
-		.data_mem_write_data(data_mem_write_data),
-		.data_mem_wr(data_mem_wr),
-		.tx(txd),
+		.data_mem_addr(mem_addr),
+		.data_mem_write_data(mem_data),
+		.data_mem_wr(mem_wr),
+		.tx(tx),
 		.HALT_CPU(HALT_CPU)
 	);
 

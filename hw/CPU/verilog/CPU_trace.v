@@ -122,8 +122,8 @@ module cpu_trace(
 	Bin2Ascii b2a6 (.bin(d6), .ascii(a6));
 	Bin2Ascii b2a7 (.bin(d7), .ascii(a7));
 
-	wire real_a7; 
-	wire real_a6; 
+	wire [7:0] real_a7; 
+	wire [7:0] real_a6; 
 	
 	// Carrigae return 
 	assign real_a7 = print_new_line ? 8'h0d : a7;
@@ -192,8 +192,8 @@ module cpu_trace(
 		
 		endcase 	
 	end 
-	
-	
+
+
 	// SPART Fifo Tx data
 	SPART_FIFO tx_fifo(
 		.rst(rst),
