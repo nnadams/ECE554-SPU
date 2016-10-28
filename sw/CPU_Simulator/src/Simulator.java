@@ -13,10 +13,11 @@ public class Simulator {
 		boolean Halted; 
 		int InstrCount; 
 		PrintWriter TraceFile = null; 
-		
+
 		try
 		{
 			TraceFile = new PrintWriter(new File("javasim.trace"));
+			
 		}
 		catch (IOException e)
 		{
@@ -228,6 +229,8 @@ public class Simulator {
 			TraceFile.println(str.toString());
 		}
 		
+		RegFile.DumpRegFile();
+		DMem.DumpMem();
 		TraceFile.close();
 		
 		System.out.println("Program Execution Finshed");

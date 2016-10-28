@@ -59,7 +59,7 @@ module proc_hier_bench();
 	);
   
 
-	memory2c d_mem(
+	memory2c #(0) d_mem(
 		.data_out(MemReadData),
 		.data_in(MemData),
 		.addr(MemAddress),
@@ -70,7 +70,7 @@ module proc_hier_bench();
 		.rst(rst)
 	);
 	
-	memory2c i_mem(
+	memory2c #(1) i_mem(
 		.data_out(Inst),
 		.data_in(32'h0),
 		.addr(PC),
@@ -94,39 +94,40 @@ module proc_hier_bench();
       if (!DUT.rst) begin
          if (Halt) begin
 			regDmpFile = $fopen("reg_dump.dmp");
-            $fdisplay(regDmpFile,"%8h\n", r0Data);
-			$fdisplay(regDmpFile,"%8h\n", r1Data);
-			$fdisplay(regDmpFile,"%8h\n", r2Data);
-			$fdisplay(regDmpFile,"%8h\n", r3Data);
-			$fdisplay(regDmpFile,"%8h\n", r4Data);
-			$fdisplay(regDmpFile,"%8h\n", r5Data);
-			$fdisplay(regDmpFile,"%8h\n", r6Data);
-		    $fdisplay(regDmpFile,"%8h\n", r7Data);
-			$fdisplay(regDmpFile,"%8h\n", r8Data);
-			$fdisplay(regDmpFile,"%8h\n", r9Data);
-			$fdisplay(regDmpFile,"%8h\n", r10Data);
-			$fdisplay(regDmpFile,"%8h\n", r11Data);
-			$fdisplay(regDmpFile,"%8h\n", r12Data);
-			$fdisplay(regDmpFile,"%8h\n", r13Data);
-			$fdisplay(regDmpFile,"%8h\n", r14Data);
-			$fdisplay(regDmpFile,"%8h\n", r15Data);
-			$fdisplay(regDmpFile,"%8h\n", r16Data);
-			$fdisplay(regDmpFile,"%8h\n", r17Data);
-			$fdisplay(regDmpFile,"%8h\n", r18Data);
-			$fdisplay(regDmpFile,"%8h\n", r19Data);
-			$fdisplay(regDmpFile,"%8h\n", r20Data);
-			$fdisplay(regDmpFile,"%8h\n", r21Data);
-			$fdisplay(regDmpFile,"%8h\n", r22Data);
-			$fdisplay(regDmpFile,"%8h\n", r23Data);
-			$fdisplay(regDmpFile,"%8h\n", r24Data);
-			$fdisplay(regDmpFile,"%8h\n", r25Data);
-			$fdisplay(regDmpFile,"%8h\n", r26Data);
-			$fdisplay(regDmpFile,"%8h\n", r27Data);
-			$fdisplay(regDmpFile,"%8h\n", r28Data);
-			$fdisplay(regDmpFile,"%8h\n", r29Data);
-			$fdisplay(regDmpFile,"%8h\n", r30Data);
-			$fdisplay(regDmpFile,"%8h\n", r31Data);
+            $fdisplay(regDmpFile,"%8h", r0Data);
+			$fdisplay(regDmpFile,"%8h", r1Data);
+			$fdisplay(regDmpFile,"%8h", r2Data);
+			$fdisplay(regDmpFile,"%8h", r3Data);
+			$fdisplay(regDmpFile,"%8h", r4Data);
+			$fdisplay(regDmpFile,"%8h", r5Data);
+			$fdisplay(regDmpFile,"%8h", r6Data);
+		    $fdisplay(regDmpFile,"%8h", r7Data);
+			$fdisplay(regDmpFile,"%8h", r8Data);
+			$fdisplay(regDmpFile,"%8h", r9Data);
+			$fdisplay(regDmpFile,"%8h", r10Data);
+			$fdisplay(regDmpFile,"%8h", r11Data);
+			$fdisplay(regDmpFile,"%8h", r12Data);
+			$fdisplay(regDmpFile,"%8h", r13Data);
+			$fdisplay(regDmpFile,"%8h", r14Data);
+			$fdisplay(regDmpFile,"%8h", r15Data);
+			$fdisplay(regDmpFile,"%8h", r16Data);
+			$fdisplay(regDmpFile,"%8h", r17Data);
+			$fdisplay(regDmpFile,"%8h", r18Data);
+			$fdisplay(regDmpFile,"%8h", r19Data);
+			$fdisplay(regDmpFile,"%8h", r20Data);
+			$fdisplay(regDmpFile,"%8h", r21Data);
+			$fdisplay(regDmpFile,"%8h", r22Data);
+			$fdisplay(regDmpFile,"%8h", r23Data);
+			$fdisplay(regDmpFile,"%8h", r24Data);
+			$fdisplay(regDmpFile,"%8h", r25Data);
+			$fdisplay(regDmpFile,"%8h", r26Data);
+			$fdisplay(regDmpFile,"%8h", r27Data);
+			$fdisplay(regDmpFile,"%8h", r28Data);
+			$fdisplay(regDmpFile,"%8h", r29Data);
+			$fdisplay(regDmpFile,"%8h", r30Data);
+			$fdisplay(regDmpFile,"%8h", r31Data);
 			$fclose(regDmpFile);
+			$stop;
 		 end
 	  end 
    end

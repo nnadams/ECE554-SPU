@@ -33,7 +33,8 @@
 //////////////////////////////////////
 
 module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
-
+   parameter mem_type = 0; 
+   
    output  [31:0] data_out;
    input [31:0]   data_in;
    input [31:0]   addr;
@@ -47,7 +48,7 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
    
    reg [7:0]      mem [0:65535];
    reg            loaded;
-   reg [31:0]     largest;
+   //reg [31:0]     largest;
 
    integer        mcd;
    integer        i;
@@ -57,7 +58,6 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
    
    initial begin
       loaded = 0;
-      largest = 0;
       for (i = 0; i< 65536; i=i+1) begin
          mem[i] = 8'd0;
       end
@@ -67,7 +67,14 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
       if (rst) begin
          // first init to 0, then load loadfile.img
          if (!loaded) begin
-            $readmemh("loadfile.img", mem);
+			if(mem_type) begin
+				$readmemh("loadfile.img", mem);
+			end
+			else begin
+			   for (i=0; i<=65535; i=i+1) begin
+			      mem[i] = 0;
+			   end
+			end
             loaded = 1;
          end
       end
@@ -77,12 +84,11 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
 	        mem[addr+1] = data_in[23:16];    // The actual write
 			mem[addr+2] = data_in[15:8];    // The actual write
 			mem[addr+3] = data_in[7:0];    // The actual write
-            if ({1'b0, addr} > largest) largest = addr;  // avoid negative numbers
          end
          if (createdump) begin
-            mcd = $fopen("dumpfile", "w");
-            for (i=0; i<=largest+1; i=i+1) begin
-               $fdisplay(mcd,"%4h %2h", i, mem[i]);
+            mcd = $fopen("mem_dmp.dmp", "w");
+            for (i=0; i<=65535; i=i+1) begin
+               $fdisplay(mcd,"%8h %2h", i, mem[i]);
             end
             $fclose(mcd);
          end

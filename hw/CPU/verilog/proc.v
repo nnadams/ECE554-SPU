@@ -132,7 +132,7 @@ module proc (
 	     .rst(rst),
 	     .take_branch(take_branch),
 	     .branch_addr(branch_addr),
-	     .stall(stall),
+	     .stall(stall_id),
 		 .SPART_STALL_DBG_ONLY(SPART_STALL_DBG_ONLY),
 		 .instruction(instruction),
 	     /*Outputs*/
@@ -403,7 +403,7 @@ module proc (
 	
 	// Flush Pipeline Assignments 
 	assign flush_if = take_branch;
-	assign flush_id = take_branch | stall;
+	assign flush_id = take_branch | stall_id;
 	assign flush_ex = take_branch;
 
 endmodule

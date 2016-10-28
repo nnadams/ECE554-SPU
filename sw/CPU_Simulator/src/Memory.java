@@ -81,4 +81,23 @@ public class Memory {
 		mem[Addres + 2] = (byte)((Data >> 8) & 0xff); 
 		mem[Addres + 3] = (byte)((Data >> 0) & 0xff); 
 	}
+	
+	public void DumpMem()
+	{
+		try
+		{
+			PrintWriter RegFileLog = new PrintWriter(new File("mem_dump.sim"));
+			for(int i = 0; i < mem.length; i++)
+			{
+				RegFileLog.println(String.format("%02x", mem[i]));
+			}
+			
+			RegFileLog.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("Cannot open trace file");
+			System.exit(-1);
+		}
+	}
 }
