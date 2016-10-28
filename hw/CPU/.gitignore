@@ -6,7 +6,8 @@ test/vsim.wlf
 test/verilogsim.trace
 test/dumpfile
 test/loadfile.img
-
+test/mem_dmp.dmp
+test/reg_dump.dmp
 
 # intermediate build files
 *.bgn
