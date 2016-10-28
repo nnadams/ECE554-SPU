@@ -1,26 +1,49 @@
 module proc_hier_bench();
-
-   wire [31:0] PC;
-   wire [31:0] Inst; 
-   wire        RegWrite;       
-   wire [4:0]  WriteRegister;  
-   wire [31:0] WriteData;     
-   wire        MemWrite;      
-   wire        MemRead;
-   wire [31:0] MemAddress;
-   wire [31:0] MemData;
-   wire [31:0] MemReadData; 
-   wire        Halt;         /* Halt executed and in Memory or writeback stage */
-        
-   integer     inst_count;
-   integer     trace_file;
-   integer     sim_log_file;
+	wire        Halt;         /* Halt executed and in Memory or writeback stage */
+	integer     regDmpFile;
      
     reg clk; 
     reg rst; 
-    wire err;
+	wire [31:0] PC;
+	wire [31:0] Inst;        
+	wire        MemWrite;      
+	wire [31:0] MemAddress;
+	wire [31:0] MemData;
+	wire [31:0] MemReadData; 
 
-	
+	wire [31:0] 	 r0Data;
+	wire [31:0] 	 r1Data;
+	wire [31:0] 	 r2Data;
+	wire [31:0] 	 r3Data;
+	wire [31:0] 	 r4Data;
+	wire [31:0] 	 r5Data;
+	wire [31:0] 	 r6Data;
+	wire [31:0] 	 r7Data;
+	wire [31:0] 	 r8Data;
+	wire [31:0] 	 r9Data;
+	wire [31:0] 	 r10Data;
+	wire [31:0] 	 r11Data;
+	wire [31:0] 	 r12Data;
+	wire [31:0] 	 r13Data;
+	wire [31:0] 	 r14Data;
+	wire [31:0] 	 r15Data;
+	wire [31:0] 	 r16Data;
+	wire [31:0] 	 r17Data;
+	wire [31:0] 	 r18Data;
+	wire [31:0] 	 r19Data;
+	wire [31:0] 	 r20Data;
+	wire [31:0] 	 r21Data;
+	wire [31:0] 	 r22Data;
+	wire [31:0] 	 r23Data;
+	wire [31:0] 	 r24Data;
+	wire [31:0] 	 r25Data;
+	wire [31:0] 	 r26Data;
+	wire [31:0] 	 r27Data;
+	wire [31:0] 	 r28Data;
+	wire [31:0] 	 r29Data;
+	wire [31:0] 	 r30Data;
+	wire [31:0] 	 r31Data;
+
    proc DUT(
 		.clk(clk), 
 		.rst(rst),
@@ -42,7 +65,7 @@ module proc_hier_bench();
 		.addr(MemAddress),
 		.enable(MemEnable),
 		.wr(MemWrite),
-		.createdump(1'b0),
+		.createdump(Halt),
 		.clk(clk),
 		.rst(rst)
 	);
@@ -61,10 +84,6 @@ module proc_hier_bench();
    initial begin
       $display("Hello world...simulation starting");
       $display("See verilogsim.log and verilogsim.trace for output");
-      inst_count = 0;
-      trace_file = $fopen("verilogsim.trace");
-      sim_log_file = $fopen("verilogsim.log");
-      
       clk = 0; 
       rst = 1; 
       repeat (5) @(posedge clk);
@@ -73,87 +92,77 @@ module proc_hier_bench();
 
    always @ (posedge DUT.clk) begin
       if (!DUT.rst) begin
-         if (Halt || RegWrite || MemWrite) begin
-            inst_count = inst_count + 1;
-         end
-         $fdisplay(sim_log_file, "SIMLOG:: PC: %8x I: %8x R: %d %3d %8x M: %d %d %8x %8x",
-                  PC,
-                  Inst,
-                  RegWrite,
-                  WriteRegister,
-                  WriteData,
-                  MemRead,
-                  MemWrite,
-                  MemAddress,
-                  MemData);
-         if (RegWrite) begin
-            if (MemWrite) begin
-               // stu
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x REG: %d VALUE: 0x%08x ADDR: 0x%08x VALUE: 0x%08x",
-                        (inst_count-1),
-                        PC,
-                        WriteRegister,
-                        WriteData,
-                        MemAddress,
-                        MemData);
-            end else if (MemRead) begin
-               // ld
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x REG: %d VALUE: 0x%08x ADDR: 0x%08x",
-                        (inst_count-1),
-                        PC,
-                        WriteRegister,
-                        WriteData,
-                        MemAddress);
-            end else begin
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x REG: %d VALUE: 0x%08x",
-                        (inst_count-1),
-                        PC,
-                        WriteRegister,
-                        WriteData );
-            end
-         end else if (Halt) begin
-            $fdisplay(sim_log_file, "SIMLOG:: Processor halted\n");
-            $fdisplay(sim_log_file, "SIMLOG:: inst_count %d\n", inst_count);
-            $fdisplay(trace_file, "INUM: %8d PC: 0x%08x",
-                      (inst_count-1),
-                      PC );
-
-            $fclose(trace_file);
-            $fclose(sim_log_file);
-            
-            $finish;
-         end else begin // if (RegWrite)
-            if (MemWrite) begin
-               // st
-               $fdisplay(trace_file,"INUM: %8d PC: 0x%08x ADDR: 0x%08x VALUE: 0x%08x",
-                         (inst_count-1),
-                        PC,
-                        MemAddress,
-                        MemData);
-            end else begin
-               // conditional branch or NOP
-               // Need better checking in pipelined testbench
-               inst_count = inst_count + 1;
-               $fdisplay(trace_file, "INUM: %8d PC: 0x%08x",
-                         (inst_count-1),
-                         PC );
-            end
-         end 
-      end
-      
+         if (Halt) begin
+			regDmpFile = $fopen("reg_dump.dmp");
+            $fdisplay(regDmpFile,"%8h\n", r0Data);
+			$fdisplay(regDmpFile,"%8h\n", r1Data);
+			$fdisplay(regDmpFile,"%8h\n", r2Data);
+			$fdisplay(regDmpFile,"%8h\n", r3Data);
+			$fdisplay(regDmpFile,"%8h\n", r4Data);
+			$fdisplay(regDmpFile,"%8h\n", r5Data);
+			$fdisplay(regDmpFile,"%8h\n", r6Data);
+		    $fdisplay(regDmpFile,"%8h\n", r7Data);
+			$fdisplay(regDmpFile,"%8h\n", r8Data);
+			$fdisplay(regDmpFile,"%8h\n", r9Data);
+			$fdisplay(regDmpFile,"%8h\n", r10Data);
+			$fdisplay(regDmpFile,"%8h\n", r11Data);
+			$fdisplay(regDmpFile,"%8h\n", r12Data);
+			$fdisplay(regDmpFile,"%8h\n", r13Data);
+			$fdisplay(regDmpFile,"%8h\n", r14Data);
+			$fdisplay(regDmpFile,"%8h\n", r15Data);
+			$fdisplay(regDmpFile,"%8h\n", r16Data);
+			$fdisplay(regDmpFile,"%8h\n", r17Data);
+			$fdisplay(regDmpFile,"%8h\n", r18Data);
+			$fdisplay(regDmpFile,"%8h\n", r19Data);
+			$fdisplay(regDmpFile,"%8h\n", r20Data);
+			$fdisplay(regDmpFile,"%8h\n", r21Data);
+			$fdisplay(regDmpFile,"%8h\n", r22Data);
+			$fdisplay(regDmpFile,"%8h\n", r23Data);
+			$fdisplay(regDmpFile,"%8h\n", r24Data);
+			$fdisplay(regDmpFile,"%8h\n", r25Data);
+			$fdisplay(regDmpFile,"%8h\n", r26Data);
+			$fdisplay(regDmpFile,"%8h\n", r27Data);
+			$fdisplay(regDmpFile,"%8h\n", r28Data);
+			$fdisplay(regDmpFile,"%8h\n", r29Data);
+			$fdisplay(regDmpFile,"%8h\n", r30Data);
+			$fdisplay(regDmpFile,"%8h\n", r31Data);
+			$fclose(regDmpFile);
+		 end
+	  end 
    end
-   
-   assign RegWrite = DUT.D.regfile.write;
-   // Is memory being read, one bit signal (1 means yes, 0 means no)
-   
-   assign WriteRegister = DUT.D.regfile.writeregsel;
-   // The name of the register being written to. (3 bit signal)
 
-   assign WriteData = DUT.D.regfile.writedata;
-   // Data being written to the register. (16 bits)
-   
-   assign MemRead =  DUT.mem_read;
-   // Is memory being read, one bit signal (1 means yes, 0 means no)
+   assign r0Data = DUT.D.regfile.regfile.r0Data;
+   assign r1Data = DUT.D.regfile.regfile.r1Data;
+   assign r2Data = DUT.D.regfile.regfile.r2Data;
+   assign r3Data = DUT.D.regfile.regfile.r3Data;
+   assign r4Data = DUT.D.regfile.regfile.r4Data;
+   assign r5Data = DUT.D.regfile.regfile.r5Data;
+   assign r6Data = DUT.D.regfile.regfile.r6Data;
+   assign r7Data = DUT.D.regfile.regfile.r7Data;
+   assign r8Data = DUT.D.regfile.regfile.r8Data;
+   assign r9Data = DUT.D.regfile.regfile.r9Data;
+   assign r10Data = DUT.D.regfile.regfile.r10Data;
+   assign r11Data = DUT.D.regfile.regfile.r11Data;
+   assign r12Data = DUT.D.regfile.regfile.r12Data;
+   assign r13Data = DUT.D.regfile.regfile.r13Data;
+   assign r14Data = DUT.D.regfile.regfile.r14Data;
+   assign r15Data = DUT.D.regfile.regfile.r15Data;
+   assign r16Data = DUT.D.regfile.regfile.r16Data;
+   assign r17Data = DUT.D.regfile.regfile.r17Data;
+   assign r18Data = DUT.D.regfile.regfile.r18Data;
+   assign r19Data = DUT.D.regfile.regfile.r19Data;
+   assign r20Data = DUT.D.regfile.regfile.r20Data;
+   assign r21Data = DUT.D.regfile.regfile.r21Data;
+   assign r22Data = DUT.D.regfile.regfile.r22Data;
+   assign r23Data = DUT.D.regfile.regfile.r23Data;
+   assign r24Data = DUT.D.regfile.regfile.r24Data;
+   assign r25Data = DUT.D.regfile.regfile.r25Data;
+   assign r26Data = DUT.D.regfile.regfile.r26Data;
+   assign r27Data = DUT.D.regfile.regfile.r27Data;
+   assign r28Data = DUT.D.regfile.regfile.r28Data;
+   assign r29Data = DUT.D.regfile.regfile.r29Data;
+   assign r30Data = DUT.D.regfile.regfile.r30Data;
+   assign r31Data = DUT.D.regfile.regfile.r31Data;
    
    always #5 clk = ~clk; 
    

@@ -1,33 +1,32 @@
 module fetch(
 	    input clk,
 	    input rst,
-	    input N,
-	    input Z,
-	    input [31:0] reg_data_1,
-		input [31:0] immediate,
 		input [31:0] instruction,
+		input stall,
 		input SPART_STALL_DBG_ONLY,
+		input take_branch,
+		input [31:0] branch_addr,
 		output [31:0] PC_curr, 
 	    output [31:0] PC_4,
 	    output HALTED
 );
 
-wire [31:0] PC_branch;
-wire 	    take_branch;
+	wire [31:0] PC_branch;
 
-wire [31:0] PC_new; 
-wire _continue;
+	wire [31:0] PC_new; 
+	wire _continue;
 
-// HALT instruction
-// OR halt while the spart fifo is full for debug only
-assign _continue = (instruction[31:26] == 6'b000000) ? 1'b0 : 
+	// HALT instruction
+	// OR halt while the spart fifo is full for debug only
+	assign _continue = (instruction[31:26] == 6'b000000) ? 1'b0 : 
 					SPART_STALL_DBG_ONLY ? 1'b0 : 1'b1;
 					
-assign HALTED = ~_continue;
+	assign HALTED = ~_continue & ~take_branch;
 
-assign PC_new = take_branch ? PC_branch : PC_4; 
+	assign PC_new = take_branch ? branch_addr :
+				stall  ? PC_curr   : PC_4; 
 
-reg_32 pc_reg(
+	reg_32 pc_reg(
 			.clk(clk), 
 			.rst(rst), 
 			.writeData(PC_new), 
@@ -35,23 +34,12 @@ reg_32 pc_reg(
 			.data(PC_curr)
 		);
 
-add32 pc_incr(
+	add32 pc_incr(
 			.A(PC_curr),
 			.B(32'h4), 
 			.Cin(1'b0), 
 			.S(PC_4), 
 			.Cout()
-		);
-
-branch_control bc(
-			.instr(instruction), 
-			.reg_read(reg_data_1),
-			.N(N),
-			.Z(Z), 
-			.immediate(immediate),
-			.PC_4(PC_4),
-			.PC_branch(PC_branch), 
-			.take_branch(take_branch)
 		);
 		
 endmodule
