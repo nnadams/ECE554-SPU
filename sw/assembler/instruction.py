@@ -48,12 +48,39 @@ instruction_types = [
     re.compile(LINE_BEGIN +
       NAME_NO_SPACE + EOL)
 ]
+s_type = {
+  # String instrucitons
+  "slen":    (0x0,0b100011, ["rd", "rs", "rt"]),
+  "scmp":    (0x0,0b100011, ["rd", "rs", "rt"]),
+  "scat":    (0x0,0b100011, ["rd", "rs", "rt"]),
+  "stok":    (0x0,0b100011, ["rd", "rs", "rt"]),
+}
+
+s_type_op = {
+  # String instrucitons opcode 2
+  "slen":    0b0000,
+  "scmp":    0b0001,
+  "scat":    0b0010,
+  "stok":    0b0011,
+
+}
 
 r_type = {
+  # Our instrutions
   "add":     (0x0,0b011011, ["rd", "rs", "rt"]),
-  "addu":    (0x0,0b100001, ["rd", "rs", "rt"]),
+  "sub":     (0x0,0b011011, ["rd", "rs", "rt"]),
   "and":     (0x0,0b100100, ["rd", "rs", "rt"]),
+  "rol":     (0x0,0b011010, ["rd", "rs", "rt"]),
+  "ror":     (0x0,0b011010, ["rd", "rs", "rt"]),
+  "srl":     (0x0,0b011010, ["rd", "rs"]),
+  "seq":     (0x0,0b011100, ["rd", "rs", "rt"]),
+  "sle":     (0x0,0b011110, ["rd", "rs", "rt"]),
+  "sco":     (0x0,0b011111, ["rd", "rs", "rt"]),
   "andn":    (0x0,0b011011, ["rd", "rs", "rt"]),
+
+
+  # Existing instructions
+  "addu":    (0x0,0b100001, ["rd", "rs", "rt"]),
   "break":   (0x0,0b001101, []),
   "div":     (0x0,0b011010, ["rd", "rs", "rt"]),
   "divu":    (0x0,0b011011, ["rs", "rt"]),
@@ -75,36 +102,41 @@ r_type = {
   "srav":    (0x0,0b000111, ["rd", "rt"]),
   "srl":     (0x0,0b000010, ["rd", "rt"]),
   "srlv":    (0x0,0b000110, ["rd", "rt", "rs"]),
-  "sub":     (0x0,0b011011, ["rd", "rs", "rt"]),
   "subu":    (0x0,0b100011, ["rd", "rs", "rt"]),
   "syscall": (0x0,0b001100, []),
   "xor":     (0x0,0b100110, ["rd", "rs", "rt"]),
   "move":    (0x0,0b100111, ["rd", "rs", "rt"]),
-  "rol":     (0x0,0b011010, ["rd", "rs", "rt"]),
-  "ror":     (0x0,0b011010, ["rd", "rs", "rt"]),
-  "srl":     (0x0,0b011010, ["rd", "rs"]),
-  "seq":     (0x0,0b011100, ["rd", "rs", "rt"]),
-  "sle":     (0x0,0b011110, ["rd", "rs", "rt"]),
-  "sco":     (0x0,0b011111, ["rd", "rs", "rt"]),
+
 }
 
 i_type = {
+  # Our instrutions
   "addi":  (0b001000,["rt", "rs"]),
-  "addiu": (0b001001,["rt", "rs"]),
   "subi":  (0b001001,["rt", "rs"]),
-  "andi":  (0b001100,["rt", "rs"]),
-  "beq":   (0b000100,["rs", "rt"]),
-  "bgez":  (0b001111,0b00001,["rs"]),
-  "bgtz":  (0b000111,0b00000,["rs"]),
-  "blez":  (0b000110,0b00000,["rs"]),
+  "xori":  (0b001010,["rt", "rs"]),
+  "andni": (0b001010,["rt", "rs"]),
+  "roli":  (0b010100,["rt", "rs"]),
+  "slli":  (0b010101,["rt", "rs"]),
+  "rori":  (0b010110,["rt", "rs"]),
+  "srli":  (0b010111,["rt", "rs"]),
+  "lbi":   (0b011000,["rt", "rs"]),
+  "slbi":  (0b010010,["rt", "rs"]),
+  "st":    (0b010000,["rt", "rs"]),
+  "ld":    (0b010001,["rt", "rs"]),
+  "stu":   (0b010011,["rt", "rs"]),
   "bltz":  (0b001110,0b00000,["rs"]),
   "beqz":  (0b001100,0b00000,["rs"]),
   "bnez":  (0b001101,0b00000,["rs"]),
+  "bgez":  (0b001111,0b00001,["rs"]),
+  
+  # Existing instructions
+  "addiu": (0b001001,["rt", "rs"]),
+  "andi":  (0b001100,["rt", "rs"]),
+  "beq":   (0b000100,["rs", "rt"]),
+  "bgtz":  (0b000111,0b00000,["rs"]),
+  "blez":  (0b000110,0b00000,["rs"]),
   "bne":   (0b000101,["rs", "rt"]),
   "lb":    (0b100000,["rt", "rs"]),
-  "ld":    (0b010001,["rt", "rs"]),
-  "lbi":   (0b011000,["rt", "rs"]),
-  "slbi":  (0b010010,["rt", "rs"]),
   "lbu":   (0b100100,["rt", "rs"]),
   "lh":    (0b100001,["rt", "rs"]),
   "lhu":   (0b100101,["rt", "rs"]),
@@ -117,16 +149,9 @@ i_type = {
   "sltiu": (0b001011,["rt", "rs"]),
   "sh":    (0b101001,["rt", "rs"]),
   "sw":    (0b101011,["rt", "rs"]),
-  "st":    (0b010000,["rt", "rs"]),
-  "stu":   (0b010011,["rt", "rs"]),
   "sc":    (0b111000,["rt", "rs"]),
   "swc1":  (0b111001,["rt", "rs"]),
-  "xori":  (0b001010,["rt", "rs"]),
-  "andni": (0b001010,["rt", "rs"]),
-  "roli":  (0b010100,["rt", "rs"]),
-  "slli":  (0b010101,["rt", "rs"]),
-  "rori":  (0b010110,["rt", "rs"]),
-  "srli":  (0b010111,["rt", "rs"]),
+  
 }
 
 j_type = {
@@ -136,7 +161,7 @@ j_type = {
 "jalr":    (0b000111,[]),
 }
 
-supported_pseudoinstructions = ['li', 'nop']
+supported_pseudoinstructions = ['li', 'nop', 'hault']
 
 def MakeInstruction(position, **kwargs):
   if 'name' in kwargs and \
@@ -154,6 +179,7 @@ class Instruction:
     name = name.lower()
     if name not in r_type.keys() and \
        name not in i_type.keys() and \
+       name not in s_type.keys() and \
        name not in j_type.keys():
       raise Exception("'%s' is not a MIPS opcode"%(name.lower()))
 
@@ -167,6 +193,7 @@ class Instruction:
 
     # Verify that the right registers are present
     registers = (r_type[name][-1] if name in r_type else \
+                 s_type[name][-1] if name in s_type else \
                  i_type[name][-1] if name in i_type else \
                  j_type[name][-1])
     rlist = [x for x in [first, second, third] if x is not None]
@@ -257,6 +284,18 @@ class Instruction:
         b |= (self.imm >> 2 & 0x03FFFFFF) # address
       return b
 
+    if self.name in s_type.keys():
+      # binary = lambda n: '' if n==0 else binary(n/2) + str(n%2)
+      b = 0                            # opcode
+      b |= (self.rs.binary() << 21)    # rs
+      b |= (self.rt.binary() << 16)    # rt
+      b |= (self.rd.binary() << 11)    # rd
+
+      # print(s_type_op[self.name]) 
+      b |= (s_type_op[self.name] << 7)            # opcode cont.
+      #b |= (r_type[self.name][1] << 0)  # delim # TODO figure out what to do here
+      return b
+
   # The size, in words, of this instruction
   def Size(self):
     return 1
@@ -306,6 +345,9 @@ class PseudoInstruction:
     elif name == "nop":
       self.instructions.append(Instruction(self.program, position,
         name="bltz", first="$0", imm="0x0"))
+    # elif name == "":
+    #   self.instructions.append(Instruction(self.program, position,
+    #     name="string", first="$0", imm="0x0"))
     else:
       raise "'%s' not support/not a pseudoinstruction"%(name)
 

@@ -1,8 +1,11 @@
+.data
+str:
+.asciiz " : is answer \n"
+.text
+.globl main
 
-mov $sp, 0x0000
-
-main:
-	sw $ra 0($sp)
+	main:
+	sw $ret 0($sp)
 	li $t0 8
 	sub $t9 $sp $t0
 	li $t0 2
@@ -23,6 +26,6 @@ main:
 	sw $t2 -24($sp)
 	lw $t0 -24($sp)
 	sw $t0 0($t9)
-	lw $ra -00($sp)
-_L00:
-	jr $ra
+	lw $ret -00($sp)
+	_L00:
+	jr $ret

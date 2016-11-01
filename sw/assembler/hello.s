@@ -2,9 +2,8 @@
 # .globl main
 .STRING no "012345678"
 main:
-no
 fib:
-sw $ra 0($sp)
+sw $ret 0($sp)
 li $t0 0
 sw $t0 -8($sp)
 lw $t0 -4($sp)
@@ -19,7 +18,7 @@ lw $t0 -12($sp)
 beq $t0 $0 _L07
 li $t0 0
 sw $t0 -16($sp)
-lw $ra -00($sp)
+lw $ret -00($sp)
 lw $t0 -16($sp)
 sw $t0 -00($sp)
 j _L03
@@ -39,7 +38,7 @@ lw $t0 -24($sp)
 beq $t0 $0 _L06
 li $t0 1
 sw $t0 -28($sp)
-lw $ra -00($sp)
+lw $ret -00($sp)
 lw $t0 -28($sp)
 sw $t0 -00($sp)
 j _L03
@@ -74,11 +73,11 @@ lw $t0 -40($sp)
 lw $t1 -52($sp)
 add $t2 $t0 $t1
 sw $t2 -56($sp)
-lw $ra -00($sp)
+lw $ret -00($sp)
 lw $t0 -56($sp)
 sw $t0 -00($sp)
 j _L03
 _L8:
-lw $ra -00($sp)
+lw $ret -00($sp)
 _L03:
-jr $ra
+jr $ret
