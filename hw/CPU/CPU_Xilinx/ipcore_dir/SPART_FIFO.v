@@ -37,9 +37,10 @@
 `timescale 1ns/1ps
 
 module SPART_FIFO(
-  rst,
   wr_clk,
+  wr_rst,
   rd_clk,
+  rd_rst,
   din,
   wr_en,
   rd_en,
@@ -48,13 +49,14 @@ module SPART_FIFO(
   empty
 );
 
-input rst;
 input wr_clk;
+input wr_rst;
 input rd_clk;
+input rd_rst;
 input [63 : 0] din;
 input wr_en;
 input rd_en;
-output [63 : 0] dout;
+output [7 : 0] dout;
 output full;
 output empty;
 
@@ -86,7 +88,7 @@ output empty;
     .C_AXIS_TYPE(0),
     .C_COMMON_CLOCK(0),
     .C_COUNT_TYPE(0),
-    .C_DATA_COUNT_WIDTH(12),
+    .C_DATA_COUNT_WIDTH(10),
     .C_DEFAULT_VALUE("BlankString"),
     .C_DIN_WIDTH(64),
     .C_DIN_WIDTH_AXIS(1),
@@ -96,9 +98,9 @@ output empty;
     .C_DIN_WIDTH_WDCH(64),
     .C_DIN_WIDTH_WRCH(2),
     .C_DOUT_RST_VAL("0"),
-    .C_DOUT_WIDTH(64),
+    .C_DOUT_WIDTH(8),
     .C_ENABLE_RLOCS(0),
-    .C_ENABLE_RST_SYNC(1),
+    .C_ENABLE_RST_SYNC(0),
     .C_ERROR_INJECTION_TYPE(0),
     .C_ERROR_INJECTION_TYPE_AXIS(0),
     .C_ERROR_INJECTION_TYPE_RACH(0),
@@ -107,7 +109,7 @@ output empty;
     .C_ERROR_INJECTION_TYPE_WDCH(0),
     .C_ERROR_INJECTION_TYPE_WRCH(0),
     .C_FAMILY("virtex5"),
-    .C_FULL_FLAGS_RST_VAL(1),
+    .C_FULL_FLAGS_RST_VAL(0),
     .C_HAS_ALMOST_EMPTY(0),
     .C_HAS_ALMOST_FULL(0),
     .C_HAS_AXI_ARUSER(0),
@@ -169,7 +171,7 @@ output empty;
     .C_OVERFLOW_LOW(0),
     .C_PRELOAD_LATENCY(1),
     .C_PRELOAD_REGS(0),
-    .C_PRIM_FIFO_TYPE("4kx9"),
+    .C_PRIM_FIFO_TYPE("1kx36"),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL(2),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS(1022),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH(1022),
@@ -185,14 +187,14 @@ output empty;
     .C_PROG_EMPTY_TYPE_WACH(0),
     .C_PROG_EMPTY_TYPE_WDCH(0),
     .C_PROG_EMPTY_TYPE_WRCH(0),
-    .C_PROG_FULL_THRESH_ASSERT_VAL(4093),
+    .C_PROG_FULL_THRESH_ASSERT_VAL(1021),
     .C_PROG_FULL_THRESH_ASSERT_VAL_AXIS(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RDCH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WDCH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WRCH(1023),
-    .C_PROG_FULL_THRESH_NEGATE_VAL(4092),
+    .C_PROG_FULL_THRESH_NEGATE_VAL(1020),
     .C_PROG_FULL_TYPE(0),
     .C_PROG_FULL_TYPE_AXIS(0),
     .C_PROG_FULL_TYPE_RACH(0),
@@ -201,10 +203,10 @@ output empty;
     .C_PROG_FULL_TYPE_WDCH(0),
     .C_PROG_FULL_TYPE_WRCH(0),
     .C_RACH_TYPE(0),
-    .C_RD_DATA_COUNT_WIDTH(12),
-    .C_RD_DEPTH(4096),
+    .C_RD_DATA_COUNT_WIDTH(13),
+    .C_RD_DEPTH(8192),
     .C_RD_FREQ(1),
-    .C_RD_PNTR_WIDTH(12),
+    .C_RD_PNTR_WIDTH(13),
     .C_RDCH_TYPE(0),
     .C_REG_SLICE_MODE_AXIS(0),
     .C_REG_SLICE_MODE_RACH(0),
@@ -232,8 +234,8 @@ output empty;
     .C_WACH_TYPE(0),
     .C_WDCH_TYPE(0),
     .C_WR_ACK_LOW(0),
-    .C_WR_DATA_COUNT_WIDTH(12),
-    .C_WR_DEPTH(4096),
+    .C_WR_DATA_COUNT_WIDTH(10),
+    .C_WR_DEPTH(1024),
     .C_WR_DEPTH_AXIS(1024),
     .C_WR_DEPTH_RACH(16),
     .C_WR_DEPTH_RDCH(1024),
@@ -241,7 +243,7 @@ output empty;
     .C_WR_DEPTH_WDCH(1024),
     .C_WR_DEPTH_WRCH(16),
     .C_WR_FREQ(1),
-    .C_WR_PNTR_WIDTH(12),
+    .C_WR_PNTR_WIDTH(10),
     .C_WR_PNTR_WIDTH_AXIS(10),
     .C_WR_PNTR_WIDTH_RACH(4),
     .C_WR_PNTR_WIDTH_RDCH(10),
@@ -252,9 +254,10 @@ output empty;
     .C_WRCH_TYPE(0)
   )
   inst (
-    .RST(rst),
     .WR_CLK(wr_clk),
+    .WR_RST(wr_rst),
     .RD_CLK(rd_clk),
+    .RD_RST(rd_rst),
     .DIN(din),
     .WR_EN(wr_en),
     .RD_EN(rd_en),
@@ -264,9 +267,8 @@ output empty;
     .BACKUP(),
     .BACKUP_MARKER(),
     .CLK(),
+    .RST(),
     .SRST(),
-    .WR_RST(),
-    .RD_RST(),
     .PROG_EMPTY_THRESH(),
     .PROG_EMPTY_THRESH_ASSERT(),
     .PROG_EMPTY_THRESH_NEGATE(),

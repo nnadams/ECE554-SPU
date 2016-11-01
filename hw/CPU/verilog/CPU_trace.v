@@ -5,6 +5,7 @@ module cpu_trace(
 	input [31:0] data_mem_addr,
 	input [31:0] data_mem_write_data,
 	input data_mem_wr,
+	input CPU_HALTED,
 	output tx, 
 	output HALT_CPU
 );
@@ -19,49 +20,79 @@ module cpu_trace(
 	reg fifo_rd; 
 	wire full;
 	wire fifo_empty; 
-	
+	reg [31:0] cnt; 
 	reg trmt; 
 	wire tbr; 
-	
-	wire cpu_done; 
-	reg cpu_done_flop;
-	
-	assign cpu_done = instruction[31:26] == 6'b000000; 
+	reg rst_cnt;
+	 
 	assign HALT_CPU = _HALT_CPU;
 	
-	// CPU Done Flop
-	always @(posedge clk, posedge rst) begin
-		if(rst) cpu_done_flop <= 0;
-		else cpu_done_flop <= cpu_done;
-	end
 	// State machine for CPU Debug 
 	always @(posedge clk, posedge rst) begin
 		if(rst) state <= 0;
 		else state <= next_state;
 	end
-
+	
+	// Counter so we dont overflow serial 
+	always @(posedge clk, posedge rst) begin
+		if(rst) cnt <= 0;
+		else if(rst_cnt) cnt <= 0;
+		else cnt <= cnt + 1;
+	end
+	
 	// Output and Transition Logic 
 	always @(*) begin
 		_HALT_CPU = 0; 
 		next_state = 2'b00;
-		trmt = 0; 
-		fifo_rd = 0; 
 		fifo_wr = 0; 
-				
+		fifo_rd = 0; 
+		trmt = 0; 
+		rst_cnt = 0; 
+		
 		case(state) 
+			// WAIT State 
 			3'b000: begin
-				if(fifo_empty & ~cpu_done_flop)begin
-					next_state = 2'b01;
+				if(fifo_empty & tbr & ~CPU_HALTED)begin
+					next_state = 3'b001;
 					_HALT_CPU = 0; 
 				end 
+				else if(tbr & ~fifo_empty & ~CPU_HALTED) begin
+					next_state = 3'b111;
+					_HALT_CPU = 1;
+					rst_cnt = 1; 
+				end
 				else begin
-					next_state = 2'b00;
+					next_state = 3'b000;
 					_HALT_CPU = 1; 
-					trmt = tbr;
-					fifo_rd = tbr; 
 				end
 			end
 			
+			// WAIT WAIT 
+			3'b111: begin 
+				if (cnt > 32'd00100000)begin
+					next_state = 3'b101;
+					_HALT_CPU = 1; 
+				end
+				else begin
+					next_state = 3'b111;
+					_HALT_CPU = 1; 
+				end
+			end
+			
+			// Read FIFO State 
+			3'b101: begin
+				fifo_rd = 1; 
+				next_state = 3'b110;
+				_HALT_CPU = 1; 
+			end 
+			
+			// Initiate Transaction State
+			3'b110: begin 
+				trmt = 1; 
+				next_state = 3'b000;
+				_HALT_CPU = 1; 
+			end
+
 			// Cpu runs for this cycle. Halt next and store instruction in fifo. 
 			3'b001: begin
 				_HALT_CPU = 1;
@@ -122,15 +153,15 @@ module cpu_trace(
 	Bin2Ascii b2a6 (.bin(d6), .ascii(a6));
 	Bin2Ascii b2a7 (.bin(d7), .ascii(a7));
 
-	wire [7:0] real_a7; 
-	wire [7:0] real_a6; 
-	
-	// Carrigae return 
-	assign real_a7 = print_new_line ? 8'h0d : a7;
-	// new line
-	assign real_a6 = print_new_line ? 8'h0a : a6;
-	
-	assign fifo_data = {real_a7,real_a6,a5,a4,a3,a2,a1,a0};
+	wire [7:0] real_a0; 
+	wire [7:0] real_a1; 
+    
+	// carraige return
+	assign real_a0 = print_new_line ? 8'h0d : a0;
+	// new line 
+    assign real_a1 = print_new_line ? 8'h0a : a1;
+    
+	assign fifo_data = {a7,a6,a5,a4,a3,a2,real_a1,real_a0};
 	
 	// Fifo Data 
 	always @(*) begin
@@ -177,7 +208,7 @@ module cpu_trace(
 			end 		
 			3'b100: begin
 				print_new_line = 1;
-				d0 = {3'b000,data_mem_wr};
+				d2 = {3'b000,data_mem_wr};
 			end 
 			default: begin 
 				d7 = 0;
@@ -193,10 +224,10 @@ module cpu_trace(
 		endcase 	
 	end 
 
-
 	// SPART Fifo Tx data
 	SPART_FIFO tx_fifo(
-		.rst(rst),
+		.wr_rst(rst),
+		.rd_rst(rst),
 		.wr_clk(clk),
 		.rd_clk(clk),
 		.din(fifo_data),
@@ -213,7 +244,8 @@ module cpu_trace(
 		.trmt(trmt),
 		.tx_data(tx_data),
 		.load_baud(1'b1),
-		.baud_val(16'h515f),
+		.baud_val(16'h0a2c),
+        //.baud_val(16'h0010),
 		.TBR(tbr), 
 		.TX(tx)
 	);

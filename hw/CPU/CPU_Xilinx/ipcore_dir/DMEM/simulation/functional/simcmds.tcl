@@ -53,11 +53,11 @@
 wcfg new
 isim set radix hex
 wave add /DMEM_tb/status
+      wave add  /DMEM_tb/DMEM_synth_inst/BMG_PORT/RSTA
       wave add  /DMEM_tb/DMEM_synth_inst/BMG_PORT/CLKA
       wave add  /DMEM_tb/DMEM_synth_inst/BMG_PORT/ADDRA
       wave add  /DMEM_tb/DMEM_synth_inst/BMG_PORT/DINA
       wave add  /DMEM_tb/DMEM_synth_inst/BMG_PORT/WEA
-      wave add  /DMEM_tb/DMEM_synth_inst/BMG_PORT/ENA
       wave add  /DMEM_tb/DMEM_synth_inst/BMG_PORT/DOUTA
 run all
 quit

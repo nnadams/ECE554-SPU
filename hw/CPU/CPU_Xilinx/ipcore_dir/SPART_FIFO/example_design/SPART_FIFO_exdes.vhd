@@ -75,11 +75,12 @@ entity SPART_FIFO_exdes is
    PORT (
            WR_CLK                    : IN  std_logic;
      	   RD_CLK                    : IN  std_logic;
-           RST                       : IN  std_logic;
+           WR_RST                    : IN  std_logic;
+           RD_RST                    : IN  std_logic;
            WR_EN 		     : IN  std_logic;
            RD_EN                     : IN  std_logic;
            DIN                       : IN  std_logic_vector(64-1 DOWNTO 0);
-           DOUT                      : OUT std_logic_vector(64-1 DOWNTO 0);
+           DOUT                      : OUT std_logic_vector(8-1 DOWNTO 0);
            FULL                      : OUT std_logic;
            EMPTY                     : OUT std_logic);
 
@@ -98,11 +99,12 @@ architecture xilinx of SPART_FIFO_exdes is
    PORT (
            WR_CLK                    : IN  std_logic;
      	   RD_CLK                    : IN  std_logic;
-           RST                       : IN  std_logic;
+           WR_RST                    : IN  std_logic;
+           RD_RST                    : IN  std_logic;
            WR_EN 		     : IN  std_logic;
            RD_EN                     : IN  std_logic;
            DIN                       : IN  std_logic_vector(64-1 DOWNTO 0);
-           DOUT                      : OUT std_logic_vector(64-1 DOWNTO 0);
+           DOUT                      : OUT std_logic_vector(8-1 DOWNTO 0);
            FULL                      : OUT std_logic;
            EMPTY                     : OUT std_logic);
 
@@ -128,7 +130,8 @@ begin
     PORT MAP (
            WR_CLK                    => wr_clk_i,
            RD_CLK                    => rd_clk_i,
-           RST                       => rst,
+           WR_RST                    => wr_rst,
+           RD_RST                    => rd_rst,
            WR_EN 		     => wr_en,
            RD_EN                     => rd_en,
            DIN                       => din,

@@ -44,6 +44,8 @@ module proc_hier_bench();
 	wire [31:0] 	 r30Data;
 	wire [31:0] 	 r31Data;
 
+    reg stall; 
+    
    proc DUT(
 		.clk(clk), 
 		.rst(rst),
@@ -55,7 +57,7 @@ module proc_hier_bench();
 		.data_mem_data(MemReadData),
 		.instruction(Inst),
 		.HALTED(Halt),
-		.SPART_STALL_DBG_ONLY(1'b0)
+		.SPART_STALL_DBG_ONLY(stall)
 	);
   
 
@@ -86,8 +88,21 @@ module proc_hier_bench();
       $display("See verilogsim.log and verilogsim.trace for output");
       clk = 0; 
       rst = 1; 
+      stall = 0; 
       repeat (5) @(posedge clk);
       rst = 0; 
+      @(posedge clk);
+      stall = 1;
+      repeat (5) @(posedge clk);
+      stall = 0; 
+      @(posedge clk);
+      stall = 1;
+      repeat (5) @(posedge clk);
+      stall = 0; 
+      @(posedge clk);
+      stall = 1;
+      repeat (5) @(posedge clk);
+      stall = 0; 
    end
 
    always @ (posedge DUT.clk) begin

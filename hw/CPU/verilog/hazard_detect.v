@@ -11,6 +11,7 @@ module hazard_detect (
 	input [5:0] id_opcode,
 	input clk,
 	input rst,
+	input SPART_STALL_DBG_ONLY,
 
 	output stall_id,
 	output stall_all,
@@ -87,7 +88,7 @@ module hazard_detect (
 	dff wb_ex_ff_b (.q(forward_WB_EX_B), .d(forward_WB_EX_in_B), .clk(clk), .rst(rst));
 
 	// Finally, The stall outputs 
-	assign stall_id = ex_stall | mem_use_stall | mem_stall;
-	assign stall_all = mem_stall;
+	assign stall_id = ex_stall | mem_use_stall | mem_stall | SPART_STALL_DBG_ONLY;
+	assign stall_all = mem_stall | SPART_STALL_DBG_ONLY;
    
 endmodule

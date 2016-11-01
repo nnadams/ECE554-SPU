@@ -19,7 +19,8 @@ module cpu_trace_tb();
 		.data_mem_write_data(mem_data),
 		.data_mem_wr(mem_wr),
 		.tx(tx),
-		.HALT_CPU(HALT_CPU)
+		.HALT_CPU(HALT_CPU),
+        .CPU_HALTED(1'b0)
 	);
 
 	initial begin
@@ -30,10 +31,10 @@ module cpu_trace_tb();
 		
 		clk = 0; 
 		rst = 1; 
-		repeat (5) @(posedge clk);
+		repeat (25) @(posedge clk);
 		rst = 0; 
 	
-		repeat (50) @(posedge clk);
+		repeat (100000) @(posedge clk);
 		$stop;
 	end
 	

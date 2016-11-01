@@ -108,6 +108,7 @@ ARCHITECTURE IMEM_synth_ARCH OF IMEM_synth IS
 COMPONENT IMEM_exdes 
   PORT (
       --Inputs - Port A
+    RSTA           : IN STD_LOGIC;  --opt port
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTA          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     CLKA       : IN STD_LOGIC
@@ -251,6 +252,7 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
 
     BMG_PORT: IMEM_exdes PORT MAP ( 
       --Port A
+      RSTA       => RSTA,
       ADDRA      => ADDRA_SHIFT_R,
       DOUTA      => DOUTA,
       CLKA       => CLKA

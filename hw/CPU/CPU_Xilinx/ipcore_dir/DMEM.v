@@ -38,7 +38,7 @@
 
 module DMEM(
   clka,
-  ena,
+  rsta,
   wea,
   addra,
   dina,
@@ -46,7 +46,7 @@ module DMEM(
 );
 
 input clka;
-input ena;
+input rsta;
 input [3 : 0] wea;
 input [31 : 0] addra;
 input [31 : 0] dina;
@@ -69,7 +69,7 @@ output [31 : 0] douta;
     .C_ENABLE_32BIT_ADDRESS(1),
     .C_FAMILY("virtex5"),
     .C_HAS_AXI_ID(0),
-    .C_HAS_ENA(1),
+    .C_HAS_ENA(0),
     .C_HAS_ENB(0),
     .C_HAS_INJECTERR(0),
     .C_HAS_MEM_OUTPUT_REGS_A(0),
@@ -78,7 +78,7 @@ output [31 : 0] douta;
     .C_HAS_MUX_OUTPUT_REGS_B(0),
     .C_HAS_REGCEA(0),
     .C_HAS_REGCEB(0),
-    .C_HAS_RSTA(0),
+    .C_HAS_RSTA(1),
     .C_HAS_RSTB(0),
     .C_HAS_SOFTECC_INPUT_REGS_A(0),
     .C_HAS_SOFTECC_OUTPUT_REGS_B(0),
@@ -119,12 +119,12 @@ output [31 : 0] douta;
   )
   inst (
     .CLKA(clka),
-    .ENA(ena),
+    .RSTA(rsta),
     .WEA(wea),
     .ADDRA(addra),
     .DINA(dina),
     .DOUTA(douta),
-    .RSTA(),
+    .ENA(),
     .REGCEA(),
     .CLKB(),
     .RSTB(),

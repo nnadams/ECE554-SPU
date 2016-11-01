@@ -73,6 +73,7 @@ gui_sg_create IMEM_Group
 gui_list_add_group -id Wave.1 {IMEM_Group}
 
       gui_sg_addsignal -group IMEM_Group  /IMEM_tb/status
+      gui_sg_addsignal -group IMEM_Group  /IMEM_tb/IMEM_synth_inst/bmg_port/RSTA
       gui_sg_addsignal -group IMEM_Group  /IMEM_tb/IMEM_synth_inst/bmg_port/CLKA
       gui_sg_addsignal -group IMEM_Group  /IMEM_tb/IMEM_synth_inst/bmg_port/ADDRA
       gui_sg_addsignal -group IMEM_Group  /IMEM_tb/IMEM_synth_inst/bmg_port/DOUTA

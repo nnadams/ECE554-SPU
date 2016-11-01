@@ -11,6 +11,7 @@ quietly WaveActivateNextPane {} 0
 
 
       add wave -noupdate /IMEM_tb/status
+      add wave -noupdate /IMEM_tb/IMEM_synth_inst/bmg_port/RSTA
       add wave -noupdate /IMEM_tb/IMEM_synth_inst/bmg_port/CLKA
       add wave -noupdate /IMEM_tb/IMEM_synth_inst/bmg_port/ADDRA
       add wave -noupdate /IMEM_tb/IMEM_synth_inst/bmg_port/DOUTA

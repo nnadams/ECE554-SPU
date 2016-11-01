@@ -65,13 +65,14 @@ gui_open_window Wave
 gui_sg_create SPART_FIFO_Group
 gui_list_add_group -id Wave.1 {SPART_FIFO_Group}
 
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RST
 gui_sg_addsignal -group SPART_FIFO_Group  WRITE -divider
 gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_CLK
+gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_RST
 gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_EN
 gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/FULL
 gui_sg_addsignal -group SPART_FIFO_Group  READ -divider
 gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_CLK
+gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_RST
 gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_EN
 gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/EMPTY
 gui_zoom -window Wave.1 -full

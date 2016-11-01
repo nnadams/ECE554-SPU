@@ -133,7 +133,6 @@ module proc (
 	     .take_branch(take_branch),
 	     .branch_addr(branch_addr),
 	     .stall(stall_id),
-		 .SPART_STALL_DBG_ONLY(SPART_STALL_DBG_ONLY),
 		 .instruction(instruction),
 	     /*Outputs*/
 	     .PC_curr(PC_curr),
@@ -392,6 +391,7 @@ module proc (
 		.id_opcode(id_instruction[31:26]),
 		.clk(clk),
 		.rst(rst),
+		.SPART_STALL_DBG_ONLY(SPART_STALL_DBG_ONLY),
 		/*Outputs*/ 
 		.stall_id(stall_id),
 		.stall_all(stall_all),

@@ -9,6 +9,20 @@ test/loadfile.img
 test/mem_dmp.dmp
 test/reg_dump.dmp
 
+CPU_Xilinx/isim
+CPU_Xilinx/cpu_trace_tb_isim_beh.exe
+CPU_Xilinx/CPU_Test_FPGA_TopLevel_isim_beh.exe
+CPU_Xilinx/CPU_Test_FPGA_TopLevel_isim_beh.wdb
+CPU_Xilinx/cpu_trace_tb_isim_beh.exe
+CPU_Xilinx/cpu_trace_tb_isim_beh.wdb
+CPU_Xilinx/cpu_trace_tb_isim_beh1.wdb
+CPU_Xilinx/fuse.log
+CPU_Xilinx/fuse.xmsgs
+CPU_Xilinx/fuseRelaunch.cmd
+CPU_Xilinx/ipcore_dir/edit_IMEM.tcl
+CPU_Xilinx/isim.cmd
+CPU_Xilinx/isim.log
+CPU_Xilinx/xilinxsim.ini
 # intermediate build files
 *.bgn
 *.bit

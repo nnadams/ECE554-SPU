@@ -88,6 +88,7 @@ USE UNISIM.VCOMPONENTS.ALL;
 ENTITY IMEM_exdes IS
   PORT (
       --Inputs - Port A
+    RSTA           : IN STD_LOGIC;  --opt port
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
     DOUTA          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -111,6 +112,7 @@ ARCHITECTURE xilinx OF IMEM_exdes IS
   COMPONENT IMEM IS
   PORT (
       --Port A
+    RSTA       : IN STD_LOGIC;  --opt port
     ADDRA      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
     DOUTA      : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -139,6 +141,7 @@ BEGIN
   bmg0 : IMEM
     PORT MAP (
       --Port A
+      RSTA       => RSTA,
       ADDRA      => ADDRA,
   
       DOUTA      => DOUTA,

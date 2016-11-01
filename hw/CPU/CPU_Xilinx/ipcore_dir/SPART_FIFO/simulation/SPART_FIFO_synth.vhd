@@ -97,16 +97,17 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
     -- FIFO interface signal declarations
     SIGNAL wr_clk_i                       :   STD_LOGIC;
     SIGNAL rd_clk_i                       :   STD_LOGIC;
-    SIGNAL rst	                          :   STD_LOGIC;
+    SIGNAL wr_rst                         :   STD_LOGIC;
+    SIGNAL rd_rst                         :   STD_LOGIC;
     SIGNAL wr_en                          :   STD_LOGIC;
     SIGNAL rd_en                          :   STD_LOGIC;
     SIGNAL din                            :   STD_LOGIC_VECTOR(64-1 DOWNTO 0);
-    SIGNAL dout                           :   STD_LOGIC_VECTOR(64-1 DOWNTO 0);
+    SIGNAL dout                           :   STD_LOGIC_VECTOR(8-1 DOWNTO 0);
     SIGNAL full                           :   STD_LOGIC;
     SIGNAL empty                          :   STD_LOGIC;
    -- TB Signals
     SIGNAL wr_data                        :   STD_LOGIC_VECTOR(64-1 DOWNTO 0);
-    SIGNAL dout_i                         :   STD_LOGIC_VECTOR(64-1 DOWNTO 0);
+    SIGNAL dout_i                         :   STD_LOGIC_VECTOR(8-1 DOWNTO 0);
     SIGNAL wr_en_i                        :   STD_LOGIC := '0';
     SIGNAL rd_en_i                        :   STD_LOGIC := '0';
     SIGNAL full_i                         :   STD_LOGIC := '0';
@@ -131,6 +132,12 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
     SIGNAL rst_async_rd2                  :   STD_LOGIC := '0'; 
     SIGNAL rst_async_rd3                  :   STD_LOGIC := '0'; 
 
+    SIGNAL rst_sync_rd1                   :   STD_LOGIC := '0'; 
+    SIGNAL rst_sync_rd2                   :   STD_LOGIC := '0'; 
+    SIGNAL rst_sync_rd3                   :   STD_LOGIC := '0'; 
+    SIGNAL rst_sync_wr1                   :   STD_LOGIC := '0'; 
+    SIGNAL rst_sync_wr2                   :   STD_LOGIC := '0'; 
+    SIGNAL rst_sync_wr3                   :   STD_LOGIC := '0'; 
 
  BEGIN  
 
@@ -162,6 +169,25 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
        rst_async_wr1  <= RESET;
        rst_async_wr2  <= rst_async_wr1;
        rst_async_wr3  <= rst_async_wr2;
+     END IF;
+   END PROCESS;
+
+   --Synchronous reset generation for FIFO core
+   PROCESS(rd_clk_i)
+   BEGIN
+     IF(rd_clk_i'event AND rd_clk_i='1') THEN
+       rst_sync_rd1    <= RESET;
+       rst_sync_rd2    <= rst_sync_rd1;
+       rst_sync_rd3    <= rst_sync_rd2;
+     END IF;
+   END PROCESS;
+
+   PROCESS(wr_clk_i)
+   BEGIN
+     IF(wr_clk_i'event AND wr_clk_i='1') THEN
+       rst_sync_wr1    <= RESET;
+       rst_sync_wr2    <= rst_sync_wr1;
+       rst_sync_wr3    <= rst_sync_wr2;
      END IF;
    END PROCESS;
 
@@ -203,7 +229,8 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
   rd_clk_i <= RD_CLK;
    ------------------
      
-    rst                       <=   RESET OR rst_s_rd AFTER 12 ns;
+    wr_rst                    <=   rst_sync_wr3 OR rst_s_wr3 AFTER 100 ns;
+    rd_rst                    <=   rst_sync_rd3 OR rst_s_rd  AFTER 50 ns;
     din                       <=   wr_data;
     dout_i                    <=   dout;
     wr_en                     <=   wr_en_i;
@@ -214,7 +241,7 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
     fg_dg_nv: SPART_FIFO_dgen
       GENERIC MAP (
           	C_DIN_WIDTH       => 64,
-		C_DOUT_WIDTH      => 64,
+		C_DOUT_WIDTH      => 8,
 		TB_SEED           => TB_SEED, 
  		C_CH_TYPE         => 0	
                  )
@@ -229,7 +256,7 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
 
    fg_dv_nv: SPART_FIFO_dverif
     GENERIC MAP (  
-	       C_DOUT_WIDTH       => 64,
+	       C_DOUT_WIDTH       => 8,
 	       C_DIN_WIDTH        => 64,
 	       C_USE_EMBEDDED_REG => 0,
 	       TB_SEED            => TB_SEED, 
@@ -249,10 +276,10 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
     GENERIC MAP ( 
               AXI_CHANNEL         => "Native",
               C_APPLICATION_TYPE  => 0,
-	      C_DOUT_WIDTH        => 64,
+	      C_DOUT_WIDTH        => 8,
 	      C_DIN_WIDTH         => 64,
-	      C_WR_PNTR_WIDTH     => 12,
-    	      C_RD_PNTR_WIDTH     => 12,
+	      C_WR_PNTR_WIDTH     => 10,
+    	      C_RD_PNTR_WIDTH     => 13,
  	      C_CH_TYPE           => 0,
               FREEZEON_ERROR      => FREEZEON_ERROR,
 	      TB_SEED             => TB_SEED, 
@@ -285,7 +312,8 @@ ARCHITECTURE simulation_arch OF SPART_FIFO_synth IS
     PORT MAP (
            WR_CLK                    => wr_clk_i,
            RD_CLK                    => rd_clk_i,
-           RST                       => rst,
+           WR_RST                    => wr_rst,
+           RD_RST                    => rd_rst,
            WR_EN 		     => wr_en,
            RD_EN                     => rd_en,
            DIN                       => din,

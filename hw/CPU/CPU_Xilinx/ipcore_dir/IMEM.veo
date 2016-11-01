@@ -49,6 +49,7 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 IMEM your_instance_name (
   .clka(clka), // input clka
+  .rsta(rsta), // input rsta
   .addra(addra), // input [31 : 0] addra
   .douta(douta) // output [31 : 0] douta
 );

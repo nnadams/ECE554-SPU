@@ -90,7 +90,7 @@
 --    C_USE_DEFAULT_DATA          :  1 
 --    C_DEFAULT_DATA              :  0 
 --    C_RST_TYPE                  :  SYNC 
---    C_HAS_RSTA                  :  0 
+--    C_HAS_RSTA                  :  1 
 --    C_RST_PRIORITY_A            :  CE 
 --    C_RSTRAM_A                  :  0 
 --    C_INITA_VAL                 :  0 
@@ -232,6 +232,7 @@ ARCHITECTURE xilinx OF IMEM_prod IS
   PORT (
 
       --Port A
+    RSTA           : IN STD_LOGIC;  --opt port
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
     DOUTA          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -249,6 +250,7 @@ BEGIN
     PORT MAP (
 
       --Port A
+      RSTA       => RSTA,
       ADDRA      => ADDRA,
   
       DOUTA      => DOUTA,

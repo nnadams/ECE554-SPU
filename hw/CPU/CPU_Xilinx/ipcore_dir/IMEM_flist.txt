@@ -52,4 +52,5 @@ IMEM\simulation\timing\wave_mti.do
 IMEM\simulation\timing\wave_ncsim.sv
 IMEM_flist.txt
 IMEM_xmdf.tcl
+_xmsgs\pn_parser.xmsgs
 summary.log

@@ -57,14 +57,15 @@
 
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RST
 add wave -noupdate -divider WRITE
 add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_CLK
+add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_RST
 add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_EN
 add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/FULL
 add wave -noupdate -radix hexadecimal /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/DIN
 add wave -noupdate -divider READ
 add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_CLK
+add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_RST
 add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_EN
 add wave -noupdate /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/EMPTY
 add wave -noupdate -radix hexadecimal /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/DOUT

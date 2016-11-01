@@ -73,11 +73,11 @@ gui_sg_create DMEM_Group
 gui_list_add_group -id Wave.1 {DMEM_Group}
 
       gui_sg_addsignal -group DMEM_Group  /DMEM_tb/status
+      gui_sg_addsignal -group DMEM_Group  /DMEM_tb/DMEM_synth_inst/bmg_port/RSTA
       gui_sg_addsignal -group DMEM_Group  /DMEM_tb/DMEM_synth_inst/bmg_port/CLKA
       gui_sg_addsignal -group DMEM_Group  /DMEM_tb/DMEM_synth_inst/bmg_port/ADDRA
       gui_sg_addsignal -group DMEM_Group  /DMEM_tb/DMEM_synth_inst/bmg_port/DINA
       gui_sg_addsignal -group DMEM_Group  /DMEM_tb/DMEM_synth_inst/bmg_port/WEA
-      gui_sg_addsignal -group DMEM_Group  /DMEM_tb/DMEM_synth_inst/bmg_port/ENA
       gui_sg_addsignal -group DMEM_Group  /DMEM_tb/DMEM_synth_inst/bmg_port/DOUTA
 
 gui_zoom -window Wave.1 -full

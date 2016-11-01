@@ -56,13 +56,14 @@ module CPU_Test_FPGA_TopLevel(
 
 	IMEM i_mem (
 		.clka(clk),
+        .rsta(rst),
 		.addra(PC_curr),
 		.douta(instruction)
 	);
 	
 	DMEM d_mem(
 		.clka(clk),
-		.ena(data_mem_en),
+        .rsta(rst),
 		.wea({4{data_mem_wr}}),
 		.addra(data_mem_addr),
 		.dina(data_mem_write_data),
@@ -74,10 +75,11 @@ module CPU_Test_FPGA_TopLevel(
 		.rst(rst),
 		.instruction(instruction),
 		.data_mem_addr(data_mem_addr),
-		.data_mem_write_data(data_mem_write_data),
+		.data_mem_write_data(data_mem_data),
 		.data_mem_wr(data_mem_wr),
 		.tx(txd),
-		.HALT_CPU(HALT_CPU)
+		.HALT_CPU(HALT_CPU),
+		.CPU_HALTED(1'b0)
 	);
 	
 endmodule

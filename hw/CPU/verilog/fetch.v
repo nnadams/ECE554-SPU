@@ -3,7 +3,6 @@ module fetch(
 	    input rst,
 		input [31:0] instruction,
 		input stall,
-		input SPART_STALL_DBG_ONLY,
 		input take_branch,
 		input [31:0] branch_addr,
 		output [31:0] PC_curr, 
@@ -18,8 +17,7 @@ module fetch(
 
 	// HALT instruction
 	// OR halt while the spart fifo is full for debug only
-	assign _continue = (instruction[31:26] == 6'b000000) ? 1'b0 : 
-					SPART_STALL_DBG_ONLY ? 1'b0 : 1'b1;
+	assign _continue = (instruction[31:26] == 6'b000000) ? 1'b0 : 1'b1;
 					
 	assign HALTED = ~_continue & ~take_branch;
 
@@ -30,7 +28,7 @@ module fetch(
 			.clk(clk), 
 			.rst(rst), 
 			.writeData(PC_new), 
-			.write(_continue),
+			.write(~HALTED),
 			.data(PC_curr)
 		);
 

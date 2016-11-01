@@ -10,7 +10,7 @@ module flag_instr_logic(
 
 reg _out;
 
-assign Out = {{30{1'b0}}, _out};
+assign Out = {{31{1'b0}}, _out};
 
 always @(*)
 begin

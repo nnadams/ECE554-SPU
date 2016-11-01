@@ -49,7 +49,7 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 DMEM your_instance_name (
   .clka(clka), // input clka
-  .ena(ena), // input ena
+  .rsta(rsta), // input rsta
   .wea(wea), // input [3 : 0] wea
   .addra(addra), // input [31 : 0] addra
   .dina(dina), // input [31 : 0] dina

@@ -1,8 +1,9 @@
 # RS232 Configuration
 NET txd       LOC="AG20";  # Bank 4, Vcco=3.3V, No DCI (txd)
-
 # Switch Configuration
 NET rst       LOC="U25";   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
-
 # Clock Configuration
 NET clk       LOC="AH15";  # Bank 4, Vcco=3.3V, No DCI
+#Created by Constraints Editor (xc5vlx110t-ff1136-1) - 2016/10/27
+NET "clk" TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 9 ns HIGH 50%;
