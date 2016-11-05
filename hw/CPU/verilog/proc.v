@@ -12,6 +12,10 @@ module proc (
    input [31:0] data_mem_data, 
    input [31:0] instruction,
    
+   // Interrupts 
+   input spart_int, 
+   input spu_int,
+   
    // DBG ONLY
    input SPART_STALL_DBG_ONLY
    );
@@ -19,6 +23,7 @@ module proc (
    // Fetch Outputs  
    wire [31:0] if_PC_4; 
    wire        if_HALT; 
+   wire [31:0] instruction_fetch;
    
    // Pipelined Fetch outputs (Decode Inputs)
    wire [31:0] id_instruction; 
@@ -133,11 +138,12 @@ module proc (
 	     .take_branch(take_branch),
 	     .branch_addr(branch_addr),
 	     .stall(stall_id),
-		 .instruction(instruction),
+		 .instruction_in(instruction),
 	     /*Outputs*/
 	     .PC_curr(PC_curr),
 	     .PC_4(if_PC_4),
-	     .HALTED(if_HALT)
+	     .HALTED(if_HALT),
+		 .instruction_out(instruction_fetch)
 	);
 
    // IF -> ID Pipeline Register
@@ -147,7 +153,7 @@ module proc (
 		.rst(rst),
 		.stall(stall_id),
 		.flush_if(flush_if),
-		.if_instruction(instruction),
+		.if_instruction(instruction_fetch),
 		.if_HALT(if_HALT),
 		.if_PC_4(if_PC_4),
 		/*Outputs*/
