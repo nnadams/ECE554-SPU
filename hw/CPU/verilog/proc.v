@@ -24,6 +24,8 @@ module proc (
    wire [31:0] if_PC_4; 
    wire        if_HALT; 
    wire [31:0] instruction_fetch;
+   wire        save_regs; 
+   wire        restore_regs; 
    
    // Pipelined Fetch outputs (Decode Inputs)
    wire [31:0] id_instruction; 
@@ -139,11 +141,15 @@ module proc (
 	     .branch_addr(branch_addr),
 	     .stall(stall_id),
 		 .instruction_in(instruction),
+		 .spart_int(spart_int),
+		 .spu_int(spu_int),
 	     /*Outputs*/
 	     .PC_curr(PC_curr),
 	     .PC_4(if_PC_4),
 	     .HALTED(if_HALT),
-		 .instruction_out(instruction_fetch)
+		 .instruction_out(instruction_fetch),
+		 .save_regs(save_regs),
+		 .restore_regs(restore_regs)
 	);
 
    // IF -> ID Pipeline Register
@@ -171,6 +177,8 @@ module proc (
 		.write_reg_data_in(wb_reg_write_data),
 		.write_reg_sel_in(wb_write_reg_sel),
 		.write_reg_en_in(wb_write_reg_en),
+		.save_regs(save_regs),
+		.restore_regs(restore_regs),
 		/*Register File Outputs*/
 		.read1data(id_reg_data_1), 
 		.read2data(id_reg_data_2), 

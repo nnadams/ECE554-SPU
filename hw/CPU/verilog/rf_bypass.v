@@ -9,7 +9,9 @@ module rf_bypass (
    input [4:0] read2regsel,
    input [4:0] writeregsel,
    input [31:0] writedata,
-   input write
+   input write,
+   input save,
+   input restore
 );
 
 	wire [31:0] _read1data;
@@ -24,7 +26,9 @@ module rf_bypass (
 		.read2regsel(read2regsel), 
 		.writeregsel(writeregsel), 
 		.writedata(writedata),
-		.write(write)
+		.write(write),
+		.save(save),
+		.restore(restore)
 	);
 
 	assign read1data = ({read1regsel,write} == {writeregsel, 1'b1})	? writedata : _read1data; 

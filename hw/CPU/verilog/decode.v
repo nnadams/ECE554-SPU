@@ -2,7 +2,9 @@ module decode(
 	input [31:0] instr,
 	input clk,
 	input rst,
-
+	input save_regs,
+	input restore_regs,
+	
 	/* Write Back inputs */
 	input [31:0] write_reg_data_in,
 	input [4:0]  write_reg_sel_in,
@@ -62,7 +64,9 @@ module decode(
 		.read2regsel(read_reg_2), 
 		.writedata(write_reg_data_in),
 		.write(write_reg_en_in),
-		.writeregsel(write_reg_sel_in) 
+		.writeregsel(write_reg_sel_in),
+		.save(save_regs),
+		.restore(restore_regs)
 	);
 
 	/* ALU Control Decode Block */

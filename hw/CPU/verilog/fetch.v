@@ -10,15 +10,15 @@ module fetch(
 		output [31:0] PC_curr, 
 	    output [31:0] PC_4,
 	    output HALTED,
-		output [31:0] instruction_out
+		output [31:0] instruction_out,
+		output save_regs,
+		output restore_regs
 );
-
-	wire [31:0] PC_branch;
 
 	wire [31:0] PC_new; 
 	wire _continue;
 
-	wire [31:0] PC_int; 
+	wire [31:0] PC_INT; 
 	wire int_wait; 
 	wire int_run; 
 	wire int_done; 
@@ -26,16 +26,21 @@ module fetch(
 	
 	// HALT instruction
 	// OR halt while the spart fifo is full for debug only
-	assign _continue = (instruction_in[31:26] == 6'b000000) ? 1'b0 : 1'b1;
+	assign _continue = (int_wait | int_run) ? 1'b1 : 
+					   (instruction_in[31:26] == 6'b000000) ? 1'b0 : 1'b1;
 					
 	assign HALTED = ~_continue & ~take_branch;
 
-	assign PC_new = (int_wait | int_run) ? PC_INT : 
-					take_branch ? branch_addr :
-					stall  ? PC_curr   : PC_4; 
+	assign PC_new = (int_wait | int_run) ? PC_INT       : 
+					(int_done)           ? PC_resume    :
+					take_branch          ? branch_addr  :
+					stall                ? PC_curr      : PC_4; 
 
 	// NOP While waiting for interrupt 
 	assign instruction_out = int_wait ? 32'b00001xxxxxxxxxxxxxxxxxxxxxxxxxxx : instruction_in;
+	
+	assign restore_regs = int_done;
+	assign save_regs = int_run;
 	
 	reg_32 pc_reg(
 			.clk(clk), 
@@ -65,7 +70,7 @@ module fetch(
 
 			.PC_INT(PC_INT),
 			.int_wait(int_wait),
-			.int_run(.int_run),
+			.int_run(int_run),
 			.int_done(int_done), 
 			.PC_RESUME(PC_resume)
 		);

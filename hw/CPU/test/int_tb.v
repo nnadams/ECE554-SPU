@@ -45,7 +45,9 @@ module int_tb();
 	wire [31:0] 	 r31Data;
 
     reg stall; 
-    
+    reg spart_int; 
+	reg spu_int; 
+	
    proc DUT(
 		.clk(clk), 
 		.rst(rst),
@@ -57,7 +59,9 @@ module int_tb();
 		.data_mem_data(MemReadData),
 		.instruction(Inst),
 		.HALTED(Halt),
-		.SPART_STALL_DBG_ONLY(stall)
+		.SPART_STALL_DBG_ONLY(stall),
+		.spart_int(spart_int),
+		.spu_int(spu_int)
 	);
   
 
@@ -89,21 +93,16 @@ module int_tb();
       clk = 0; 
       rst = 1; 
       stall = 0; 
+	  spu_int = 0; 
+	  spart_int = 0; 
       repeat (5) @(posedge clk);
-      rst = 0; 
-      @(posedge clk);
-      stall = 1;
-      repeat (5) @(posedge clk);
-      stall = 0; 
-      @(posedge clk);
-      stall = 1;
-      repeat (5) @(posedge clk);
-      stall = 0; 
-      @(posedge clk);
-      stall = 1;
-      repeat (5) @(posedge clk);
-      stall = 0; 
-   end
+	  rst = 0; 
+	  repeat (12) @(posedge clk);
+	  spart_int = 1;
+	  @(posedge clk);
+	  spart_int = 0;
+	  
+	end 
 
    always @ (posedge DUT.clk) begin
       if (!DUT.rst) begin
