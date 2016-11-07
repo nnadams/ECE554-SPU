@@ -1,9 +1,6 @@
 /* Hello World program */
 
-#include<stdio.h>
-
 int main()
 {
-    1+1;
-
+    strcmp(x, y, USE_UART)
 }
