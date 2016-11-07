@@ -17,7 +17,8 @@ public class RegisterFile {
 	
 	public int ReadRegister(int RegNum)
 	{
-		return rf[RegNum];
+		if(RegNum == 0) return 0; 
+		else return rf[RegNum];
 	}
 	
 	public void WriteRegister(int RegNum, int Val)

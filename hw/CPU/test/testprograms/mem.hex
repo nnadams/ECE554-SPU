@@ -14,12 +14,12 @@
 00
 00
 00
-00
+4c
 
 00
 00
 00
-00
+4c
 
 // LBI $t0, #50
 // 011000 01000 xxxxx 0000000000110010
@@ -129,3 +129,18 @@ a0
 00
 00
 00
+
+// INTERRUPT HANDLER ADDRESS 4c
+// Load a bunch of values into the registers to test loading / reloading
+// LBI $t0, #50
+// 011000 01000 xxxxx 0000000000110010
+// 0110 0001 000x xxxx 0000 0000 0011 0010 
+61
+00 
+00
+44
+
+61
+00 
+00
+44

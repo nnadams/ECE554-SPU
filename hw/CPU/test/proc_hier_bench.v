@@ -11,7 +11,6 @@ module proc_hier_bench();
 	wire [31:0] MemData;
 	wire [31:0] MemReadData; 
 
-	wire [31:0] 	 r0Data;
 	wire [31:0] 	 r1Data;
 	wire [31:0] 	 r2Data;
 	wire [31:0] 	 r3Data;
@@ -46,6 +45,9 @@ module proc_hier_bench();
 
     reg stall; 
     
+    reg spart_int; 
+	reg spu_int; 
+	
    proc DUT(
 		.clk(clk), 
 		.rst(rst),
@@ -57,7 +59,9 @@ module proc_hier_bench();
 		.data_mem_data(MemReadData),
 		.instruction(Inst),
 		.HALTED(Halt),
-		.SPART_STALL_DBG_ONLY(stall)
+		.SPART_STALL_DBG_ONLY(stall),
+		.spart_int(spart_int),
+		.spu_int(spu_int)
 	);
   
 
@@ -88,6 +92,8 @@ module proc_hier_bench();
       $display("See verilogsim.log and verilogsim.trace for output");
       clk = 0; 
       rst = 1; 
+	  spart_int = 0; 
+	  spu_int = 0;
       stall = 0; 
       repeat (5) @(posedge clk);
       rst = 0; 
@@ -109,7 +115,7 @@ module proc_hier_bench();
       if (!DUT.rst) begin
          if (Halt) begin
 			regDmpFile = $fopen("reg_dump.dmp");
-            $fdisplay(regDmpFile,"%8h", r0Data);
+            $fdisplay(regDmpFile,"%8h", 32'h0000);
 			$fdisplay(regDmpFile,"%8h", r1Data);
 			$fdisplay(regDmpFile,"%8h", r2Data);
 			$fdisplay(regDmpFile,"%8h", r3Data);
@@ -147,7 +153,6 @@ module proc_hier_bench();
 	  end 
    end
 
-   assign r0Data = DUT.D.regfile.regfile.r0Data;
    assign r1Data = DUT.D.regfile.regfile.r1Data;
    assign r2Data = DUT.D.regfile.regfile.r2Data;
    assign r3Data = DUT.D.regfile.regfile.r3Data;

@@ -27,7 +27,6 @@ output [31:0] read1data;
 output [31:0] read2data;
 
 // Output data from each register
-wire [31:0] 	 r0Data;
 wire [31:0] 	 r1Data;
 wire [31:0] 	 r2Data;
 wire [31:0] 	 r3Data;
@@ -61,7 +60,6 @@ wire [31:0] 	 r30Data;
 wire [31:0] 	 r31Data;
 
 // Output data of saved registers
-wire [31:0] 	 savedr0Data;
 wire [31:0] 	 savedr1Data;
 wire [31:0] 	 savedr2Data;
 wire [31:0] 	 savedr3Data;
@@ -95,7 +93,6 @@ wire [31:0] 	 savedr30Data;
 wire [31:0] 	 savedr31Data;
 
 // Individual write selects for each register 
-wire 	 r0Write;
 wire 	 r1Write;
 wire 	 r2Write;
 wire 	 r3Write;
@@ -129,7 +126,6 @@ wire 	 r30Write;
 wire 	 r31Write;
 
 // Individual write data for each register 
-wire [31:0] 	 r0writeData;
 wire [31:0] 	 r1writeData;
 wire [31:0] 	 r2writeData;
 wire [31:0] 	 r3writeData;
@@ -163,7 +159,6 @@ wire [31:0] 	 r30writeData;
 wire [31:0] 	 r31writeData;
 
 // The registers
-reg_32 r0 (.clk(clk), .rst(rst), .writeData(r0writeData), .data(r0Data), .write(r0Write));
 reg_32 r1 (.clk(clk), .rst(rst), .writeData(r1writeData), .data(r1Data), .write(r1Write));
 reg_32 r2 (.clk(clk), .rst(rst), .writeData(r2writeData), .data(r2Data), .write(r2Write));
 reg_32 r3 (.clk(clk), .rst(rst), .writeData(r3writeData), .data(r3Data), .write(r3Write));
@@ -197,7 +192,6 @@ reg_32 r30 (.clk(clk), .rst(rst), .writeData(r30writeData), .data(r30Data), .wri
 reg_32 r31 (.clk(clk), .rst(rst), .writeData(r31writeData), .data(r31Data), .write(r31Write));
 
 // The Save Registers
-reg_32 savedr0 (.clk(clk), .rst(rst),  .data(savedr0Data), .writeData(r0Data), .write(save));
 reg_32 savedr1 (.clk(clk), .rst(rst),  .data(savedr1Data), .writeData(r1Data), .write(save));
 reg_32 savedr2 (.clk(clk), .rst(rst),  .data(savedr2Data), .writeData(r2Data), .write(save));
 reg_32 savedr3 (.clk(clk), .rst(rst),  .data(savedr3Data), .writeData(r3Data), .write(save));
@@ -232,7 +226,7 @@ reg_32 savedr31 (.clk(clk), .rst(rst), .data(savedr31Data), .writeData(r31Data),
 
 // MUX for putting the correct read data on the port
 assign read1data =
-		(read1regsel == 5'b00000) ? r0Data:
+		(read1regsel == 5'b00000) ? 32'h0000:
 		(read1regsel == 5'b00001) ? r1Data:
 		(read1regsel == 5'b00010) ? r2Data:
 		(read1regsel == 5'b00011) ? r3Data:
@@ -267,7 +261,7 @@ assign read1data =
 		32'h0000;
 
 assign read2data =
-		(read2regsel == 5'b00000) ? r0Data:
+		(read2regsel == 5'b00000) ? 32'h0000:
 		(read2regsel == 5'b00001) ? r1Data:
 		(read2regsel == 5'b00010) ? r2Data:
 		(read2regsel == 5'b00011) ? r3Data:
@@ -303,7 +297,6 @@ assign read2data =
 
 
 // Assert the write for the correct register, if necessary
-assign r0Write =  (restore) ? 1'b1 : (writeregsel == 5'b00000) ? write : 0;
 assign r1Write =  (restore) ? 1'b1 : (writeregsel == 5'b00001) ? write : 0;
 assign r2Write =  (restore) ? 1'b1 : (writeregsel == 5'b00010) ? write : 0;
 assign r3Write =  (restore) ? 1'b1 : (writeregsel == 5'b00011) ? write : 0;
@@ -337,7 +330,6 @@ assign r30Write = (restore) ? 1'b1 : (writeregsel == 5'b11110) ? write : 0;
 assign r31Write = (restore) ? 1'b1 : (writeregsel == 5'b11111) ? write : 0;
 
 // Assign the write data
-assign r0writeData =  (restore) ? savedr0Data : writedata;
 assign r1writeData =  (restore) ? savedr1Data : writedata;
 assign r2writeData =  (restore) ? savedr2Data : writedata;
 assign r3writeData =  (restore) ? savedr3Data : writedata;

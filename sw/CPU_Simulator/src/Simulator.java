@@ -30,8 +30,10 @@ public class Simulator {
 		RegisterFile RegFile = new RegisterFile(NUM_REGISTERS);
 		
 		Halted = false;
-		PC = 0; 
 		InstrCount = -1; // Start at zero based index
+		
+		// Reset handler
+		PC = IMem.Read(0);
 		
 		while(!Halted)
 		{
