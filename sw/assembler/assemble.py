@@ -25,6 +25,10 @@ parser.add_argument('-l', '--littleendian', default=False, action='store_true',
 parser.add_argument('-v', '--verbose', default=False, action='store_true',
   help="Be verbose")
 
+def zero_fill(num_bytes, out):
+  for i in range(0,num_bytes):
+    out.write("00,\n")
+
 args = vars(parser.parse_args())
 
 f = open(args['filename'])
@@ -39,11 +43,14 @@ output = open(args['output'], 'w') if 'output' in args else None
 endianness = "little" if args['littleendian'] else "top"
 
 if 'output' in args:
+  start_addr = int(args['text_base'],16)
+
   with open(args['output'], 'w') as out:
     print "Writing text to '%s'..."%(args['output']),
+    out.write("%02x,\n%02x,\n%02x,\n%02x,\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
+    zero_fill(start_addr/4, out)
     bytes = mp.Bytes(endian=endianness)
     for b in bytes:
-      print(b)
       out.write("%02x,\n"%(b,))
   print "done!"
 
@@ -61,12 +68,14 @@ def byte_to_binary(n):
 def hex_to_binary(h):
     return ''.join(byte_to_binary(ord(b)) for b in binascii.unhexlify(h))
 
+
+
 if 'verbose' in args or 'output' not in args:
   binary = mp.Bytes(endian=endianness)
-  for j in range(len(binary)/4):
+  #for j in range(len(binary)/4):
     # hex_str = "%02x%02x%02x%02x"%tuple(binary[j*4:j*4+4])
     # print hex_to_binary(hex_str)
     # for i in binary[j*4:j*4+4]:
       # print "%02x"%i
-    print "%02x\n%02x\n%02x\n%02x\n"%tuple(binary[j*4:j*4+4])
+    #print "%02x\n%02x\n%02x\n%02x\n"%tuple(binary[j*4:j*4+4])
 
