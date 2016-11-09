@@ -119,8 +119,8 @@ i_type = {
   "slli":  (0b010101,["rt", "rs"]),
   "rori":  (0b010110,["rt", "rs"]),
   "srli":  (0b010111,["rt", "rs"]),
-  "lbi":   (0b011000,["rt", "rs"]),
-  "slbi":  (0b010010,["rt"]),
+  "lbi":   (0b011000,["rs"]),
+  "slbi":  (0b010010,["rs"]),
   "st":    (0b010000,["rt", "rs"]),
   "ld":    (0b010001,["rt", "rs"]),
   "stu":   (0b010011,["rt", "rs"]),
@@ -161,7 +161,7 @@ j_type = {
 "jalr":    (0b000111,[]),
 }
 
-supported_pseudoinstructions = ['li', 'nop', 'hault']
+supported_pseudoinstructions = ['li', 'nop', 'halt']
 
 def MakeInstruction(position, **kwargs):
   if 'name' in kwargs and \

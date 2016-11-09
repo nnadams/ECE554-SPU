@@ -24,10 +24,18 @@ parser.add_argument('-l', '--littleendian', default=False, action='store_true',
   help="Output as little endian")
 parser.add_argument('-v', '--verbose', default=False, action='store_true',
   help="Be verbose")
+parser.add_argument('-s', '--simulator', default='modelsim',
+  help="")
 
-def zero_fill(num_bytes, out):
-  for i in range(0,num_bytes):
-    out.write("00,\n")
+
+
+def zero_fill(num_bytes, out, simulator):
+  if simulator == 'modelsim':
+    for i in range(0,num_bytes):
+      out.write("00,\n")
+  elif simulator == 'xylinx':
+    for i in range(0,num_bytes/4):
+        out.write("00000000,\n")
 
 args = vars(parser.parse_args())
 
@@ -47,20 +55,45 @@ if 'output' in args:
 
   with open(args['output'], 'w') as out:
     print "Writing text to '%s'..."%(args['output']),
-    out.write("%02x,\n%02x,\n%02x,\n%02x,\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
-    zero_fill(start_addr/4, out)
+
     bytes = mp.Bytes(endian=endianness)
-    for b in bytes:
-      out.write("%02x,\n"%(b,))
+    if args['simulator'] == 'modelsim':
+      out.write("%02x,\n%02x,\n%02x,\n%02x,\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
+      zero_fill(start_addr/4, out, args['simulator'])
+      for b in bytes:
+        out.write("%02x,\n"%(b,))
+
+    elif args['simulator'] == 'xylinx':
+      out.write("%02x%02x%02x%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
+      zero_fill(start_addr/4, out, args['simulator'])
+      for j in range(len(bytes)/4):
+        out.write("%02x%02x%02x%02x,\n"%tuple(bytes[j*4:j*4+4]))
+
+    else:
+      print("Invalid simulator %s" % args['simulator'])
   print "done!"
 
 if 'data_out' in args:
   with open(args['data_out'], 'w') as out:
     print "Writing data to '%s'..."%(args['data_out']),
-    for s in mp.data:
-      for b in list(bytearray(s)):
-        out.write("%02x,\n"%b)
+    if args['simulator'] == 'modelsim':
+      for s in mp.data:
+        for b in list(bytearray(s)):
+          out.write("%02x,\n"%b)
+
+    elif args['simulator'] == 'xylinx':
+      c = 1
+      for s in mp.data:
+        for b in list(bytearray(s)):
+          if c%4 == 0:
+            out.write("%02x,\n"%b)
+          else:
+            out.write("%02x"%b)
+          c+=1
+    else:
+      print("Invalid simulator %s" % args['simulator'])
   print "done!"
+
 
 def byte_to_binary(n):
     return ''.join(str((n & (1 << i)) and 1) for i in reversed(range(8)))
