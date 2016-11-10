@@ -50,7 +50,7 @@ module pipeReg_id_ex
    wire id_write_reg_en_in;
    wire id_mem_enable_in;
    wire halt_in; 
-   assign id_instruction_in = flush_id ? 32'b00001xxxxxxxxxxxxxxxxxxxxxxxxxxx : id_instruction;
+   assign id_instruction_in = flush_id ? 32'b000001xxxxxxxxxxxxxxxxxxxxxxxxxx : id_instruction;
    assign id_write_reg_en_in = flush_id ? 1'b0 : id_write_reg_en;
    assign id_mem_enable_in = flush_id ? 1'b0 : id_mem_enable;
    assign id_mem_write_in = flush_id ? 1'b0 : id_mem_write; 

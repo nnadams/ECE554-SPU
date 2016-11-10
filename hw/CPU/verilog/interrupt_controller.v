@@ -38,7 +38,7 @@ module interrupt_controller(
 	// SPU Status Reg 
 	wire spu_int_wr; 
 	wire spu_int_ff; 
-	assign spu_int_en_wr = clr_spu ? 1'b0 : spu_int ? 1'b1 : spu_int_ff;
+	assign spu_int_wr = clr_spu ? 1'b0 : spu_int ? 1'b1 : spu_int_ff;
 	dff spu_status_reg(.clk(clk), .rst(rst), .d(spu_int_wr), .q(spu_int_ff));
 	
 	// SPART ENABLE FLOP
@@ -50,7 +50,7 @@ module interrupt_controller(
 	// SPART Status Reg 
 	wire spart_int_wr; 
 	wire spart_int_ff; 
-	assign spart_int_en_wr = clr_spart ? 1'b0 : spart_int ? 1'b1 : spart_int_ff;
+	assign spart_int_wr = clr_spart ? 1'b0 : spart_int ? 1'b1 : spart_int_ff;
 	dff spart_status_reg(.clk(clk), .rst(rst), .d(spart_int_wr), .q(spart_int_ff));
 	
 	// State Flop

@@ -46,7 +46,7 @@ module pipeReg_ex_mem
    wire ex_mem_enable_in;
    wire halt_in; 
    
-   assign ex_instruction_in = flush_ex ? 32'b00001xxxxxxxxxxxxxxxxxxxxxxxxxxx : ex_instruction;
+   assign ex_instruction_in = flush_ex ? 32'b000001xxxxxxxxxxxxxxxxxxxxxxxxxx : ex_instruction;
    assign ex_write_reg_en_in = flush_ex ? 1'b0 : ex_write_reg_en;
    assign ex_mem_enable_in = flush_ex ? 1'b0 : ex_mem_enable;
    assign ex_mem_write_in = flush_ex ? 1'b0 : ex_mem_write; 

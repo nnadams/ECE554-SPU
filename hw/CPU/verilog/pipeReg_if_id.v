@@ -15,7 +15,7 @@ module pipeReg_if_id
    );
 
    wire [31:0] if_instruction_in;
-   assign if_instruction_in = flush_if ? 32'b00001xxxxxxxxxxxxxxxxxxxxxxxxxxx : 
+   assign if_instruction_in = flush_if ? 32'b000001xxxxxxxxxxxxxxxxxxxxxxxxxx : 
 						      stall    ? id_instruction : if_instruction;
    
    wire [31:0] PC_4_in;
