@@ -94,6 +94,7 @@ module proc (
    
    // Memory Outputs 
    wire [31:0] mem_mem_out;
+   wire mem_stall; 
    
    // Branch Control Outputs
    wire        take_branch;
@@ -318,12 +319,23 @@ module proc (
 		.mem_HALT(mem_HALT)
 	);
 	
-	// External, Single Cycle Memory 
-	assign data_mem_addr = mem_alu_out;
-	assign data_mem_write_data = mem_reg_data_2;
-	assign data_mem_wr = mem_mem_write;
-	assign data_mem_en = mem_mem_enable;
-	assign mem_mem_out = data_mem_data;
+	// External, 1 Cycle Delay Memory 
+	memory MEM (
+		.clk(clk),
+		.rst(rst),
+		.mem_alu_out(mem_alu_out),
+		.mem_reg_data_2(mem_reg_data_2),
+		.mem_mem_write(mem_mem_write),
+		.mem_mem_enable(mem_mem_enable),
+		.data_mem_data(data_mem_data),
+		.data_mem_addr(data_mem_addr),
+		.data_mem_write_data(data_mem_write_data),
+		.data_mem_wr(data_mem_wr),
+		.data_mem_en(data_mem_en),
+		.mem_mem_out(mem_mem_out),
+		.mem_stall(mem_stall)
+	
+	);
 
 	// Branch Control Unit - Branches Resolved in MEM Stage
 	branch_control bc (
@@ -400,7 +412,7 @@ module proc (
 		.memoryWriteReg(mem_write_reg_sel),
 		.memoryWriteRegEn(mem_write_reg_en),
 		.reg2used(reg2used),
-		.mem_stall(1'b0),
+		.mem_stall(mem_stall),
 		.ex_opcode(ex_instruction[31:26]),
 		.id_opcode(id_instruction[31:26]),
 		.clk(clk),
