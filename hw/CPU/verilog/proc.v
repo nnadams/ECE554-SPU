@@ -4,7 +4,7 @@ module proc (
    output [31:0] data_mem_write_data,
    output data_mem_wr,
    output data_mem_en,
-   output [31:0] PC_curr,
+   output [31:0] instr_addr,
    output HALTED,
    // Inputs
    input clk,
@@ -144,8 +144,8 @@ module proc (
 		 .spart_int(spart_int),
 		 .spu_int(spu_int),
 	     /*Outputs*/
-	     .PC_curr(PC_curr),
 	     .PC_4(if_PC_4),
+		 .instr_addr(instr_addr),
 	     .HALTED(if_HALT),
 		 .instruction_out(instruction_fetch),
 		 .save_regs(save_regs),

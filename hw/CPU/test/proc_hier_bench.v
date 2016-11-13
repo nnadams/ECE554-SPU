@@ -55,7 +55,7 @@ module proc_hier_bench();
 		.data_mem_write_data(MemData),
 		.data_mem_wr(MemWrite),
 		.data_mem_en(MemEnable),
-		.PC_curr(PC),
+		.instr_addr(PC),
 		.data_mem_data(MemReadData),
 		.instruction(Inst),
 		.HALTED(Halt),
@@ -97,18 +97,6 @@ module proc_hier_bench();
       stall = 0; 
       repeat (5) @(posedge clk);
       rst = 0; 
-      @(posedge clk);
-      stall = 1;
-      repeat (5) @(posedge clk);
-      stall = 0; 
-      @(posedge clk);
-      stall = 1;
-      repeat (5) @(posedge clk);
-      stall = 0; 
-      @(posedge clk);
-      stall = 1;
-      repeat (5) @(posedge clk);
-      stall = 0; 
    end
 
    always @ (posedge DUT.clk) begin

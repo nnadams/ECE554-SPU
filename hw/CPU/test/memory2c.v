@@ -48,13 +48,14 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
    
    reg [7:0]      mem [0:65535];
    reg            loaded;
+   reg [31:0] rd_addr; 
    //reg [31:0]     largest;
 
    integer        mcd;
    integer        i;
 
 
-   assign         data_out = (enable & (~wr))? {mem[addr],mem[addr+8'h1], mem[addr+8'h2], mem[addr+8'h3]}: 0;
+   assign         data_out = (enable & (~wr))? {mem[rd_addr],mem[rd_addr+8'h1], mem[rd_addr+8'h2], mem[rd_addr+8'h3]}: 0;
    
    initial begin
       loaded = 0;
@@ -77,8 +78,10 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
 			end
             loaded = 1;
          end
+		 rd_addr = 0; 
       end
       else begin
+		rd_addr = addr;
          if (enable & wr) begin
 	        mem[addr] = data_in[31:24];       // The actual write
 	        mem[addr+1] = data_in[23:16];    // The actual write
