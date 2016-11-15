@@ -78,4 +78,5 @@ test/mmu/_xmsgs/
 test/CORESIMS/
 test/SIMPRIMS/
 test/UNISIMS/
+test/GLBL/
 test/lib/

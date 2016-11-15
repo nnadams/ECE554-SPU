@@ -51,10 +51,15 @@ end
 initial begin
     #0   spu_addr = 32'h00800000;
     cpu_addr = 32'h0080007c;
+    PC = 32'h00000000;
     rst = 1'b1;
     cpu_we = 1'b0;
     #10 rst = 1'b0;
     /* test cpu memory write*/
+    repeat (32) begin
+        @(posedge clka)
+        PC = PC + 4;
+    end
     repeat (32) begin
         @(posedge clka)
         cpu_wdata = cpu_addr*4 + cpu_addr;
@@ -103,8 +108,9 @@ end
 
 /*monitor statements*/
 initial begin
-    //$$monitor ("[monitor]@%d,\tvga_data1=%x,\tvga_data2=%x,\tvga_data3=%x",$time, vga_data_1, vga_data_2, vga_data_3);
+    //$monitor ("[monitor]@%d,\tvga_data1=%x,\tvga_data2=%x,\tvga_data3=%x",$time, vga_data_1, vga_data_2, vga_data_3);
     //$monitor ("[monitor]@%d,\ttx_data_reg=%x",$time, iDUT.spart_tx_data_reg);
     //$monitor ("@%d,\tspu_addr=%x,\tread-data=%x",$time,spu_addr, spu_read_data);
+    $monitor ("@%d,\tPC=%x,\tinstruction=%x",$time, PC, instruction);
 end
 endmodule
