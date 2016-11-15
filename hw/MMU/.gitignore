@@ -75,3 +75,7 @@ test/mmu/xlnx_auto_0_xdb/
 test/mmu/xst/
 test/mmu/_ngo/
 test/mmu/_xmsgs/
+test/CORESIMS/
+test/SIMPRIMS/
+test/UNISIMS/
+test/lib/
