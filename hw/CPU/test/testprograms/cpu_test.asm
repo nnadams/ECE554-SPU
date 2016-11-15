@@ -1,9 +1,3 @@
-# load some registers
-addi $t0 $zero 100 
-addi $t1 $zero 100
-addi $t2 $zero 200
-addi $t3 $zero 200
-
 # load in SPART TX address
 addi $t9 $zero 0x1000 
 slbi $t9 0 
@@ -12,25 +6,27 @@ slbi $t10 4
 
 # load in ascii data 
 # a - d
-addi $a0 $zero 97
-addi $a1 $zero 98
-addi $a2 $zero 99
-addi $a3 $zero 100
+addi $s0 $zero 97
+addi $s1 $zero 98
+addi $s2 $zero 99
+addi $s3 $zero 100
+addi $s4 $zero 10
 
-# do some simple math 
-#add $t4 $t0 $t1 
-#seq $t5 $t4 $t2 
-#beqz $t5 4
+addi $a0 $s0 0
+jal write
+addi $a0 $s1 0
+jal write
+addi $a0 $s2 0
+jal write
+addi $a0 $s3 0
+jal write
+addi $a0 $s4 0
+jal write
+ 
 
-#write tx data 
+write:
 st $a0 $t9 0
-#wait for tx done 
-ld $t8 $t10 0 
+ld $t8 $t10 0
 beqz $t8 -8
-
-#write tx data 
-st $a0 $t9 0
-#wait for tx done 
-ld $t8 $t10 0 
-beqz $t8 -8
+jr $ret 0
 

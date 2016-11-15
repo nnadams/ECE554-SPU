@@ -3,11 +3,12 @@ import java.util.Scanner;
 
 public class Memory {
 	private byte mem[];
+	private int spartCount;
 	
 	public Memory(int MemSize)
 	{
 		mem = new byte[MemSize];
-		
+		spartCount = 0; 
 		for(int i = 0; i < MemSize; i++)
 		{
 			mem[i] = 0; 
@@ -64,17 +65,27 @@ public class Memory {
 	
 	public int Read(int Address)
 	{
+		if(Address == 0x10000004){
+			spartCount++;
+			if(spartCount == 20){
+					spartCount = 0;
+					return 1;
+			}
+			else return 0;// Spart stuff
+		}
 		// Big Endian
 		int ret = (((int)(mem[Address]) & 0xff) << 24);
 		ret |= (((int)(mem[Address + 1]) & 0xff) << 16);
 		ret |= (((int)(mem[Address + 2]) & 0xff) << 8);
 		ret |= (((int)(mem[Address + 3]) & 0xff) << 0);
 		
+		
 		return ret;
 	}
 	
 	public void Write(int Addres, int Data)
 	{
+		if(Addres == 0x10000000) return; // Spart stuff
 		// Big Endian
 		mem[Addres] = (byte)((Data >> 24) & 0xff); 
 		mem[Addres + 1] = (byte)((Data >> 16) & 0xff); 

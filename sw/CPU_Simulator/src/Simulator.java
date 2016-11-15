@@ -221,6 +221,7 @@ public class Simulator {
 			
 			if(ir.TakeBranch)
 			{
+				System.out.println("Took Branch to " + String.format("%8x", ir.NewPC));
 				PC = ir.NewPC;
 			}
 			else if(!Halted)
