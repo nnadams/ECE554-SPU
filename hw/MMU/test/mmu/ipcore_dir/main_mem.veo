@@ -50,14 +50,12 @@
 main_mem your_instance_name (
   .clka(clka), // input clka
   .rsta(rsta), // input rsta
-  .ena(ena), // input ena
   .wea(wea), // input [3 : 0] wea
   .addra(addra), // input [31 : 0] addra
   .dina(dina), // input [31 : 0] dina
   .douta(douta), // output [31 : 0] douta
   .clkb(clkb), // input clkb
   .rstb(rstb), // input rstb
-  .enb(enb), // input enb
   .web(web), // input [15 : 0] web
   .addrb(addrb), // input [31 : 0] addrb
   .dinb(dinb), // input [127 : 0] dinb

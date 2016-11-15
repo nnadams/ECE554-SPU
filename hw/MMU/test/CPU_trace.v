@@ -1,9 +1,12 @@
 module cpu_trace(
 	input clk, 
-	input rst, 
-	input [31:0] instruction, 
-	input [31:0] data_mem_addr,
-	input [31:0] data_mem_write_data,
+	input rst,
+	input [31:0] data1, 
+	input [31:0] data2,
+	input [31:0] data3, 
+	input [31:0] data4,
+	input [31:0] data5, 
+	input [31:0] data6,
 	input data_mem_wr,
 	input CPU_HALTED,
 	output tx, 
@@ -42,80 +45,84 @@ module cpu_trace(
 	
 	// Output and Transition Logic 
 	always @(*) begin
-		_HALT_CPU = 0; 
-		next_state = 2'b00;
+		_HALT_CPU = 1; 
 		fifo_wr = 0; 
 		fifo_rd = 0; 
 		trmt = 0; 
 		rst_cnt = 0; 
+		next_state = 4'b000;
 		
 		case(state) 
 			// WAIT State 
-			3'b000: begin
+			4'b0000: begin
 				if(fifo_empty & tbr & ~CPU_HALTED)begin
-					next_state = 3'b001;
-					_HALT_CPU = 0; 
+					_HALT_CPU = 0;
+					next_state = 4'b0001;  //Run CPU state
 				end 
-				else if(tbr & ~fifo_empty & ~CPU_HALTED) begin
-					next_state = 3'b111;
-					_HALT_CPU = 1;
+				else if(~fifo_empty & tbr & ~CPU_HALTED) begin
 					rst_cnt = 1; 
+					next_state = 4'b1111; // WAIT WAIT state
 				end
-				else begin
-					next_state = 3'b000;
-					_HALT_CPU = 1; 
-				end
+				else
+					next_state = 4'b0000; // WAIT state
 			end
 			
 			// WAIT WAIT 
-			3'b111: begin 
-				if (cnt > 32'd00100000)begin
-					next_state = 3'b101;
-					_HALT_CPU = 1; 
-				end
-				else begin
-					next_state = 3'b111;
-					_HALT_CPU = 1; 
-				end
+			4'b1111: begin 
+				if (cnt > 32'd00100000)
+					next_state = 4'b1101; // Read FIFO state
+				else 
+					next_state = 4'b1111; // WAIT state
 			end
 			
 			// Read FIFO State 
-			3'b101: begin
+			4'b1101: begin
 				fifo_rd = 1; 
-				next_state = 3'b110;
-				_HALT_CPU = 1; 
+				next_state = 4'b1110; // Transmite state
 			end 
 			
 			// Initiate Transaction State
-			3'b110: begin 
+			4'b1110: begin 
 				trmt = 1; 
-				next_state = 3'b000;
-				_HALT_CPU = 1; 
+				next_state = 4'b0000; // WAIT state
 			end
 
-			// Cpu runs for this cycle. Halt next and store instruction in fifo. 
-			3'b001: begin
-				_HALT_CPU = 1;
-				next_state = 3'b010;
+			// Cpu runs for this cycle. Halt next and store data1 in fifo. 
+			4'b0001: begin // write data1 to FIFO
 				fifo_wr = 1;
+				next_state = 4'b0010; // 
 			end
 			
-			3'b010: begin
-				_HALT_CPU = 1;  
-				next_state = 3'b011; 
+			4'b0010: begin // write data2 to FIFO
 				fifo_wr = 1;
+				next_state = 4'b0011; // store state
 			end 
-			
-			3'b011: begin 
-				_HALT_CPU = 1; 
-				next_state = 3'b100; 
+
+			// Cpu runs for this cycle. Halt next and store data1 in fifo. 
+			4'b0011: begin // write data3 to FIFO
 				fifo_wr = 1;
-			end	
+				next_state = 4'b0111; // 
+			end
 			
-			3'b100: begin 
-				_HALT_CPU = 1; 
-				next_state = 3'b000; 
+			4'b0100: begin // write data4 to FIFO
 				fifo_wr = 1;
+				next_state = 4'b0101; // store state
+			end 
+
+			// Cpu runs for this cycle. Halt next and store data1 in fifo. 
+			4'b0101: begin // write data5 to FIFO
+				fifo_wr = 1;
+				next_state = 4'b0110; // 
+			end
+			
+			4'b0110: begin // write data6 to FIFO
+				fifo_wr = 1;
+				next_state = 4'b0111; // store state
+			end
+			
+			4'b0111: begin // write new line to the FIFO
+				fifo_wr = 1;
+				next_state = 4'b0000; 
 			end	
 			
 			default: begin 
@@ -176,37 +183,67 @@ module cpu_trace(
 		print_new_line = 0;
 		
 		case(state)
-			3'b001: begin 
-				d7 = instruction[31:28];
-				d6 = instruction[27:24];
-				d5 = instruction[23:20];
-				d4 = instruction[19:16];
-				d3 = instruction[15:12];
-				d2 = instruction[11:8];
-				d1 = instruction[7:4];
-				d0 = instruction[3:0];
+			4'b0001: begin 
+				d7 = data1[31:28];
+				d6 = data1[27:24];
+				d5 = data1[23:20];
+				d4 = data1[19:16];
+				d3 = data1[15:12];
+				d2 = data1[11:8];
+				d1 = data1[7:4];
+				d0 = data1[3:0];
 			end 
-			3'b010: begin 
-				d7 = data_mem_addr[31:28];
-				d6 = data_mem_addr[27:24];
-				d5 = data_mem_addr[23:20];
-				d4 = data_mem_addr[19:16];
-				d3 = data_mem_addr[15:12];
-				d2 = data_mem_addr[11:8];
-				d1 = data_mem_addr[7:4];
-				d0 = data_mem_addr[3:0];
+			4'b0010: begin 
+				d7 = data2[31:28];
+				d6 = data2[27:24];
+				d5 = data2[23:20];
+				d4 = data2[19:16];
+				d3 = data2[15:12];
+				d2 = data2[11:8];
+				d1 = data2[7:4];
+				d0 = data2[3:0];
 			end 
-			3'b011: begin 
-				d7 = data_mem_write_data[31:28];
-				d6 = data_mem_write_data[27:24];
-				d5 = data_mem_write_data[23:20];
-				d4 = data_mem_write_data[19:16];
-				d3 = data_mem_write_data[15:12];
-				d2 = data_mem_write_data[11:8];
-				d1 = data_mem_write_data[7:4];
-				d0 = data_mem_write_data[3:0];
-			end 		
-			3'b100: begin
+			4'b0011: begin 
+				d7 = data3[31:28];
+				d6 = data3[27:24];
+				d5 = data3[23:20];
+				d4 = data3[19:16];
+				d3 = data3[15:12];
+				d2 = data3[11:8];
+				d1 = data3[7:4];
+				d0 = data3[3:0];
+			end 
+			4'b0100: begin 
+				d7 = data4[31:28];
+				d6 = data4[27:24];
+				d5 = data4[23:20];
+				d4 = data4[19:16];
+				d3 = data4[15:12];
+				d2 = data4[11:8];
+				d1 = data4[7:4];
+				d0 = data4[3:0];
+			end 
+			4'b0101: begin 
+				d7 = data5[31:28];
+				d6 = data5[27:24];
+				d5 = data5[23:20];
+				d4 = data5[19:16];
+				d3 = data5[15:12];
+				d2 = data5[11:8];
+				d1 = data5[7:4];
+				d0 = data5[3:0];
+			end
+			4'b0110: begin 
+				d7 = data6[31:28];
+				d6 = data6[27:24];
+				d5 = data6[23:20];
+				d4 = data6[19:16];
+				d3 = data6[15:12];
+				d2 = data6[11:8];
+				d1 = data6[7:4];
+				d0 = data6[3:0];
+			end
+			4'b0111: begin 
 				print_new_line = 1;
 				d2 = {3'b000,data_mem_wr};
 			end 
@@ -225,9 +262,19 @@ module cpu_trace(
 	end 
 
 	// SPART Fifo Tx data
+/*module SPART_FIFO(
+  rst,
+  wr_clk,
+  rd_clk,
+  din,
+  wr_en,
+  rd_en,
+  dout,
+  full,
+  empty
+);*/
 	SPART_FIFO tx_fifo(
-		.wr_rst(rst),
-		.rd_rst(rst),
+		.rst(rst),
 		.wr_clk(clk),
 		.rd_clk(clk),
 		.din(fifo_data),
@@ -245,7 +292,6 @@ module cpu_trace(
 		.tx_data(tx_data),
 		.load_baud(1'b1),
 		.baud_val(16'h0a2c),
-        //.baud_val(16'h0010),
 		.TBR(tbr), 
 		.TX(tx)
 	);

@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module mmu_hier( 
     input          clk,
-    input          rst_n,
+    input          rst,
     input [31:0]   PC,
     input [31:0]   cpu_wdata,
     input [31:0]   cpu_addr,
@@ -45,7 +45,6 @@ module mmu_hier(
     reg [31:0] spu_reg [0:15];
     reg [31:0] cpu_rdata_reg, mem_mapped_reg;
     reg [7:0] spart_tx_reg, spart_rx_reg, spart_tx_data_reg;
-    //reg spart_tx_full, spart_rx_empty;
     reg cpu_inst_read, mem_mapped_read;
     wire [31:0] cpu_data_mem, cpu_data_inst;
     reg [31:0] cpu_addr_mem, cpu_addr_inst;
@@ -56,9 +55,34 @@ module mmu_hier(
     assign vga_data_3 = spu_reg[2];
     assign cpu_read_data = cpu_rdata_reg;
     assign spart_tx_data = spart_tx_data_reg;
+	 
+	         
+main_mem data_mem (
+  .clka(clk), // input clka
+  .rsta(rst), // input rsta
+  .wea({4{cpu_we}}), // input [3 : 0] wea
+  .addra(cpu_addr_mem), // input [31 : 0] addra
+  .dina(cpu_wdata), // input [31 : 0] dina
+  .douta(cpu_data_mem), // output [31 : 0] douta
+  .clkb(clk), // input clkb
+  .rstb(rst), // input rstb
+  .web(16'h0), // input [15 : 0] web
+  .addrb(spu_addr), // input [31 : 0] addrb
+  .dinb(spu_wdata), // input [127 : 0] dinb
+  .doutb(spu_read_data) // output [127 : 0] doutb
+);
+
+instruction_memory inst_mem(
+  .clka(clk), // input clka
+  .addra(PC), // input [31 : 0] addra
+  .douta(instruction), // output [31 : 0] douta
+  .clkb(clk), // input clkb
+  .addrb(cpu_addr_inst), // input [31 : 0] addrb
+  .doutb(cpu_data_inst) // output [31 : 0] doutb
+);
     
-    always@(posedge clk, negedge rst_n) begin
-        if(!rst_n) begin
+    always@(posedge clk) begin
+        if(rst) begin
             for(i = 0; i < 16; i=i+1) begin
                 spu_reg[i] <= 32'h0;
             end
@@ -113,7 +137,9 @@ module mmu_hier(
             4'hA : begin
                 mem_mapped_read = 1'b1;
                 case(cpu_addr[3:0])
-                    4'h0 : spart_tx_reg   = cpu_addr[7:0];
+                    4'h0 : begin 
+                        spart_tx_reg   = cpu_wdata[7:0];
+                    end
                     4'h4 : mem_mapped_reg = {31'h0,spart_tx_full};
                     4'h8 : mem_mapped_reg = {31'h0,spart_rx_empty};
                     4'hC : mem_mapped_reg = {24'h0,spart_rx_reg};
@@ -126,31 +152,6 @@ module mmu_hier(
             end
         endcase
     end        
-        
-main_mem data_mem (
-  .clka(clk), // input clka
-  .rsta(rst_n), // input rsta
-  .ena(ena), // input ena
-  .wea(wea), // input [3 : 0] wea
-  .addra(cpu_addr_mem), // input [31 : 0] addra
-  .dina(cpu_wdata), // input [31 : 0] dina
-  .douta(cpu_data_mem), // output [31 : 0] douta
-  .clkb(clk), // input clkb
-  .rstb(rst_n), // input rstb
-  .enb(enb), // input enb
-  .web(web), // input [15 : 0] web
-  .addrb(spu_addr), // input [31 : 0] addrb
-  .dinb(spu_wdata), // input [127 : 0] dinb
-  .doutb(spu_read_data) // output [127 : 0] doutb
-);
 
-instruction_memory inst_mem(
-  .clka(clk), // input clka
-  .addra(PC), // input [31 : 0] addra
-  .douta(instruction), // output [31 : 0] douta
-  .clkb(clk), // input clkb
-  .addrb(cpu_addr_inst), // input [31 : 0] addrb
-  .doutb(cpu_data_inst) // output [31 : 0] doutb
-);
 
 endmodule

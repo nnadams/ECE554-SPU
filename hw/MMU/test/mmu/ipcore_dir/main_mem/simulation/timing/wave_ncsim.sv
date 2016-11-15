@@ -16,12 +16,10 @@ waveform  using  "Waves for BMG Example Design"
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/ADDRA
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/DINA
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/WEA
-      waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/ENA
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/DOUTA
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/RSTB
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/CLKB
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/ADDRB
-      waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/ENB
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/DINB
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/WEB
       waveform add -signals /main_mem_tb/main_mem_synth_inst/bmg_port/DOUTB

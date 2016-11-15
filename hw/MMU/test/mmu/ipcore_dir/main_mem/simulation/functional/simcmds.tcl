@@ -58,12 +58,10 @@ wave add /main_mem_tb/status
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/ADDRA
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/DINA
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/WEA
-      wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/ENA
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/DOUTA
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/RSTB
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/CLKB
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/ADDRB
-      wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/ENB
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/DINB
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/WEB
       wave add  /main_mem_tb/main_mem_synth_inst/BMG_PORT/DOUTB

@@ -78,12 +78,10 @@ gui_list_add_group -id Wave.1 {main_mem_Group}
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/ADDRA
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/DINA
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/WEA
-      gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/ENA
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/DOUTA
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/RSTB
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/CLKB
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/ADDRB
-      gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/ENB
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/DINB
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/WEB
       gui_sg_addsignal -group main_mem_Group  /main_mem_tb/main_mem_synth_inst/bmg_port/DOUTB

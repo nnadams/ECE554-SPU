@@ -89,7 +89,6 @@ ENTITY main_mem_exdes IS
   PORT (
       --Inputs - Port A
     RSTA           : IN STD_LOGIC;  --opt port
-    ENA            : IN STD_LOGIC;  --opt port
   
     WEA            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -103,7 +102,6 @@ ENTITY main_mem_exdes IS
   
       --Inputs - Port B
     RSTB           : IN STD_LOGIC;  --opt port
-    ENB            : IN STD_LOGIC;  --opt port
   
     WEB            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     ADDRB          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -130,7 +128,6 @@ ARCHITECTURE xilinx OF main_mem_exdes IS
   PORT (
       --Port A
     RSTA       : IN STD_LOGIC;  --opt port
-    ENA        : IN STD_LOGIC;  --opt port
   
     WEA        : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -145,7 +142,6 @@ ARCHITECTURE xilinx OF main_mem_exdes IS
   
       --Port B
     RSTB       : IN STD_LOGIC;  --opt port
-    ENB        : IN STD_LOGIC;  --opt port
   
     WEB        : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     ADDRB      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -181,7 +177,6 @@ BEGIN
     PORT MAP (
       --Port A
       RSTA       => RSTA,
-      ENA        => ENA,
   
       WEA        => WEA,
       ADDRA      => ADDRA,
@@ -195,7 +190,6 @@ BEGIN
   
       --Port B
       RSTB       => RSTB,
-      ENB        => ENB, 
   
       WEB        => WEB,
       ADDRB      => ADDRB,

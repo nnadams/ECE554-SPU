@@ -107,7 +107,6 @@ COMPONENT main_mem_exdes
   PORT (
       --Inputs - Port A
     RSTA           : IN STD_LOGIC;  --opt port
-    ENA            : IN STD_LOGIC;  --opt port
     WEA            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DINA           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -116,7 +115,6 @@ COMPONENT main_mem_exdes
 
       --Inputs - Port B
     RSTB           : IN STD_LOGIC;  --opt port
-    ENB            : IN STD_LOGIC;  --opt port
     WEB            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     ADDRB          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DINB           : IN STD_LOGIC_VECTOR(127 DOWNTO 0);
@@ -130,8 +128,6 @@ END COMPONENT;
 
   SIGNAL CLKA: STD_LOGIC := '0';
   SIGNAL RSTA: STD_LOGIC := '0';
-  SIGNAL ENA: STD_LOGIC := '0';
-  SIGNAL ENA_R: STD_LOGIC := '0';
   SIGNAL WEA: STD_LOGIC_VECTOR(3 DOWNTO 0) := (OTHERS => '0');
   SIGNAL WEA_R: STD_LOGIC_VECTOR(3 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRA: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
@@ -145,8 +141,6 @@ END COMPONENT;
   SIGNAL DOUTA: STD_LOGIC_VECTOR(31 DOWNTO 0);
   SIGNAL CLKB: STD_LOGIC := '0';
   SIGNAL RSTB: STD_LOGIC := '0';
-  SIGNAL ENB: STD_LOGIC := '0';
-  SIGNAL ENB_R: STD_LOGIC := '0';
   
   SIGNAL WEB: STD_LOGIC_VECTOR(15 DOWNTO 0) := (OTHERS => '0');
   SIGNAL WEB_R: STD_LOGIC_VECTOR(15 DOWNTO 0) := (OTHERS => '0');
@@ -286,12 +280,10 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
      	TB_RST => RSTA,
         ADDRA  => ADDRA,
         DINA => DINA,
-        ENA => ENA,
         WEA => WEA,
         WEB => WEB,
         ADDRB => ADDRB,
         DINB => DINB,
-        ENB => ENB,
         CHECK_DATA => CHECK_DATA_TDP
       );
 
@@ -333,20 +325,16 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
       BEGIN
         IF(RISING_EDGE(CLKA)) THEN
 		  IF(RESET_SYNC_R3='1') THEN
-            ENA_R <= '0' AFTER 50 ns;
             WEA_R  <= (OTHERS=>'0') AFTER 50 ns;
             DINA_R <= (OTHERS=>'0') AFTER 50 ns;
-            ENB_R <= '0' AFTER 50 ns;
   
             WEB_R <= (OTHERS=>'0') AFTER 50 ns;
             DINB_R <= (OTHERS=>'0') AFTER 50 ns;
           
 
            ELSE
-          ENA_R <= ENA AFTER 50 ns;
             WEA_R  <= WEA AFTER 50 ns;
             DINA_R <= DINA AFTER 50 ns;
-          ENB_R <= ENB AFTER 50 ns;
   
             WEB_R <= WEB AFTER 50 ns;
             DINB_R <= DINB AFTER 50 ns;
@@ -373,7 +361,6 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
     BMG_PORT: main_mem_exdes PORT MAP ( 
       --Port A
       RSTA       => RSTA,
-      ENA        => ENA_R,
       WEA        => WEA_R,
       ADDRA      => ADDRA_SHIFT_R,
       DINA       => DINA_R,
@@ -381,7 +368,6 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
       CLKA       => CLKA,
       --Port B
       RSTB       => RSTB,
-      ENB        => ENB_R, 
   
       WEB        => WEB_R,
       ADDRB      => ADDRB_SHIFT_R,
