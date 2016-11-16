@@ -49,24 +49,24 @@ echo "Compiling Core Verilog UNISIM/Behavioral model"
 ncvlog -work work ../../implement/results/routed.v
 
 echo "Compiling Test Bench Files"
-ncvhdl -v93 -work work ../SPART_FIFO_pkg.vhd
-ncvhdl -v93 -work work ../SPART_FIFO_rng.vhd 
-ncvhdl -v93 -work work ../SPART_FIFO_dgen.vhd
-ncvhdl -v93 -work work ../SPART_FIFO_dverif.vhd
-ncvhdl -v93 -work work ../SPART_FIFO_pctrl.vhd 
-ncvhdl -v93 -work work ../SPART_FIFO_synth.vhd 
-ncvhdl -v93 -work work ../SPART_FIFO_tb.vhd
+ncvhdl -v93 -work work ../spart_fifo_pkg.vhd
+ncvhdl -v93 -work work ../spart_fifo_rng.vhd 
+ncvhdl -v93 -work work ../spart_fifo_dgen.vhd
+ncvhdl -v93 -work work ../spart_fifo_dverif.vhd
+ncvhdl -v93 -work work ../spart_fifo_pctrl.vhd 
+ncvhdl -v93 -work work ../spart_fifo_synth.vhd 
+ncvhdl -v93 -work work ../spart_fifo_tb.vhd
 
 echo "Compiling SDF file"
 ncsdfc ../../implement/results/routed.sdf -output ./routed.sdf.X
 
 echo "Generating SDF command file"
 echo 'COMPILED_SDF_FILE = "routed.sdf.X",' > sdf.cmd
-echo 'SCOPE = :SPART_FIFO_synth_inst:SPART_FIFO_inst,' >> sdf.cmd
+echo 'SCOPE = :spart_fifo_synth_inst:spart_fifo_inst,' >> sdf.cmd
 echo 'MTM_CONTROL = "MAXIMUM";' >> sdf.cmd
 
 echo "Elaborating Design"
-ncelab -access +rwc glbl -sdf_cmd_file sdf.cmd work.SPART_FIFO_tb
+ncelab -access +rwc glbl -sdf_cmd_file sdf.cmd work.spart_fifo_tb
 
 echo "Simulating Design"
-ncsim -gui -input @"simvision -input wave_ncsim.sv" work.SPART_FIFO_tb
+ncsim -gui -input @"simvision -input wave_ncsim.sv" work.spart_fifo_tb

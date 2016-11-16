@@ -47,21 +47,21 @@
 rm -rf simv* csrc DVEfiles AN.DB
 
 echo "Compiling Core Verilog UNISIM/Behavioral model"
-vlogan +v2k  ../../../SPART_FIFO.v
-vhdlan  ../../example_design/SPART_FIFO_exdes.vhd
+vlogan +v2k  ../../../spart_fifo.v
+vhdlan  ../../example_design/spart_fifo_exdes.vhd
 
 echo "Compiling Test Bench Files"
-vhdlan   ../SPART_FIFO_pkg.vhd
-vhdlan   ../SPART_FIFO_rng.vhd 
-vhdlan   ../SPART_FIFO_dgen.vhd
-vhdlan   ../SPART_FIFO_dverif.vhd
-vhdlan   ../SPART_FIFO_pctrl.vhd 
-vhdlan   ../SPART_FIFO_synth.vhd 
-vhdlan   ../SPART_FIFO_tb.vhd
+vhdlan   ../spart_fifo_pkg.vhd
+vhdlan   ../spart_fifo_rng.vhd 
+vhdlan   ../spart_fifo_dgen.vhd
+vhdlan   ../spart_fifo_dverif.vhd
+vhdlan   ../spart_fifo_pctrl.vhd 
+vhdlan   ../spart_fifo_synth.vhd 
+vhdlan   ../spart_fifo_tb.vhd
 
 echo "Elaborating Design"
 vlogan +v2k $XILINX/verilog/src/glbl.v
-vcs -time_res 1ps +vcs+lic+wait -debug SPART_FIFO_tb glbl
+vcs -time_res 1ps +vcs+lic+wait -debug spart_fifo_tb glbl
 
 echo "Simulating Design"
 ./simv -ucli -i ucli_commands.key

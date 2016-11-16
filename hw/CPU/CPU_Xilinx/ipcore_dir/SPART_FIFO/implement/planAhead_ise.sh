@@ -51,5 +51,5 @@
 rm -rf results
 mkdir results
 cd results
-cp ../../../SPART_FIFO.ngc .
+cp ../../../spart_fifo.ngc .
 planAhead -mode batch -source ../planAhead_ise.tcl

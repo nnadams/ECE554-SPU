@@ -54,24 +54,22 @@
 #   This is the VCS wave form file.
 #
 #--------------------------------------------------------------------------------
-if { ![gui_is_db_opened -db {SPART_FIFO.vpd}] } {
-	gui_open_db -design V1 -file SPART_FIFO.vpd -nosource
+if { ![gui_is_db_opened -db {spart_fifo.vpd}] } {
+	gui_open_db -design V1 -file spart_fifo.vpd -nosource
 }
 gui_set_precision 1ps
 gui_set_time_units 1ps
 
 gui_open_window Wave
-gui_sg_create SPART_FIFO_Group
-gui_list_add_group -id Wave.1 {SPART_FIFO_Group}
+gui_sg_create spart_fifo_Group
+gui_list_add_group -id Wave.1 {spart_fifo_Group}
 
-gui_sg_addsignal -group SPART_FIFO_Group  WRITE -divider
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_CLK
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_RST
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_EN
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/FULL
-gui_sg_addsignal -group SPART_FIFO_Group  READ -divider
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_CLK
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_RST
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_EN
-gui_sg_addsignal -group SPART_FIFO_Group /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/EMPTY
+gui_sg_addsignal -group spart_fifo_Group /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/CLK
+gui_sg_addsignal -group spart_fifo_Group /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/RST
+gui_sg_addsignal -group spart_fifo_Group  WRITE -divider
+gui_sg_addsignal -group spart_fifo_Group /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/WR_EN
+gui_sg_addsignal -group spart_fifo_Group /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/FULL
+gui_sg_addsignal -group spart_fifo_Group  READ -divider
+gui_sg_addsignal -group spart_fifo_Group /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/RD_EN
+gui_sg_addsignal -group spart_fifo_Group /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/EMPTY
 gui_zoom -window Wave.1 -full

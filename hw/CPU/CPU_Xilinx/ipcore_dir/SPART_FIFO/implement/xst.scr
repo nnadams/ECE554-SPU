@@ -1,12 +1,12 @@
 run
 -ifmt VHDL
--ent SPART_FIFO_exdes 
+-ent spart_fifo_exdes 
 -p xc5vlx110t-ff1136-1
 -ifn xst.prj
 -write_timing_constraints No
 -iobuf YES
 -max_fanout 100
--ofn SPART_FIFO_exdes 
+-ofn spart_fifo_exdes 
 -ofmt NGC
 -bus_delimiter ()
 -hierarchy_separator /

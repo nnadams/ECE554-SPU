@@ -51,7 +51,7 @@
 -- PART OF THIS FILE AT ALL TIMES.
 --------------------------------------------------------------------------------
 --
--- Filename: SPART_FIFO_dverif.vhd
+-- Filename: spart_fifo_dverif.vhd
 --
 -- Description:
 --   Used for FIFO read interface stimulus generation and data checking
@@ -66,9 +66,9 @@ USE IEEE.std_logic_arith.all;
 USE IEEE.std_logic_misc.all;
 
 LIBRARY work;
-USE work.SPART_FIFO_pkg.ALL;
+USE work.spart_fifo_pkg.ALL;
 
-ENTITY SPART_FIFO_dverif IS
+ENTITY spart_fifo_dverif IS
   GENERIC(
    C_DIN_WIDTH        : INTEGER := 0;
    C_DOUT_WIDTH       : INTEGER := 0;
@@ -88,12 +88,11 @@ ENTITY SPART_FIFO_dverif IS
 END ENTITY;
 
 
-ARCHITECTURE fg_dv_arch OF SPART_FIFO_dverif IS
+ARCHITECTURE fg_dv_arch OF spart_fifo_dverif IS
  
  CONSTANT C_DATA_WIDTH    : INTEGER := if_then_else(C_DIN_WIDTH > C_DOUT_WIDTH,C_DIN_WIDTH,C_DOUT_WIDTH);
  CONSTANT EXTRA_WIDTH     : INTEGER := if_then_else(C_CH_TYPE = 2,1,0);
  CONSTANT LOOP_COUNT      : INTEGER := divroundup(C_DATA_WIDTH+EXTRA_WIDTH,8);
-  CONSTANT D_WIDTH_DIFF   : INTEGER := log2roundup(C_DIN_WIDTH/C_DOUT_WIDTH);
 
  SIGNAL expected_dout     : STD_LOGIC_VECTOR(C_DOUT_WIDTH-1 DOWNTO 0) := (OTHERS => '0');
  SIGNAL data_chk          : STD_LOGIC := '1';
@@ -101,7 +100,6 @@ ARCHITECTURE fg_dv_arch OF SPART_FIFO_dverif IS
  SIGNAL rd_en_i           : STD_LOGIC := '0';
  SIGNAL pr_r_en           : STD_LOGIC := '0';
  SIGNAL rd_en_d1          : STD_LOGIC := '0';
- SIGNAL rd_d_sel_d1       : STD_LOGIC_VECTOR(D_WIDTH_DIFF-1 DOWNTO 0):= (OTHERS => '0');
 BEGIN
 
  
@@ -125,22 +123,11 @@ BEGIN
         END IF;
       END PROCESS;
    
-     PROCESS (RD_CLK,RESET)
-     BEGIN
-       IF (RESET = '1') THEN
-         rd_d_sel_d1 <= (OTHERS => '0');
-       ELSIF (RD_CLK'event AND RD_CLK='1') THEN
-         IF (rd_en_i = '1' AND EMPTY = '0' AND rd_en_d1 = '1') THEN
-           rd_d_sel_d1 <= rd_d_sel_d1+"1";
-         END IF;
-       END IF;
-     END PROCESS;
-
-     pr_r_en       <= (AND_REDUCE(rd_d_sel_d1)) AND rd_en_i AND NOT EMPTY;
-     expected_dout <= rand_num(C_DIN_WIDTH-C_DOUT_WIDTH*conv_integer(rd_d_sel_d1)-1 DOWNTO C_DIN_WIDTH-C_DOUT_WIDTH*(conv_integer(rd_d_sel_d1)+1));
+      pr_r_en       <= rd_en_i AND NOT EMPTY AND rd_en_d1;
+      expected_dout <= rand_num(C_DOUT_WIDTH-1 DOWNTO 0);
 
     gen_num:FOR N IN LOOP_COUNT-1 DOWNTO 0 GENERATE
-      rd_gen_inst2:SPART_FIFO_rng
+      rd_gen_inst2:spart_fifo_rng
       GENERIC MAP(
       	        WIDTH => 8,
                 SEED  => TB_SEED+N

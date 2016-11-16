@@ -47,22 +47,44 @@ module CPU_Test_FPGA_TopLevel(
 	
 	// spart stuff
 	wire trmt; 
-	wire tbr; 
+	wire full; 
 	wire real_data_mem_wr; 
 	wire [31:0] real_data_read;
 	
 	assign real_data_mem_wr = (data_mem_addr != 32'h10000000 && data_mem_wr) ? 1'b1 : 1'b0;
-	assign real_data_read =   (data_mem_addr == 32'h10000004) ?  {31'd0, tbr} : data_mem_data;
+	assign real_data_read =   (data_mem_addr == 32'h10000004) ?  {31'd0, ~full} : data_mem_data;
+	
+	reg led1; 
+	reg led2; 
+	reg led3; 
 	
 	// LED debug 
 	assign GPIO_LED_0 = 0;//(instruction == 32'h00000010);
-	assign GPIO_LED_1 = 0;//(instruction == 32'h200b0064);
-	assign GPIO_LED_2 = 0;//(instruction == 32'h200c0064);
-	assign GPIO_LED_3 = 0;//(instruction == 32'h200d00c8);
+	assign GPIO_LED_1 = led1;//(instruction == 32'h200b0064);
+	assign GPIO_LED_2 = led2;//(instruction == 32'h200c0064);
+	assign GPIO_LED_3 = led3;//(instruction == 32'h200d00c8);
 	assign GPIO_LED_4 = 0;//(instruction == 32'h43870000);
 	assign GPIO_LED_5 = 0;//(instruction == 32'h47bb0000);
 	assign GPIO_LED_6 = 0;//(instruction == 32'h3360fff8);
 	assign GPIO_LED_7 = HALTED;//(instruction == 32'h00000000);
+
+	always@(posedge clk, posedge rst) begin
+		if(rst) led1 <= 0; 
+		else if(full == 0 && trmt == 1 && data_mem_write_data[7:0] == 8'd48) led1 <= 1; 
+		else led1 <= led1;
+	end 
+	
+	always@(posedge clk, posedge rst) begin
+		if(rst) led2 <= 0; 
+		else if(full == 0 && trmt == 1 && data_mem_write_data[7:0] == 8'd49) led2 <= 1; 
+		else led2 <= led2;
+	end 
+	
+	always@(posedge clk, posedge rst) begin
+		if(rst) led3 <= 0; 
+		else if(full == 0 && trmt == 1 && data_mem_write_data[7:0] == 8'd10) led3 <= 1; 
+		else led3 <= led3;
+	end 
 	
 	proc PROC (
 		.clk(clk),
@@ -123,17 +145,14 @@ module CPU_Test_FPGA_TopLevel(
 */
 	assign trmt = (data_mem_addr == 32'h10000000 && data_mem_wr) ? 1'b1 : 1'b0;
 	
-	spart_tx SPART(
+	spart_tx_fifo spart(
 		.clk(clk),
 		.rst(rst),
-		.trmt(trmt),
+		.write(trmt),
+		//.tx_data(data_mem_write_data[7:0]),
 		.tx_data(data_mem_write_data[7:0]),
-		.load_baud(1'b1),
-		.baud_val(16'h0a2c),
-      //.baud_val(16'h0010),
-		.TBR(tbr), 
-		.TX(txd)
-	);
-	
+		.full(full), 
+		.txd(txd)
+	);	
 	
 endmodule

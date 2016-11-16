@@ -57,12 +57,10 @@
 // (in parentheses) to your own signal names.
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
-SPART_FIFO your_instance_name (
-  .wr_clk(wr_clk), // input wr_clk
-  .wr_rst(wr_rst), // input wr_rst
-  .rd_clk(rd_clk), // input rd_clk
-  .rd_rst(rd_rst), // input rd_rst
-  .din(din), // input [63 : 0] din
+spart_fifo your_instance_name (
+  .clk(clk), // input clk
+  .rst(rst), // input rst
+  .din(din), // input [7 : 0] din
   .wr_en(wr_en), // input wr_en
   .rd_en(rd_en), // input rd_en
   .dout(dout), // output [7 : 0] dout
@@ -71,8 +69,8 @@ SPART_FIFO your_instance_name (
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 
-// You must compile the wrapper file SPART_FIFO.v when simulating
-// the core, SPART_FIFO. When compiling the wrapper file, be sure to
+// You must compile the wrapper file spart_fifo.v when simulating
+// the core, spart_fifo. When compiling the wrapper file, be sure to
 // reference the XilinxCoreLib Verilog simulation library. For detailed
 // instructions, please refer to the "CORE Generator Help".
 

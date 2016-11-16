@@ -50,5 +50,5 @@ rem ----------------------------------------------------------------------------
 rmdir /S /Q results
 mkdir results
 cd results
-copy ..\..\..\SPART_FIFO.ngc .
+copy ..\..\..\spart_fifo.ngc .
 planAhead -mode batch -source ..\planAhead_ise.tcl

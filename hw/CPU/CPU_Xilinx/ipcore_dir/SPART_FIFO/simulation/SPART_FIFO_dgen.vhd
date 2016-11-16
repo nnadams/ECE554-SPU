@@ -51,7 +51,7 @@
 -- PART OF THIS FILE AT ALL TIMES.
 --------------------------------------------------------------------------------
 --
--- Filename: SPART_FIFO_dgen.vhd
+-- Filename: spart_fifo_dgen.vhd
 --
 -- Description:
 --   Used for write interface stimulus generation
@@ -66,9 +66,9 @@ USE IEEE.std_logic_arith.all;
 USE IEEE.std_logic_misc.all;
 
 LIBRARY work;
-USE work.SPART_FIFO_pkg.ALL;
+USE work.spart_fifo_pkg.ALL;
 
-ENTITY SPART_FIFO_dgen IS
+ENTITY spart_fifo_dgen IS
   GENERIC (
 	    C_DIN_WIDTH   : INTEGER := 32;
 	    C_DOUT_WIDTH  : INTEGER := 32;
@@ -86,7 +86,7 @@ ENTITY SPART_FIFO_dgen IS
 END ENTITY;
 
 
-ARCHITECTURE fg_dg_arch OF SPART_FIFO_dgen IS
+ARCHITECTURE fg_dg_arch OF spart_fifo_dgen IS
  
   CONSTANT C_DATA_WIDTH : INTEGER := if_then_else(C_DIN_WIDTH > C_DOUT_WIDTH,C_DIN_WIDTH,C_DOUT_WIDTH);
   CONSTANT LOOP_COUNT   : INTEGER := divroundup(C_DATA_WIDTH,8);
@@ -97,13 +97,13 @@ ARCHITECTURE fg_dg_arch OF SPART_FIFO_dgen IS
  BEGIN
   
    WR_EN   <= PRC_WR_EN ;
-   WR_DATA <= wr_data_i AFTER 100 ns;
+   WR_DATA <= wr_data_i AFTER 50 ns;
 
   ----------------------------------------------
   -- Generation of DATA
   ----------------------------------------------
   gen_stim:FOR N IN LOOP_COUNT-1 DOWNTO 0 GENERATE
-    rd_gen_inst1:SPART_FIFO_rng
+    rd_gen_inst1:spart_fifo_rng
     GENERIC MAP(
     	       WIDTH => 8,
                SEED  => TB_SEED+N

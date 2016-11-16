@@ -47,22 +47,22 @@
 mkdir work
 
 echo "Compiling Core Verilog UNISIM/Behavioral model"
-ncvlog -work work ../../../SPART_FIFO.v
-ncvhdl -v93 -work work ../../example_design/SPART_FIFO_exdes.vhd
+ncvlog -work work ../../../spart_fifo.v
+ncvhdl -v93 -work work ../../example_design/spart_fifo_exdes.vhd
 
 echo "Compiling Test Bench Files"
-ncvhdl -v93 -work work ../SPART_FIFO_pkg.vhd
-ncvhdl -v93 -work work ../SPART_FIFO_rng.vhd 
-ncvhdl -v93 -work work ../SPART_FIFO_dgen.vhd
-ncvhdl -v93 -work work ../SPART_FIFO_dverif.vhd
-ncvhdl -v93 -work work ../SPART_FIFO_pctrl.vhd 
-ncvhdl -v93 -work work ../SPART_FIFO_synth.vhd 
-ncvhdl -v93 -work work ../SPART_FIFO_tb.vhd
+ncvhdl -v93 -work work ../spart_fifo_pkg.vhd
+ncvhdl -v93 -work work ../spart_fifo_rng.vhd 
+ncvhdl -v93 -work work ../spart_fifo_dgen.vhd
+ncvhdl -v93 -work work ../spart_fifo_dverif.vhd
+ncvhdl -v93 -work work ../spart_fifo_pctrl.vhd 
+ncvhdl -v93 -work work ../spart_fifo_synth.vhd 
+ncvhdl -v93 -work work ../spart_fifo_tb.vhd
 
 echo "Elaborating Design"
 ncvlog -work work $XILINX/verilog/src/glbl.v
-ncelab -access +rwc glbl work.SPART_FIFO_tb
+ncelab -access +rwc glbl work.spart_fifo_tb
 
 echo "Simulating Design"
-ncsim -gui -input @"simvision -input wave_ncsim.sv" work.SPART_FIFO_tb
+ncsim -gui -input @"simvision -input wave_ncsim.sv" work.spart_fifo_tb
 

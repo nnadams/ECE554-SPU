@@ -48,14 +48,14 @@ echo "Compiling Core Verilog UNISIM/Behavioral model"
 vlogcomp -work work ..\\..\\implement\\results\\routed.v
 
 echo "Compiling Test Bench Files"
-vhpcomp -work work ..\\SPART_FIFO_pkg.vhd
-vhpcomp -work work ..\\SPART_FIFO_rng.vhd 
-vhpcomp -work work ..\\SPART_FIFO_dgen.vhd
-vhpcomp -work work ..\\SPART_FIFO_dverif.vhd
-vhpcomp -work work ..\\SPART_FIFO_pctrl.vhd 
-vhpcomp -work work ..\\SPART_FIFO_synth.vhd 
-vhpcomp -work work ..\\SPART_FIFO_tb.vhd
+vhpcomp -work work ..\\spart_fifo_pkg.vhd
+vhpcomp -work work ..\\spart_fifo_rng.vhd 
+vhpcomp -work work ..\\spart_fifo_dgen.vhd
+vhpcomp -work work ..\\spart_fifo_dverif.vhd
+vhpcomp -work work ..\\spart_fifo_pctrl.vhd 
+vhpcomp -work work ..\\spart_fifo_synth.vhd 
+vhpcomp -work work ..\\spart_fifo_tb.vhd
 
-fuse work.SPART_FIFO_tb work.glbl -L simprims_ver -o SPART_FIFO_tb.exe
+fuse work.spart_fifo_tb work.glbl -L simprims_ver -o spart_fifo_tb.exe
 
-.\\SPART_FIFO_tb.exe -sdfmax /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst=..\\..\\implement\\results\\routed.sdf -gui -tclbatch .\\wave_isim.tcl
+.\\spart_fifo_tb.exe -sdfmax /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst=..\\..\\implement\\results\\routed.sdf -gui -tclbatch .\\wave_isim.tcl

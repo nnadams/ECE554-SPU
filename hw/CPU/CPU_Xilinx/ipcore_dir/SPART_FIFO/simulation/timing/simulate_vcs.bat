@@ -50,16 +50,16 @@ echo "Compiling Core Verilog UNISIM/Behavioral model"
 vlogan +v2k  ../../implement/results/routed.v
 
 echo "Compiling Test Bench Files"
-vhdlan   ../SPART_FIFO_pkg.vhd
-vhdlan   ../SPART_FIFO_rng.vhd
-vhdlan   ../SPART_FIFO_dgen.vhd
-vhdlan   ../SPART_FIFO_dverif.vhd
-vhdlan   ../SPART_FIFO_pctrl.vhd
-vhdlan   ../SPART_FIFO_synth.vhd
-vhdlan   ../SPART_FIFO_tb.vhd
+vhdlan   ../spart_fifo_pkg.vhd
+vhdlan   ../spart_fifo_rng.vhd
+vhdlan   ../spart_fifo_dgen.vhd
+vhdlan   ../spart_fifo_dverif.vhd
+vhdlan   ../spart_fifo_pctrl.vhd
+vhdlan   ../spart_fifo_synth.vhd
+vhdlan   ../spart_fifo_tb.vhd
 
 echo "Elaborating Design"
-vcs -time_res 1ps +neg_tchk -sdf max:/SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst:../../implement/results/routed.sdf +vcs+lic+wait -debug SPART_FIFO_tb glbl
+vcs -time_res 1ps +neg_tchk -sdf max:/spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst:../../implement/results/routed.sdf +vcs+lic+wait -debug spart_fifo_tb glbl
 
 echo "Simulating Design"
 ./simv -ucli -i ucli_commands.key

@@ -56,14 +56,12 @@
 #--------------------------------------------------------------------------------
 wcfg new
 isim set radix hex
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_CLK
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_RST
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/WR_EN
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/FULL
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_CLK
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_RST
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/RD_EN
-wave add /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst/EMPTY
+wave add /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/CLK
+wave add /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/RST
+wave add /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/WR_EN
+wave add /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/FULL
+wave add /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/RD_EN
+wave add /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst/EMPTY
 run all
 quit
 

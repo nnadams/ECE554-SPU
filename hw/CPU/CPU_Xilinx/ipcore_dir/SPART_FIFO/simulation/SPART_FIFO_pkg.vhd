@@ -51,7 +51,7 @@
 -- PART OF THIS FILE AT ALL TIMES.
 --------------------------------------------------------------------------------
 --
--- Filename: SPART_FIFO_pkg.vhd
+-- Filename: spart_fifo_pkg.vhd
 --
 -- Description:
 --   This is the demo testbench package file for FIFO Generator core.
@@ -64,7 +64,7 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE ieee.std_logic_arith.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-PACKAGE SPART_FIFO_pkg IS
+PACKAGE spart_fifo_pkg IS
 
  FUNCTION divroundup (
     data_value : INTEGER;
@@ -98,7 +98,7 @@ PACKAGE SPART_FIFO_pkg IS
    size : integer )
  RETURN std_logic_vector;
  ------------------------
- COMPONENT SPART_FIFO_rng IS
+ COMPONENT spart_fifo_rng IS
     GENERIC (WIDTH : integer :=  8;
              SEED  : integer := 3);
     PORT (
@@ -110,7 +110,7 @@ PACKAGE SPART_FIFO_pkg IS
  END COMPONENT; 
  ------------------------ 
  
- COMPONENT SPART_FIFO_dgen IS
+ COMPONENT spart_fifo_dgen IS
   GENERIC (
 	    C_DIN_WIDTH   : INTEGER := 32;
 	    C_DOUT_WIDTH  : INTEGER := 32;
@@ -128,7 +128,7 @@ PACKAGE SPART_FIFO_pkg IS
  END COMPONENT;
  ------------------------ 
 
- COMPONENT SPART_FIFO_dverif IS
+ COMPONENT spart_fifo_dverif IS
   GENERIC(
    C_DIN_WIDTH        : INTEGER := 0;
    C_DOUT_WIDTH       : INTEGER := 0;
@@ -148,7 +148,7 @@ PACKAGE SPART_FIFO_pkg IS
  END COMPONENT; 
  ------------------------ 
 
- COMPONENT SPART_FIFO_pctrl IS
+ COMPONENT spart_fifo_pctrl IS
    GENERIC(
      AXI_CHANNEL         : STRING  := "NONE";
      C_APPLICATION_TYPE  : INTEGER := 0;
@@ -181,30 +181,27 @@ PACKAGE SPART_FIFO_pkg IS
       );
  END COMPONENT;
  ------------------------
- COMPONENT SPART_FIFO_synth IS
+ COMPONENT spart_fifo_synth IS
   GENERIC(
   	   FREEZEON_ERROR : INTEGER := 0;
 	   TB_STOP_CNT    : INTEGER := 0;
 	   TB_SEED        : INTEGER := 1
 	 );
   PORT(
-	WR_CLK     :  IN  STD_LOGIC;
-	RD_CLK     :  IN  STD_LOGIC;
+	CLK        :  IN  STD_LOGIC;
         RESET      :  IN  STD_LOGIC;
         SIM_DONE   :  OUT STD_LOGIC;
         STATUS     :  OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
       );
  END COMPONENT;
  ------------------------
- COMPONENT SPART_FIFO_exdes IS
+ COMPONENT spart_fifo_exdes IS
    PORT (
-           WR_CLK                    : IN  std_logic;
-     	   RD_CLK                    : IN  std_logic;
-           WR_RST                    : IN  std_logic;
-           RD_RST                    : IN  std_logic;
+           CLK                       : IN  std_logic;
+           RST                       : IN  std_logic;
            WR_EN 		     : IN  std_logic;
            RD_EN                     : IN  std_logic;
-           DIN                       : IN  std_logic_vector(64-1 DOWNTO 0);
+           DIN                       : IN  std_logic_vector(8-1 DOWNTO 0);
            DOUT                      : OUT std_logic_vector(8-1 DOWNTO 0);
            FULL                      : OUT std_logic;
            EMPTY                     : OUT std_logic);
@@ -213,11 +210,11 @@ PACKAGE SPART_FIFO_pkg IS
  ------------------------ 
 
 
-END SPART_FIFO_pkg;
+END spart_fifo_pkg;
 
 
 
-PACKAGE BODY SPART_FIFO_pkg IS
+PACKAGE BODY spart_fifo_pkg IS
 
  FUNCTION divroundup (
     data_value : INTEGER;
@@ -346,4 +343,4 @@ PACKAGE BODY SPART_FIFO_pkg IS
     RETURN result;
   END hexstr_to_std_logic_vec;
 
-END SPART_FIFO_pkg;
+END spart_fifo_pkg;

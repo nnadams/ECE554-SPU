@@ -51,7 +51,7 @@
 -- PART OF THIS FILE AT ALL TIMES.
 --------------------------------------------------------------------------------
 --
--- Filename: SPART_FIFO_exdes.vhd
+-- Filename: spart_fifo_exdes.vhd
 --
 -- Description:
 --   This is the FIFO core wrapper with BUFG instances for clock connections.
@@ -71,39 +71,34 @@ use unisim.vcomponents.all;
 --------------------------------------------------------------------------------
 -- Entity Declaration
 --------------------------------------------------------------------------------
-entity SPART_FIFO_exdes is
+entity spart_fifo_exdes is
    PORT (
-           WR_CLK                    : IN  std_logic;
-     	   RD_CLK                    : IN  std_logic;
-           WR_RST                    : IN  std_logic;
-           RD_RST                    : IN  std_logic;
+           CLK                       : IN  std_logic;
+           RST                       : IN  std_logic;
            WR_EN 		     : IN  std_logic;
            RD_EN                     : IN  std_logic;
-           DIN                       : IN  std_logic_vector(64-1 DOWNTO 0);
+           DIN                       : IN  std_logic_vector(8-1 DOWNTO 0);
            DOUT                      : OUT std_logic_vector(8-1 DOWNTO 0);
            FULL                      : OUT std_logic;
            EMPTY                     : OUT std_logic);
 
-end SPART_FIFO_exdes;
+end spart_fifo_exdes;
 
 
 
-architecture xilinx of SPART_FIFO_exdes is
+architecture xilinx of spart_fifo_exdes is
 
-  signal wr_clk_i : std_logic;
-  signal rd_clk_i : std_logic;
-
+  signal clk_i    : std_logic;
 
 
-  component SPART_FIFO is
+
+  component spart_fifo is
    PORT (
-           WR_CLK                    : IN  std_logic;
-     	   RD_CLK                    : IN  std_logic;
-           WR_RST                    : IN  std_logic;
-           RD_RST                    : IN  std_logic;
+           CLK                       : IN  std_logic;
+           RST                       : IN  std_logic;
            WR_EN 		     : IN  std_logic;
            RD_EN                     : IN  std_logic;
-           DIN                       : IN  std_logic_vector(64-1 DOWNTO 0);
+           DIN                       : IN  std_logic_vector(8-1 DOWNTO 0);
            DOUT                      : OUT std_logic_vector(8-1 DOWNTO 0);
            FULL                      : OUT std_logic;
            EMPTY                     : OUT std_logic);
@@ -112,26 +107,18 @@ architecture xilinx of SPART_FIFO_exdes is
 
 
 begin
-
-  wr_clk_buf: bufg
+  clk_buf: bufg
     PORT map(
-      i => WR_CLK,
-      o => wr_clk_i
-      );
-
-  rd_clk_buf: bufg
-    PORT map(
-      i => RD_CLK,
-      o => rd_clk_i
+      i => CLK,
+      o => clk_i
       );
 
 
-  exdes_inst : SPART_FIFO 
+
+  exdes_inst : spart_fifo 
     PORT MAP (
-           WR_CLK                    => wr_clk_i,
-           RD_CLK                    => rd_clk_i,
-           WR_RST                    => wr_rst,
-           RD_RST                    => rd_rst,
+           CLK                       => clk_i,
+           RST                       => rst,
            WR_EN 		     => wr_en,
            RD_EN                     => rd_en,
            DIN                       => din,

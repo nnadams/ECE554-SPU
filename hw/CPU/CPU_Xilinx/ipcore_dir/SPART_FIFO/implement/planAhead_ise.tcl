@@ -46,22 +46,22 @@
 
 
 set device xc5vlx110tff1136-1
-set projName SPART_FIFO
-set design SPART_FIFO
+set projName spart_fifo
+set design spart_fifo
 set projDir [file dirname [info script]]
 create_project $projName $projDir/results/$projName -part $device -force
 set_property design_mode RTL [current_fileset -srcset]
-set top_module SPART_FIFO_exdes
-add_files -norecurse {../../example_design/SPART_FIFO_exdes.vhd}
-add_files -norecurse {./SPART_FIFO.ngc}
-import_files -fileset [get_filesets constrs_1] -force -norecurse {../../example_design/SPART_FIFO_exdes.xdc}
-set_property top SPART_FIFO_exdes [get_property srcset [current_run]]
+set top_module spart_fifo_exdes
+add_files -norecurse {../../example_design/spart_fifo_exdes.vhd}
+add_files -norecurse {./spart_fifo.ngc}
+import_files -fileset [get_filesets constrs_1] -force -norecurse {../../example_design/spart_fifo_exdes.xdc}
+set_property top spart_fifo_exdes [get_property srcset [current_run]]
 synth_design
 opt_design 
 place_design 
 route_design 
-write_sdf -rename_top_module SPART_FIFO_exdes -file routed.sdf 
-write_verilog -nolib -mode timesim -sdf_anno false -rename_top_module SPART_FIFO_exdes routed.v
+write_sdf -rename_top_module spart_fifo_exdes -file routed.sdf 
+write_verilog -nolib -mode timesim -sdf_anno false -rename_top_module spart_fifo_exdes routed.v
 report_timing -nworst 30 -path_type full -file routed.twr
 report_drc -file report.drc
 write_bitstream -bitgen_options {-g UnconstrainedPins:Allow}

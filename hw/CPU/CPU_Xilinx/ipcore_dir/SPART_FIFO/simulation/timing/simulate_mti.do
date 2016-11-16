@@ -52,15 +52,15 @@ echo "Compiling Core Verilog UNISIM/Behavioral model"
 vlog -work work ../../implement/results/routed.v
 
 echo "Compiling Test Bench Files"
-vcom -work work ../SPART_FIFO_pkg.vhd  
-vcom -work work ../SPART_FIFO_rng.vhd 
-vcom -work work ../SPART_FIFO_dgen.vhd
-vcom -work work ../SPART_FIFO_dverif.vhd
-vcom -work work ../SPART_FIFO_pctrl.vhd 
-vcom -work work ../SPART_FIFO_synth.vhd 
-vcom -work work ../SPART_FIFO_tb.vhd
+vcom -work work ../spart_fifo_pkg.vhd  
+vcom -work work ../spart_fifo_rng.vhd 
+vcom -work work ../spart_fifo_dgen.vhd
+vcom -work work ../spart_fifo_dverif.vhd
+vcom -work work ../spart_fifo_pctrl.vhd 
+vcom -work work ../spart_fifo_synth.vhd 
+vcom -work work ../spart_fifo_tb.vhd
 
-vsim  -t ps -voptargs="+acc" +transport_int_delays -L simprims_ver glbl -sdfmax /SPART_FIFO_tb/SPART_FIFO_synth_inst/SPART_FIFO_inst=../../implement/results/routed.sdf work.SPART_FIFO_tb
+vsim  -t ps -voptargs="+acc" +transport_int_delays -L simprims_ver glbl -sdfmax /spart_fifo_tb/spart_fifo_synth_inst/spart_fifo_inst=../../implement/results/routed.sdf work.spart_fifo_tb
 
 add log -r /*
 do wave_mti.do

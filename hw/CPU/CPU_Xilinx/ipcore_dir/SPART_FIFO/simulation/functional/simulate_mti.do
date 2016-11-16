@@ -49,20 +49,20 @@ vlib work
 vmap work work 
 
 echo "Compiling Core Verilog UNISIM/Behavioral model"
-vlog -work work ../../../SPART_FIFO.v
-vcom -work work ../../example_design/SPART_FIFO_exdes.vhd
+vlog -work work ../../../spart_fifo.v
+vcom -work work ../../example_design/spart_fifo_exdes.vhd
 
 echo "Compiling Test Bench Files"
-vcom -work work ../SPART_FIFO_pkg.vhd
-vcom -work work ../SPART_FIFO_rng.vhd 
-vcom -work work ../SPART_FIFO_dgen.vhd
-vcom -work work ../SPART_FIFO_dverif.vhd
-vcom -work work ../SPART_FIFO_pctrl.vhd 
-vcom -work work ../SPART_FIFO_synth.vhd 
-vcom -work work ../SPART_FIFO_tb.vhd
+vcom -work work ../spart_fifo_pkg.vhd
+vcom -work work ../spart_fifo_rng.vhd 
+vcom -work work ../spart_fifo_dgen.vhd
+vcom -work work ../spart_fifo_dverif.vhd
+vcom -work work ../spart_fifo_pctrl.vhd 
+vcom -work work ../spart_fifo_synth.vhd 
+vcom -work work ../spart_fifo_tb.vhd
 
 vlog -work work $env(XILINX)/verilog/src/glbl.v
-vsim  -t ps -voptargs="+acc" -L XilinxCoreLib_ver -L unisims_ver glbl work.SPART_FIFO_tb
+vsim  -t ps -voptargs="+acc" -L XilinxCoreLib_ver -L unisims_ver glbl work.spart_fifo_tb
 
 add log -r /*
 do wave_mti.do

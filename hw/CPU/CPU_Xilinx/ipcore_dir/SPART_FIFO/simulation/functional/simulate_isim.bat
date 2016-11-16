@@ -45,19 +45,19 @@
 :: PART OF THIS FILE AT ALL TIMES.
 
 echo "Compiling Core Verilog UNISIM/Behavioral model"
-vlogcomp -work work ..\\..\\..\\SPART_FIFO.v
-vhpcomp -work work ..\\..\\example_design\\SPART_FIFO_exdes.vhd
+vlogcomp -work work ..\\..\\..\\spart_fifo.v
+vhpcomp -work work ..\\..\\example_design\\spart_fifo_exdes.vhd
 
 echo "Compiling Test Bench Files"
-vhpcomp -work work ..\\SPART_FIFO_pkg.vhd
-vhpcomp -work work ..\\SPART_FIFO_rng.vhd 
-vhpcomp -work work ..\\SPART_FIFO_dgen.vhd
-vhpcomp -work work ..\\SPART_FIFO_dverif.vhd
-vhpcomp -work work ..\\SPART_FIFO_pctrl.vhd 
-vhpcomp -work work ..\\SPART_FIFO_synth.vhd 
-vhpcomp -work work ..\\SPART_FIFO_tb.vhd
+vhpcomp -work work ..\\spart_fifo_pkg.vhd
+vhpcomp -work work ..\\spart_fifo_rng.vhd 
+vhpcomp -work work ..\\spart_fifo_dgen.vhd
+vhpcomp -work work ..\\spart_fifo_dverif.vhd
+vhpcomp -work work ..\\spart_fifo_pctrl.vhd 
+vhpcomp -work work ..\\spart_fifo_synth.vhd 
+vhpcomp -work work ..\\spart_fifo_tb.vhd
 
 vlogcomp -work work $XILINX\\verilog\\src\\glbl.v
-fuse work.SPART_FIFO_tb work.glbl -L xilinxcorelib_ver -L unisims_ver -o SPART_FIFO_tb.exe
+fuse work.spart_fifo_tb work.glbl -L xilinxcorelib_ver -L unisims_ver -o spart_fifo_tb.exe
 
-.\\SPART_FIFO_tb.exe -gui -tclbatch .\\wave_isim.tcl
+.\\spart_fifo_tb.exe -gui -tclbatch .\\wave_isim.tcl
