@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(description="A very small MIPS assembler.")
 parser.add_argument('filename')
 parser.add_argument('-t', '--text_base', default=0,
     help="Base location of code", metavar="addr")
-parser.add_argument('-d', '--data_base', default=0x4000,
+parser.add_argument('-d', '--data_base', default=0x0000,
     help="Base location of data", metavar="addr")
 parser.add_argument('-o', '--output', default=argparse.SUPPRESS,
   help="Output file", metavar="filename")
@@ -27,12 +27,10 @@ parser.add_argument('-v', '--verbose', default=False, action='store_true',
 parser.add_argument('-s', '--simulator', default='modelsim',
   help="")
 
-
-
 def zero_fill(num_bytes, out, simulator):
   if simulator == 'modelsim':
     for i in range(0,num_bytes):
-      out.write("00,\n")
+      out.write("00\n")
   elif simulator == 'xylinx':
     for i in range(0,num_bytes/4):
         out.write("00000000,\n")
@@ -58,12 +56,15 @@ if 'output' in args:
 
     bytes = mp.Bytes(endian=endianness)
     if args['simulator'] == 'modelsim':
-      out.write("%02x,\n%02x,\n%02x,\n%02x,\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
+      out.write("@0\n")
+      out.write("%02x\n%02x\n%02x\n%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
       zero_fill(start_addr/4, out, args['simulator'])
       for b in bytes:
-        out.write("%02x,\n"%(b,))
+        out.write("%02x\n"%(b,))
 
     elif args['simulator'] == 'xylinx':
+      out.write("memory_initialization_radix=16;\n")
+      out.write("memory_initialization_vector=\n")
       out.write("%02x%02x%02x%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
       zero_fill(start_addr/4, out, args['simulator'])
       for j in range(len(bytes)/4):
@@ -77,12 +78,15 @@ if 'data_out' in args:
   with open(args['data_out'], 'w') as out:
     print "Writing data to '%s'..."%(args['data_out']),
     if args['simulator'] == 'modelsim':
+      out.write("@0\n")
       for s in mp.data:
         for b in list(bytearray(s)):
-          out.write("%02x,\n"%b)
+          out.write("%02x\n"%b)
 
     elif args['simulator'] == 'xylinx':
       c = 1
+      out.write("memory_initialization_radix=16;\n")
+      out.write("memory_initialization_vector=\n")
       for s in mp.data:
         for b in list(bytearray(s)):
           if c%4 == 0:
@@ -90,6 +94,8 @@ if 'data_out' in args:
           else:
             out.write("%02x"%b)
           c+=1
+      if c%4 != 0:
+        out.write("00"*(c%4) + "00,\n")
     else:
       print("Invalid simulator %s" % args['simulator'])
   print "done!"

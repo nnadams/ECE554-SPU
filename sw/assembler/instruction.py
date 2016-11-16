@@ -84,8 +84,6 @@ r_type = {
   "break":   (0x0,0b001101, []),
   "div":     (0x0,0b011010, ["rd", "rs", "rt"]),
   "divu":    (0x0,0b011011, ["rs", "rt"]),
-  "jalr":    (0x0,0b001001, ["rd", "rs"]),
-  "jr":      (0x0,0b001000, ["rs"]),
   "mfhi":    (0x0,0b010000, ["rd"]),
   "mflo":    (0x0,0b010010, ["rd"]),
   "mthi":    (0x0,0b010001, ["rs"]),
@@ -128,6 +126,8 @@ i_type = {
   "beqz":  (0b001100,0b00000,["rs"]),
   "bnez":  (0b001101,0b00000,["rs"]),
   "bgez":  (0b001111,0b00001,["rs"]),
+  "jalr":  (0b000111, ["rd", "rs"]), #change the opcode
+  "jr":    (0b000101, ["rs"]),
   
   # Existing instructions
   "addiu": (0b001001,["rt", "rs"]),
@@ -177,6 +177,10 @@ class Instruction:
       imm=None, label=None):
 
     name = name.lower()
+    if imm is not None: 
+      print(imm)
+    if label is not None: 
+      print(label)
     if name not in r_type.keys() and \
        name not in i_type.keys() and \
        name not in s_type.keys() and \
@@ -258,9 +262,10 @@ class Instruction:
       if len(i_type[self.name]) > 2:
         # this is a b[gl][et]z instruction. Mux this in.
         b |= (i_type[self.name][1] << 16)  # rt adjustment
-
+      #print(str(self.name) + "   " + str(self.label))
       if self.label is not None:
         # horribly hacky. are we a branch?
+
         if "b" == self.name[0]:
           z =  self.program.Label(self.label) - self.position - 1
         else:
