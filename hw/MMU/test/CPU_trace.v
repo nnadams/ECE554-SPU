@@ -7,14 +7,13 @@ module cpu_trace(
 	input [31:0] data4,
 	input [31:0] data5, 
 	input [31:0] data6,
-	input data_mem_wr,
 	input CPU_HALTED,
 	output tx, 
 	output HALT_CPU
 );
 
-   	reg [2:0] state;
-	reg [2:0] next_state; 
+   	reg [3:0] state;
+	reg [3:0] next_state; 
 	reg _HALT_CPU; 
 	
 	wire [63:0] fifo_data; 
@@ -95,7 +94,7 @@ module cpu_trace(
 			
 			4'b0010: begin // write data2 to FIFO
 				fifo_wr = 1;
-				next_state = 4'b0011; // store state
+				next_state = 4'b0111; // store state
 			end 
 
 			// Cpu runs for this cycle. Halt next and store data1 in fifo. 
@@ -245,7 +244,6 @@ module cpu_trace(
 			end
 			4'b0111: begin 
 				print_new_line = 1;
-				d2 = {3'b000,data_mem_wr};
 			end 
 			default: begin 
 				d7 = 0;

@@ -61,7 +61,7 @@ module mmu_hier_tb(
     output [7:0]   spart_tx_data*/
 mmu_hier iDUT( 
     .clk(clk),
-    .rst_n(rst),
+    .rst(rst),
     .PC(PC),
     .cpu_wdata(cpu_wdata),
     .cpu_addr(cpu_addr),
@@ -98,7 +98,7 @@ mmu_hier iDUT(
 cpu_trace trace(
     .clk(clk), 
     .rst(rst),
-    .data1((PC - 32'h4)),
+    .data1(PC),
     .data2(instruction),
     .data3(PC),
     .data4(PC),
