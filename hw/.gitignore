@@ -60,3 +60,5 @@ CPU_Xilinx/xlnx_auto_0_xdb/
 CPU_Xilinx/xst/
 CPU_Xilinx/_ngo/
 CPU_Xilinx/_xmsgs/
+integration/CPU_MMU/CPU_MMU/iseconfig/CPU_MMU.projectmgr
+integration/CPU_MMU/CPU_MMU/_xmsgs/pn_parser.xmsgs
