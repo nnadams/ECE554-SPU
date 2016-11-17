@@ -1,9 +1,0 @@
-
-	main :
-b	_T00 = 2
-	b = _T00
-c	_T01 = 3
-	c = _T01
-a	_T02 = b + c
-	a = _T02
-	RETURN : END OF SUB ROUTINE

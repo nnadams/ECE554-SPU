@@ -9,7 +9,7 @@ from register import Register, UnusedRegister
 
 "TODO:"
 class MIPSProgram:
-  def __init__(self, lines=None, text_base=0x30, data_base=0x4000):
+  def __init__(self, lines=None, text_base=0x30, data_base=0x0000):
     self.text_base = text_base if isinstance(text_base, int) else eval(text_base)
     self.data_base = data_base if isinstance(data_base, int) else eval(data_base)
     self.instructions = []
