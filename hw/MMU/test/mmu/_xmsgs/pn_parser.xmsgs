@@ -8,5 +8,35 @@
 <!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/Bin2Ascii.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/CPU_trace.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/mmu/mmu_hier_tb.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/mmu/pc_inc.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/spart/verilog/baud_rate_generator.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/spart/verilog/bit_counter.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/spart/verilog/shift_register.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/spart/verilog/spart_tx.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/test/spart/verilog/transmit_control.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/MMU/verilog/mmu_hier.v&quot; into library work</arg>
+</msg>
+
 </messages>
 

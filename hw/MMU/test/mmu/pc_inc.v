@@ -27,7 +27,7 @@ module pc_inc(
     reg [31:0] pc_reg;
     assign PC = pc_reg;
     always@(posedge clk) begin
-        if(rst) pc_reg <= 32'h0;
+        if(rst) pc_reg <= 32'h00800000;
         else if(HALT_CPU) pc_reg <= pc_reg;
         else pc_reg <= pc_reg + 32'h4;
     end
