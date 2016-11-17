@@ -122,10 +122,14 @@ i_type = {
   "st":    (0b010000,["rt", "rs"]),
   "ld":    (0b010001,["rt", "rs"]),
   "stu":   (0b010011,["rt", "rs"]),
-  "bltz":  (0b001110,0b00000,["rs"]),
-  "beqz":  (0b001100,0b00000,["rs"]),
-  "bnez":  (0b001101,0b00000,["rs"]),
-  "bgez":  (0b001111,0b00001,["rs"]),
+  "bltz":  (0b001110,["rs"]),
+  "beqz":  (0b001100,["rs"]),
+  "bnez":  (0b001101,["rs"]),
+  "bgez":  (0b001111,["rs"]),
+  #   "bltz":  (0b001110,0b00000,["rs"]),
+  # "beqz":  (0b001100,0b00000,["rs"]),
+  # "bnez":  (0b001101,0b00000,["rs"]),
+  # "bgez":  (0b001111,0b00001,["rs"]),
   "jalr":  (0b000111, ["rd", "rs"]), #change the opcode
   "jr":    (0b000101, ["rs"]),
   
@@ -155,10 +159,10 @@ i_type = {
 }
 
 j_type = {
-"j":       (0b000100,[]),
-"jal":     (0b000110,[]),
-"jr":      (0b000101,[]),
-"jalr":    (0b000111,[]),
+  "j":       (0b000100,[]),
+  "jal":     (0b000110,[]),
+  "jr":      (0b000101,[]),
+  "jalr":    (0b000111,[]),
 }
 
 supported_pseudoinstructions = ['li', 'nop', 'halt']
@@ -272,11 +276,12 @@ class Instruction:
           z =  self.program.Label(self.label)
         b |= (z & 0xFFFF)         # label
       else:
-        # horribly hacky. are we a branch?
-        if "b" == self.name[0]:
-          b |= (self.imm>>2 & 0xFFFF) # imm
-        else:
-          b |= (self.imm & 0xFFFF)   # imm
+        # horribly hacky. are we a branch?\
+        # and self.name not in ["bltz","beqz","bnez","bgez"]
+        # if "b" == self.name[0] self.name not in ["bltz","beqz","bnez","bgez"]:
+        #   b |= (self.imm>>2 & 0xFFFF) # imm
+        # else:
+        b |= (self.imm & 0xFFFF)   # imm
 
       return b
 

@@ -3,3 +3,143 @@ str:
 .asciiz " : is answer \n"
 .text
 .globl main
+
+	main :
+	sw $ret 0($sp)
+	li $t0 12
+	sw $t0 -08($sp)
+	lw $t0 -08($sp)
+	sw $t0 -04($sp)
+	li $t0 12
+	sub $t9 $sp $t0
+	li $t0 4
+	sub $t8 $sp $t0
+	li $t0 0
+	sw $t0 -12($sp)
+	lw $t0 0($t9)
+	lw $t1 0($t8)
+	slt $t2 $t0 $t1
+	sw $t2 -16($sp)
+	li $t0 5
+	sw $t0 -20($sp)
+	lw $t0 -04($sp)
+	lw $t1 -20($sp)
+	sub $t2 $t1 $t0
+	slt $t3 $t2 0
+	li $t4 1
+	sub $t4 $t4 $t3
+	sw $t4 -24($sp)
+	lw $t0 -16($sp)
+	lw $t1 -24($sp)
+	slt $t2 $t0 $0
+	slt $t3 $0 $t0
+	add $t4 $t2 $t3
+	slt $t2 $t1 $0
+	slt $t3 $0 $t1
+	add $t5 $t2 $t3
+	and $t0 $t5 $t4
+	sw $t0 -28($sp)
+	lw $t0 -28($sp)
+	beq $t0 $0 _L07
+	li $t0 1
+	sw $t0 -32($sp)
+
+	lw $t0 -32($sp)
+	li $r1 1
+	move $a0 $t0
+	syscall
+	j _L08
+	_L07 :
+	li $t0 36
+	sub $t9 $sp $t0
+	li $t0 4
+	sub $t8 $sp $t0
+	li $t0 5
+	sw $t0 -36($sp)
+	lw $t0 0($t9)
+	lw $t1 0($t8)
+	slt $t2 $t0 $t1
+	sw $t2 -40($sp)
+	li $t0 10
+	sw $t0 -44($sp)
+	lw $t0 -04($sp)
+	lw $t1 -44($sp)
+	sub $t2 $t1 $t0
+	slt $t3 $t2 0
+	li $t4 1
+	sub $t4 $t4 $t3
+	sw $t4 -48($sp)
+	lw $t0 -40($sp)
+	lw $t1 -48($sp)
+	slt $t2 $t0 $0
+	slt $t3 $0 $t0
+	add $t4 $t2 $t3
+	slt $t2 $t1 $0
+	slt $t3 $0 $t1
+	add $t5 $t2 $t3
+	and $t0 $t5 $t4
+	sw $t0 -52($sp)
+	lw $t0 -52($sp)
+	beq $t0 $0 _L05
+	li $t0 2
+	sw $t0 -56($sp)
+
+	lw $t0 -56($sp)
+	li $r1 1
+	move $a0 $t0
+	syscall
+	j _L06
+	_L05 :
+	li $t0 60
+	sub $t9 $sp $t0
+	li $t0 4
+	sub $t8 $sp $t0
+	li $t0 10
+	sw $t0 -60($sp)
+	lw $t0 0($t9)
+	lw $t1 0($t8)
+	slt $t2 $t0 $t1
+	sw $t2 -64($sp)
+	li $t0 15
+	sw $t0 -68($sp)
+	lw $t0 -04($sp)
+	lw $t1 -68($sp)
+	sub $t2 $t1 $t0
+	slt $t3 $t2 0
+	li $t4 1
+	sub $t4 $t4 $t3
+	sw $t4 -72($sp)
+	lw $t0 -64($sp)
+	lw $t1 -72($sp)
+	slt $t2 $t0 $0
+	slt $t3 $0 $t0
+	add $t4 $t2 $t3
+	slt $t2 $t1 $0
+	slt $t3 $0 $t1
+	add $t5 $t2 $t3
+	and $t0 $t5 $t4
+	sw $t0 -76($sp)
+	lw $t0 -76($sp)
+	beq $t0 $0 _L03
+	li $t0 3
+	sw $t0 -80($sp)
+
+	lw $t0 -80($sp)
+	li $r1 1
+	move $a0 $t0
+	syscall
+	j _L04
+	_L03 :
+	li $t0 4
+	sw $t0 -84($sp)
+
+	lw $t0 -84($sp)
+	li $r1 1
+	move $a0 $t0
+	syscall
+	_L04 :
+	_L06 :
+	_L08 :
+	lw $ret -00($sp)
+	_L00 :
+	jr $ret
