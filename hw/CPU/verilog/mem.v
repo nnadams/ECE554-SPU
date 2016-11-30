@@ -3,13 +3,13 @@ module memory(
 	input rst,
 	input [31:0] mem_alu_out,
 	input [31:0] mem_reg_data_2,
-	input mem_mem_write,
-	input mem_mem_enable, 
+	input [3:0] mem_mem_write,
+	input [3:0] mem_mem_enable, 
 	input [31:0] data_mem_data, 	
-	output data_mem_en,
+	output [3:0] data_mem_en,
 	output [31:0] data_mem_addr, 
 	output [31:0] data_mem_write_data, 
-	output data_mem_wr, 
+	output [3:0] data_mem_wr, 
 	output [31:0] mem_mem_out,
 	output mem_stall 
 );

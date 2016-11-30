@@ -25,21 +25,21 @@ public class Simulator {
 			System.exit(-1);
 		}
 		
-		Memory IMem = new Memory(MEM_SIZE, "loadfile.img");
-		Memory DMem = new Memory(MEM_SIZE);
+		Memory IMem = new Memory(MEM_SIZE, "imem.sim");
+		Memory DMem = new Memory(MEM_SIZE, "dmem.sim");
 		RegisterFile RegFile = new RegisterFile(NUM_REGISTERS);
 		
 		Halted = false;
 		InstrCount = -1; // Start at zero based index
 		
 		// Reset handler
-		PC = IMem.Read(0);
+		PC = IMem.Read(0, 4);
 		
 		while(!Halted)
 		{
 			StringBuilder str = new StringBuilder();
 			
-			Instruction = IMem.Read(PC); 
+			Instruction = IMem.Read(PC, 4); 
 			InstrCount++;
 			OpCode = (Instruction >> 26) & 0x3f;
 			
@@ -166,6 +166,14 @@ public class Simulator {
 				case ISA.LD:
 					ir = Execute.LD(RegFile, DMem, Instruction);
 					break;
+				
+				case ISA.LB:
+					ir = Execute.LB(RegFile, DMem, Instruction);
+					break;
+				
+				case ISA.SB:
+					ir = Execute.SB(RegFile, DMem, Instruction);
+					break;
 					
 				default:
 					System.out.println("Instruction not Supported - Exiting.");
@@ -188,10 +196,10 @@ public class Simulator {
 				str.append(" VALUE: 0x");
 				str.append(String.format("%08x", ir.RegisterWriteData));
 		
-				if(ir.WriteMemory)
+				if(ir.WriteMemory != 0)
 				{
 					// STU 
-					DMem.Write(ir.MemoryAddress, ir.MemoryDataToWrite);
+					DMem.Write(ir.MemoryAddress, ir.MemoryDataToWrite, ir.WriteMemory);
 					str.append(" ADDR: 0x");
 					str.append(String.format("%08x", ir.MemoryAddress));
 					str.append(" VALUE: 0x");
@@ -204,10 +212,10 @@ public class Simulator {
 					str.append(String.format("%08x", ir.MemoryAddress));
 				}
 			}
-			else if(ir.WriteMemory) 
+			else if(ir.WriteMemory != 0) 
 			{
 				// St
-				DMem.Write(ir.MemoryAddress, ir.MemoryDataToWrite);
+				DMem.Write(ir.MemoryAddress, ir.MemoryDataToWrite, ir.WriteMemory);
 				
 				str.append(" ADDR: 0x");
 				str.append(String.format("%08x", ir.MemoryAddress));
@@ -221,7 +229,7 @@ public class Simulator {
 			
 			if(ir.TakeBranch)
 			{
-				System.out.println("Took Branch to " + String.format("%8x", ir.NewPC));
+				//System.out.println("Took Branch to " + String.format("%8x", ir.NewPC));
 				PC = ir.NewPC;
 			}
 			else if(!Halted)
@@ -236,6 +244,6 @@ public class Simulator {
 		DMem.DumpMem();
 		TraceFile.close();
 		
-		System.out.println("Program Execution Finshed");
+		//System.out.println("Program Execution Finshed");
 	}
 }

@@ -35,8 +35,8 @@ module cpu_mmu_integration(
 	// Outputs From CPU 
 	wire [31:0] data_mem_addr;
 	wire [31:0] data_mem_write_data;
-	wire data_mem_wr;
-	wire data_mem_en;
+	wire [3:0] data_mem_wr;
+	wire [3:0] data_mem_en;
 	wire [31:0] instr_addr;
 	wire HALTED; 
    
@@ -48,11 +48,7 @@ module cpu_mmu_integration(
 	// spart stuff
 	wire trmt; 
 	wire full; 
-	wire real_data_mem_wr; 
-	wire [31:0] real_data_read;
-	
-	assign real_data_mem_wr = (data_mem_addr != 32'h10000000 && data_mem_wr) ? 1'b1 : 1'b0;
-	assign real_data_read =   (data_mem_addr == 32'h10000004) ?  {31'd0, ~full} : data_mem_data;
+	wire [7:0] spart_tx_data;
 	
 	reg led1; 
 	reg led2; 
@@ -94,7 +90,7 @@ module cpu_mmu_integration(
 		.data_mem_wr(data_mem_wr),
 		.data_mem_en(data_mem_en),
 		.instr_addr(instr_addr),
-		.data_mem_data(real_data_read),
+		.data_mem_data(data_mem_data),
 		.instruction(instruction),
 		.HALTED(HALTED),
 		.spart_int(1'b0),
@@ -104,15 +100,37 @@ module cpu_mmu_integration(
 		// Theres room in the fifo to send more uart data_mem_addr
 		.SPART_STALL_DBG_ONLY(1'b0)
 	);
-
-	assign trmt = (data_mem_addr == 32'h10000000 && data_mem_wr) ? 1'b1 : 1'b0;
+	 
+	 mmu_hier MMU(
+		.clk(clk),
+		.rst(rst),
+		.PC(instr_addr),
+		.cpu_wdata(data_mem_write_data),
+		.cpu_addr(data_mem_addr),
+		.cpu_en(data_mem_en),
+		.cpu_we(data_mem_wr),
+		.spu_wdata(128'd0),
+		.spu_addr(32'd0),
+		.spu_res_addr(4'd0),
+		.spu_res_data(32'd0),
+		.spart_tx_full(full),
+		.spart_rx_empty(1'b1),
+		.spart_rx_data(8'd0),
+		
+		.cpu_read_data(data_mem_data),
+		.instruction(instruction),
+		.spu_read_data(),
+		.vga_data_1(),
+		.vga_data_3(),
+		.spart_tx_data(spart_tx_data),
+		.spart_trmt(trmt)
+	 );
 	
 	spart_tx_fifo spart(
 		.clk(clk),
 		.rst(rst),
 		.write(trmt),
-		//.tx_data(data_mem_write_data[7:0]),
-		.tx_data(data_mem_write_data[7:0]),
+		.tx_data(spart_tx_data),
 		.full(full), 
 		.txd(txd)
 	);	

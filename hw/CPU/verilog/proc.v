@@ -2,8 +2,8 @@ module proc (
    // Outputs 
    output [31:0] data_mem_addr, 
    output [31:0] data_mem_write_data,
-   output data_mem_wr,
-   output data_mem_en,
+   output [3:0] data_mem_wr,
+   output [3:0] data_mem_en,
    output [31:0] instr_addr,
    output HALTED,
    // Inputs
@@ -42,8 +42,8 @@ module proc (
    wire        id_sign;
    wire        id_alusrc;
    wire [31:0] id_imm_value;  
-   wire        id_mem_write; 
-   wire        id_mem_enable; 
+   wire [3:0]  id_mem_write; 
+   wire [3:0]  id_mem_enable; 
    wire        id_mem_read; 
    wire [1:0]  id_write_data_sel;
    wire [4:0]  id_write_reg_sel;
@@ -59,8 +59,8 @@ module proc (
    wire        ex_sign;
    wire        ex_alusrc;
    wire [31:0] ex_imm_value;  
-   wire        ex_mem_write; 
-   wire        ex_mem_enable; 
+   wire [3:0]  ex_mem_write; 
+   wire [3:0]  ex_mem_enable; 
    wire        ex_mem_read; 
    wire [1:0]  ex_write_data_sel;
    wire [4:0]  ex_write_reg_sel;
@@ -82,8 +82,8 @@ module proc (
    wire        mem_N; 
    wire [31:0] mem_reg_data_1;
    wire [31:0] mem_reg_data_2;  
-   wire        mem_mem_write;
-   wire        mem_mem_enable;
+   wire [3:0]  mem_mem_write;
+   wire [3:0]  mem_mem_enable;
    wire        mem_mem_read;
    wire [1:0]  mem_write_data_sel;
    wire [4:0]  mem_write_reg_sel;

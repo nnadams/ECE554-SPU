@@ -68,6 +68,18 @@ always @(*) begin
 		begin
 			_imm_value = {{15{instr[15]}},instr[15:0]};
 		end
+			
+		// SB
+		6'b110000:
+		begin
+			_imm_value = {{15{instr[15]}},instr[15:0]};
+		end
+		
+		// LB
+		6'b111000:
+		begin
+			_imm_value = {{15{instr[15]}},instr[15:0]};
+		end
 		
 		// STU
 		6'b010011:

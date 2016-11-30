@@ -38,4 +38,6 @@ public class ISA {
 	public static final int JAL  = 0b000110; 
 	public static final int JALR = 0b000111;
 	public static final int BTR  = 0b011001;
+	public static final int SB   = 0b111000;
+	public static final int LB   = 0b110000;
 }

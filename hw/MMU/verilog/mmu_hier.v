@@ -24,7 +24,8 @@ module mmu_hier(
     input [31:0]   PC,
     input [31:0]   cpu_wdata,
     input [31:0]   cpu_addr,
-    input          cpu_we,
+    input [3:0]    cpu_we,
+	input [3:0]    cpu_en, 
     input [127:0]  spu_wdata,
     input [31:0]   spu_addr,
     input [3:0]    spu_res_addr,
@@ -32,35 +33,44 @@ module mmu_hier(
     input          spart_tx_full,
     input          spart_rx_empty,
     input [7:0]    spart_rx_data,
-                   
+                  
     output [31:0]  cpu_read_data,
     output [31:0]  instruction,
     output [127:0] spu_read_data,
     output [31:0]  vga_data_1,
     output [31:0]  vga_data_2,
     output [31:0]  vga_data_3,
-    output [7:0]   spart_tx_data
+    output [7:0]   spart_tx_data,
+	 output         spart_trmt
     );
 	 
     reg [31:0] spu_reg [0:15];
     reg [31:0] cpu_rdata_reg, mem_mapped_reg;
-    reg [7:0] spart_tx_reg, spart_rx_reg, spart_tx_data_reg;
+    reg [7:0] spart_tx_reg, spart_rx_reg;
     reg cpu_inst_read, mem_mapped_read;
     wire [31:0] cpu_data_mem, cpu_data_inst;
     reg [31:0] cpu_addr_mem, cpu_addr_inst;
     integer    i;
-    
+    reg spart_trmt_reg; 
+	wire [3:0] cpu_data_mem_wr_en; 
     assign vga_data_1 = spu_reg[0];
     assign vga_data_2 = spu_reg[1];
     assign vga_data_3 = spu_reg[2];
-    assign cpu_read_data = cpu_rdata_reg;
-    assign spart_tx_data = spart_tx_data_reg;
-	 
-	         
+    assign spart_tx_data = spart_tx_reg;
+	assign spart_trmt = spart_trmt_reg;
+	assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
+	
+	// For byte reads 
+	assign cpu_read_data = (cpu_en == 4'b1111) ? cpu_rdata_reg :
+						   (cpu_addr[1:0] == 2'b00) ? (cpu_rdata_reg & 32'h000000ff) :
+						   (cpu_addr[1:0] == 2'b01) ? (cpu_rdata_reg & 32'h0000ff00) >> 8 :
+						   (cpu_addr[1:0] == 2'b10) ? (cpu_rdata_reg & 32'h00ff0000) >> 16 :
+						   (cpu_addr[1:0] == 2'b11) ? (cpu_rdata_reg & 32'hff000000) >> 24: cpu_rdata_reg;
+						   
 main_mem data_mem (
   .clka(clk), // input clka
   .rsta(rst), // input rsta
-  .wea({4{cpu_we}}), // input [3 : 0] wea
+  .wea(cpu_data_mem_wr_en), // input [3 : 0] wea
   .addra(cpu_addr_mem), // input [31 : 0] addra
   .dina(cpu_wdata), // input [31 : 0] dina
   .douta(cpu_data_mem), // output [31 : 0] douta
@@ -72,7 +82,7 @@ main_mem data_mem (
   .doutb(spu_read_data) // output [127 : 0] doutb
 );
 
-instruction_memory inst_mem(
+inst_mem imem(
   .clka(clk), // input clka
   .addra(PC), // input [31 : 0] addra
   .douta(instruction), // output [31 : 0] douta
@@ -93,12 +103,6 @@ instruction_memory inst_mem(
             spart_rx_reg <= spart_rx_data;
         end
     end
-    
-    always@(*)
-        if(cpu_we && mem_mapped_read)
-            spart_tx_data_reg = spart_tx_reg;
-        else
-            spart_tx_data_reg = spart_tx_data;
     
     always@(*) begin
         case({cpu_inst_read, mem_mapped_read})
@@ -125,20 +129,22 @@ instruction_memory inst_mem(
         cpu_addr_mem = 32'h0;
         spart_tx_reg = 8'h0;
         mem_mapped_reg = 32'h0;
-        
+        spart_trmt_reg = 1'b0; 
+		  
         case(cpu_addr[23:20])
             4'h0 : begin
                 cpu_inst_read = 1'b1;
                 cpu_addr_inst = {17'h0,cpu_addr[14:0]};
             end
             4'h8, 4'h9 : begin
-                cpu_addr_mem = {11'h0,cpu_addr[20:0]};
+				cpu_addr_mem = {11'h0, (cpu_addr[20:0] & 21'h1ffffc) };
             end
             4'hA : begin
                 mem_mapped_read = 1'b1;
                 case(cpu_addr[3:0])
                     4'h0 : begin 
                         spart_tx_reg   = cpu_wdata[7:0];
+								spart_trmt_reg = 1'b1; 
                     end
                     4'h4 : mem_mapped_reg = {31'h0,spart_tx_full};
                     4'h8 : mem_mapped_reg = {31'h0,spart_rx_empty};

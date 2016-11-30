@@ -12,8 +12,8 @@ module pipeReg_ex_mem
    /* Carried From Decode */
    input [31:0] ex_reg_data_1,
    input [31:0] ex_reg_data_2,  
-   input        ex_mem_write, 
-   input        ex_mem_enable, 
+   input [3:0]  ex_mem_write, 
+   input [3:0]  ex_mem_enable, 
    input        ex_mem_read, 
    input [1:0]  ex_write_data_sel,
    input [4:0]  ex_write_reg_sel,
@@ -30,8 +30,8 @@ module pipeReg_ex_mem
    output mem_ofl, 
    output [31:0] mem_reg_data_1,
    output [31:0] mem_reg_data_2,  
-   output        mem_mem_write, 
-   output        mem_mem_enable, 
+   output [3:0]  mem_mem_write, 
+   output [3:0]  mem_mem_enable, 
    output        mem_mem_read, 
    output [1:0]  mem_write_data_sel,
    output [4:0]  mem_write_reg_sel,
@@ -43,13 +43,14 @@ module pipeReg_ex_mem
 
    wire [31:0] ex_instruction_in;
    wire ex_write_reg_en_in;
-   wire ex_mem_enable_in;
+   wire [3:0] ex_mem_enable_in;
    wire halt_in; 
+   wire [3:0] ex_mem_write_in;
    
    assign ex_instruction_in = flush_ex ? 32'b000001xxxxxxxxxxxxxxxxxxxxxxxxxx : ex_instruction;
    assign ex_write_reg_en_in = flush_ex ? 1'b0 : ex_write_reg_en;
-   assign ex_mem_enable_in = flush_ex ? 1'b0 : ex_mem_enable;
-   assign ex_mem_write_in = flush_ex ? 1'b0 : ex_mem_write; 
+   assign ex_mem_enable_in = flush_ex ? 4'b000 : ex_mem_enable;
+   assign ex_mem_write_in = flush_ex ? 4'b0000 : ex_mem_write; 
    assign ex_mem_read_in = flush_ex ? 1'b0 : ex_mem_read;
    assign halt_in = flush_ex ? 1'b0 : ex_HALT;
    
@@ -59,8 +60,8 @@ module pipeReg_ex_mem
    dff_en ofl_ff (.clk(clk), .rst(rst), .d(ex_ofl), .q(mem_ofl), .en(~stall)); 
    dff_en reg_data_1_ff [31:0] (.clk(clk), .rst(rst), .d(ex_reg_data_1), .q(mem_reg_data_1), .en(~stall)); 
    dff_en reg_data_2_ff [31:0] (.clk(clk), .rst(rst), .d(ex_reg_data_2), .q(mem_reg_data_2), .en(~stall)); 
-   dff_en mem_write_ff(.clk(clk), .rst(rst), .d(ex_mem_write_in), .q(mem_mem_write), .en(~stall)); 
-   dff_en mem_enable_ff(.clk(clk), .rst(rst), .d(ex_mem_enable_in), .q(mem_mem_enable), .en(~stall)); 
+   dff_en mem_write_ff [3:0] (.clk(clk), .rst(rst), .d(ex_mem_write_in), .q(mem_mem_write), .en(~stall)); 
+   dff_en mem_enable_ff [3:0] (.clk(clk), .rst(rst), .d(ex_mem_enable_in), .q(mem_mem_enable), .en(~stall)); 
    dff_en mem_read_ff(.clk(clk), .rst(rst), .d(ex_mem_read_in), .q(mem_mem_read), .en(~stall)); 
    dff_en write_data_sel_ff [1:0] (.clk(clk), .rst(rst), .d(ex_write_data_sel), .q(mem_write_data_sel), .en(~stall)); 
    dff_en write_reg_sel_ff [4:0] (.clk(clk), .rst(rst), .d(ex_write_reg_sel), .q(mem_write_reg_sel), .en(~stall));

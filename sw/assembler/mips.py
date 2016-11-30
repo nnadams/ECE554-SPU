@@ -27,7 +27,6 @@ class MIPSProgram:
 
   def HandleLine(self, line):
     loc = sum([x.Size() for x in self.instructions])
-
     for replace,value in self.defines.iteritems():
       line = re.sub(replace, value, line)
 
@@ -50,6 +49,7 @@ class MIPSProgram:
         return
       m = re.match("^\s*(?P<label>[_a-zA-Z0-9]+):\.*$", line)
       if m is not None:
+        #print "reg label"
         self.RegisterLabel(m.group('label'), loc)
         return
       m = re.match("^\s*#.*$", line)

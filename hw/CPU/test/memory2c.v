@@ -38,14 +38,17 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
    output  [31:0] data_out;
    input [31:0]   data_in;
    input [31:0]   addr;
-   input          enable;
-   input          wr;
+   input  [3:0]        enable;
+   input   [3:0]       wr;
    input          createdump;
    input          clk;
    input          rst;
 
    wire [31:0]    data_out;
-   
+   wire spart_data;
+   wire spart_write;
+   wire [7:0]test;
+
    reg [7:0]      mem [0:65535];
    reg            loaded;
    reg [31:0] rd_addr; 
@@ -54,8 +57,13 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
    integer        mcd;
    integer        i;
 
-
-   assign         data_out = (enable & (~wr))? {mem[rd_addr],mem[rd_addr+8'h1], mem[rd_addr+8'h2], mem[rd_addr+8'h3]}: 0;
+   assign test = mem[0];
+   assign         data_out =  spart_data ? 1'b0 :
+							 (enable == 4'b1111 & (~(|wr))) ? {mem[rd_addr],mem[rd_addr+8'h1], mem[rd_addr+8'h2], mem[rd_addr+8'h3]} : 
+							 (enable == 4'b0001 & (~(|wr))) ? {24'd0, mem[rd_addr]} : 0;
+   
+   assign spart_data = (rd_addr ==  32'h00A00004) ? 1'b1 : 1'b0;
+   assign spart_write = addr == 32'h00a00000;
    
    initial begin
       loaded = 0;
@@ -68,13 +76,11 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
       if (rst) begin
          // first init to 0, then load loadfile.img
          if (!loaded) begin
-			if(mem_type) begin
-				$readmemh("loadfile.img", mem);
+			if(mem_type == 1) begin
+				$readmemh("imem.sim", mem);
 			end
 			else begin
-			   for (i=0; i<=65535; i=i+1) begin
-			      mem[i] = 0;
-			   end
+				$readmemh("dmem.sim", mem);
 			end
             loaded = 1;
          end
@@ -82,12 +88,18 @@ module memory2c (data_out, data_in, addr, enable, wr, createdump, clk, rst);
       end
       else begin
 		rd_addr = addr;
-         if (enable & wr) begin
+		if(spart_write) begin 
+			$display("%c", data_in[7:0]);
+		end
+         else if (wr == 4'b1111) begin
 	        mem[addr] = data_in[31:24];       // The actual write
 	        mem[addr+1] = data_in[23:16];    // The actual write
 			mem[addr+2] = data_in[15:8];    // The actual write
 			mem[addr+3] = data_in[7:0];    // The actual write
          end
+		 else if (wr == 4'b0001) begin
+			mem[addr] = data_in[7:0];
+		end 
          if (createdump) begin
             mcd = $fopen("mem_dmp.dmp", "w");
             for (i=0; i<=65535; i=i+1) begin

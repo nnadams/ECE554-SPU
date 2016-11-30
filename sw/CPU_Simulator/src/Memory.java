@@ -63,34 +63,45 @@ public class Memory {
 		}
 	}
 	
-	public int Read(int Address)
+	public int Read(int Address, int size)
 	{
-		if(Address == 0x10000004){
-			spartCount++;
-			if(spartCount == 20){
-					spartCount = 0;
-					return 1;
-			}
-			else return 0;// Spart stuff
+		int ret = 0; 
+		
+		if(Address == 0x00A00004){
+			return 0; 
 		}
-		// Big Endian
-		int ret = (((int)(mem[Address]) & 0xff) << 24);
-		ret |= (((int)(mem[Address + 1]) & 0xff) << 16);
-		ret |= (((int)(mem[Address + 2]) & 0xff) << 8);
-		ret |= (((int)(mem[Address + 3]) & 0xff) << 0);
-		
-		
+		if(size == 4){
+			// Big Endian
+			ret = (((int)(mem[Address]) & 0xff) << 24);
+			ret |= (((int)(mem[Address + 1]) & 0xff) << 16);
+			ret |= (((int)(mem[Address + 2]) & 0xff) << 8);
+			ret |= (((int)(mem[Address + 3]) & 0xff) << 0);
+		}
+		else if(size == 1){
+			ret = (int)mem[Address];			
+		}
+			
 		return ret;
 	}
 	
-	public void Write(int Addres, int Data)
+	public void Write(int Addres, int Data, int WriteSize)
 	{
-		if(Addres == 0x10000000) return; // Spart stuff
-		// Big Endian
-		mem[Addres] = (byte)((Data >> 24) & 0xff); 
-		mem[Addres + 1] = (byte)((Data >> 16) & 0xff); 
-		mem[Addres + 2] = (byte)((Data >> 8) & 0xff); 
-		mem[Addres + 3] = (byte)((Data >> 0) & 0xff); 
+		if(Addres == 0x00A00000) {
+			System.out.println((char)Data);
+			return;
+		}
+		
+		if(WriteSize == 4){
+			// Big Endian
+			mem[Addres] = (byte)((Data >> 24) & 0xff); 
+			mem[Addres + 1] = (byte)((Data >> 16) & 0xff); 
+			mem[Addres + 2] = (byte)((Data >> 8) & 0xff); 
+			mem[Addres + 3] = (byte)((Data >> 0) & 0xff);
+		}	
+		else if (WriteSize == 1){
+			// Big Endian
+			mem[Addres] = (byte)(Data & 0xff);
+		}
 	}
 	
 	public void DumpMem()

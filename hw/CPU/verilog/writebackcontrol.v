@@ -212,6 +212,14 @@ always @(*) begin
 			_write_reg_sel = `WRITE_REG_MEM;
 		end
 		
+		// LB
+		6'b110000:
+		begin
+			_reg_write = instr[20:16]; 
+			_write_reg = 1'b1;
+			_write_reg_sel = `WRITE_REG_MEM;
+		end
+		
 		// STU
 		6'b010011:
 		begin
