@@ -1,46 +1,6 @@
 
 	main :
-	_T00 = 12
-	a=_T00_T01	_T01 = 0
-	_T02 = _T01 < 	sub $t9 $sp $t0
 
-	_T03 = 5
-	_T04 = a <= _T03
-	_T05 = _T02 ^ _T04
-	if _T05=0 then goto _L07
-	_T06 = 1
-
-	print _t _T06
-	goto _L08
-	_L07 :
-_T08	_T08 = 5
-	_T09 = _T08 < 	sub $t9 $sp $t0
-
-	_T10 = 10
-	_T11 = a <= _T10
-	_T12 = _T09 ^ _T11
-	if _T12=0 then goto _L05
-	_T13 = 2
-
-	print _t _T13
-	goto _L06
-	_L05 :
-_T15	_T15 = 10
-	_T16 = _T15 < 	sub $t9 $sp $t0
-
-	_T17 = 15
-	_T18 = a <= _T17
-	_T19 = _T16 ^ _T18
-	if _T19=0 then goto _L03
-	_T20 = 3
-
-	print _t _T20
-	goto _L04
-	_L03 :
-	_T22 = 4
-
-	print _t _T22
- 	_L04 :
- 	_L06 :
- 	_L08 :
+	strtok test1 test2
+	RETURN return_value 0
 	RETURN : END OF SUB ROUTINE
