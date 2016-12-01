@@ -49,8 +49,8 @@ output = open(args['output'], 'w') if 'output' in args else None
 endianness = "little" if args['littleendian'] else "top"
 
 if 'output' in args:
-  start_addr = int(args['text_base'],16)
-
+  text_base = int(args['text_base'],16)
+  start_addr = text_base + mp.Label("main")*4
   with open(args['output'], 'w') as out:
     print "Writing text to '%s'..."%(args['output']),
 
@@ -58,15 +58,15 @@ if 'output' in args:
     if args['simulator'] == 'modelsim':
       out.write("@0\n")
       out.write("%02x\n%02x\n%02x\n%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
-      zero_fill(start_addr - 4 , out, args['simulator'])
+      zero_fill(text_base - 4 , out, args['simulator'])
       for b in bytes:
         out.write("%02x\n"%(b,))
 
     elif args['simulator'] == 'xilinx':
       out.write("memory_initialization_radix=16;\n")
       out.write("memory_initialization_vector=\n")
-      out.write("%02x%02x%02x%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
-      zero_fill(start_addr - 1, out, args['simulator'])
+      out.write("%02x%02x%02x%02x,\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
+      zero_fill(text_base - 1, out, args['simulator'])
       for j in range(len(bytes)/4):
         out.write("%02x%02x%02x%02x,\n"%tuple(bytes[j*4:j*4+4]))
 

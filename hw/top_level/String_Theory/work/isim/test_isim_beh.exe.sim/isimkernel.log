@@ -1,0 +1,28 @@
+Command line:
+   \\userspace.cae.wisc.edu\people\j\jjbrand\554\project\ECE554-SPU\hw\top_level\String_Theory\work\test_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  57905
+
+Thu Dec 01 17:42:47 2016
+
+
+ Elaboration Time: 15.4285 sec
+
+ Current Memory Usage: 2383.42 Meg
+
+ Total Signals          : 13790
+ Total Nets             : 13043
+ Total Signal Drivers   : 4760
+ Total Blocks           : 3453
+ Total Primitive Blocks : 2779
+ Total Processes        : 7579
+ Total Traceable Variables  : 3953
+ Total Scalar Nets and Variables : 2263979
+
+ Total Simulation Time: 19.6249 sec
+
+ Current Memory Usage: 2540.68 Meg
+
+Thu Dec 01 17:43:19 2016
+

@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "data.h"
 
 #define MAX_STR_LEN 256000
 

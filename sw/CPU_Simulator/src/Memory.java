@@ -70,6 +70,10 @@ public class Memory {
 		if(Address == 0x00A00004){
 			return 0; 
 		}
+		if((Address & 0x00800000) != 0){
+			// Data Mem Read
+			Address &= ~(0x00800000);
+		}
 		if(size == 4){
 			// Big Endian
 			ret = (((int)(mem[Address]) & 0xff) << 24);
@@ -80,7 +84,7 @@ public class Memory {
 		else if(size == 1){
 			ret = (int)mem[Address];			
 		}
-			
+		
 		return ret;
 	}
 	

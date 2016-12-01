@@ -46,7 +46,7 @@ module fetch(
 	// Case 1 - we saw a HALT instruction, lets keep it reading that instruction 
 	// Case 2 - we are changing the PC to something different in a branch or interrupt - read the newly calculated PC 
 	// Case 3 - normal case - read PC + 4 so it is ready for the next cycle
-	assign instr_addr = (HALTED) ? PC_curr : (take_branch | int_wait | int_run | int_done) ? PC_new : PC_4;
+	assign instr_addr = (HALTED) ? PC_curr : (stall | take_branch | int_wait | int_run | int_done) ? PC_new : PC_4;
 
 	reg_32 pc_reg(
 			.clk(clk), 
