@@ -1,0 +1,10 @@
+MO draw_logic NULL draw_logic.v vlg6B/draw__logic.bin 1480974878
+MO vgamult NULL vgamult.v vlg00/vgamult.bin 1480974879
+MO mult32 NULL ipcore_dir/mult32.v vlg77/mult32.bin 1479859606
+MO up_counter NULL up_counter.v vlg5C/up__counter.bin 1479860027
+MO simple_rom NULL simple_rom.v vlg4F/simple__rom.bin 1480974878
+MO tick_logic NULL tick_logic.v vlg40/tick__logic.bin 1479859606
+MO vga_clk NULL vga_clk.v vlg5F/vga__clk.bin 1480974878
+MO vga_logic NULL vga_logic.v vlg43/vga__logic.bin 1480974878
+MO dvi_ifc NULL dvi_ifc.v vlg50/dvi__ifc.bin 1480974878
+MO main_logic NULL main_logic.v vlg1E/main__logic.bin 1480974878
