@@ -53,27 +53,27 @@ module top_level(
 	// Clk Count
 	wire [63:0] clk_cnt; 
 	
-	// LED Config 
-	led_controller leds(
-		.clk(clk),
-		.rst(rst),
-		.led0(1'b0), .led0_triggered(1'b0),
-		.led1(1'b0), .led1_triggered(1'b0),
-		.led2(1'b0), .led2_triggered(1'b0),
-		.led3(1'b0), .led3_triggered(1'b0),
-		.led4(1'b0), .led4_triggered(1'b0),
-		.led5(1'b0), .led5_triggered(1'b0),
-		.led6(1'b0), .led6_triggered(1'b0),		
-		.led7(1'b0), .led7_triggered(1'b0),
-		.GPIO_LED_0(GPIO_LED_0),
-		.GPIO_LED_1(GPIO_LED_1),
-		.GPIO_LED_2(GPIO_LED_2),
-		.GPIO_LED_3(GPIO_LED_3),
-		.GPIO_LED_4(GPIO_LED_4),
-		.GPIO_LED_5(GPIO_LED_5),
-		.GPIO_LED_6(GPIO_LED_6),
-		.GPIO_LED_7(GPIO_LED_7)
-	);
+	 //LED Config 
+	 led_controller leds(
+		 .clk(clk),
+		 .rst(rst),
+		 .led0(1'b0), .led0_triggered(1'b0),
+		 .led1(1'b0), .led1_triggered(1'b0),
+		 .led2(1'b0), .led2_triggered(1'b0),
+		 .led3(1'b0), .led3_triggered(1'b0),
+		 .led4(1'b0), .led4_triggered(1'b0),
+		 .led5(1'b0), .led5_triggered(1'b0),
+		 .led6(1'b0), .led6_triggered(1'b0),		
+		 .led7(1'b0), .led7_triggered(1'b0),
+		 .GPIO_LED_0(GPIO_LED_0),
+		 .GPIO_LED_1(GPIO_LED_1),
+		 .GPIO_LED_2(GPIO_LED_2),
+		 .GPIO_LED_3(GPIO_LED_3),
+		 .GPIO_LED_4(GPIO_LED_4),
+		 .GPIO_LED_5(GPIO_LED_5),
+		 .GPIO_LED_6(GPIO_LED_6),
+		 .GPIO_LED_7(GPIO_LED_7)
+	 );
 	
 	proc PROC (
 		.clk(clk),

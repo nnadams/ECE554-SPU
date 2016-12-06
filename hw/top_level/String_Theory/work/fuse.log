@@ -1,4 +1,4 @@
-Running: C:\ProgramData\App-V\DAA02E26-5322-4947-BF0F-062031F30E14\68790BDD-0F39-406E-A1BC-DAF286566E4F\Root\14.7\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -lib unisims_ver -lib unimacro_ver -lib xilinxcorelib_ver -lib secureip -o I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_isim_beh.exe -prj I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_beh.prj work.test work.glbl 
+Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_isim_beh.exe" -prj "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_beh.prj" "work.test" "work.glbl" 
 ISim P.20131013 (signature 0x7708f090)
 Number of CPUs detected in this system: 4
 Turning on mult-threading, number of parallel sub-compilation jobs: 8 
@@ -118,5 +118,5 @@ Compiling module glbl
 Time Resolution for simulation is 1ps.
 Compiled 58 Verilog Units
 Built simulation executable I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_isim_beh.exe
-Fuse Memory Usage: 45700 KB
-Fuse CPU Usage: 2713 ms
+Fuse Memory Usage: 45796 KB
+Fuse CPU Usage: 3088 ms
