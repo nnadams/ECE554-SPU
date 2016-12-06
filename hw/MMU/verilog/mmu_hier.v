@@ -57,7 +57,7 @@ module mmu_hier(
     assign vga_data_2 = spu_reg[1];
     assign vga_data_3 = spu_reg[2];
     assign spart_tx_data = spart_tx_reg;
-	assign spart_trmt = spart_trmt_reg;
+	assign spart_trmt = spart_trmt_reg & |cpu_we;
 	assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
 	
 	// For byte reads 
@@ -85,8 +85,10 @@ main_mem data_mem (
 inst_mem imem(
   .clka(clk), // input clka
   .addra(PC), // input [31 : 0] addra
+  .rsta(rst),
   .douta(instruction), // output [31 : 0] douta
   .clkb(clk), // input clkb
+  .rstb(rst),
   .addrb(cpu_addr_inst), // input [31 : 0] addrb
   .doutb(cpu_data_inst) // output [31 : 0] doutb
 );

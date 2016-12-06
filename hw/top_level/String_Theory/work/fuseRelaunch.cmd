@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_isim_beh.exe" -prj "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_beh.prj" "work.test" "work.glbl" 

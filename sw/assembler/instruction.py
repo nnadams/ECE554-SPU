@@ -214,9 +214,9 @@ class Instruction:
       b |= (self.rt.binary() << 16)  # rt
       if self.label is not None:
         if "b" == self.name[0]:
-          print "branch"
-          print self.program.Label(self.label)
-          print self.position
+          #print "branch"
+          #print self.program.Label(self.label)
+          #print self.position
           z =  (self.program.Label(self.label) - self.position - 1)*4
         else:
           z =  self.program.Label(self.label)

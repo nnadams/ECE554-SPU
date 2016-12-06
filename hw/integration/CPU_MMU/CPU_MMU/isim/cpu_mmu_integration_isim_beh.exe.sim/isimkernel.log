@@ -1,0 +1,5 @@
+Command line:
+   \\userspace.cae.wisc.edu\people\j\jjbrand\554\project\ECE554-SPU\hw\integration\CPU_MMU\CPU_MMU\cpu_mmu_integration_isim_beh.exe
+     -simmode  gui
+     -simrunnum  2
+     -socket  63459
