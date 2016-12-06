@@ -6,11 +6,11 @@ module proc_hier_bench();
     reg rst; 
 	wire [31:0] PC;
 	wire [31:0] Inst;        
-	wire        MemWrite;      
+	wire [3:0]  MemWrite;      
 	wire [31:0] MemAddress;
 	wire [31:0] MemData;
 	wire [31:0] MemReadData; 
-
+	wire [3:0] MemEnable;
 	wire [31:0] 	 r1Data;
 	wire [31:0] 	 r2Data;
 	wire [31:0] 	 r3Data;
@@ -59,7 +59,7 @@ module proc_hier_bench();
 		.data_mem_data(MemReadData),
 		.instruction(Inst),
 		.HALTED(Halt),
-		.SPART_STALL_DBG_ONLY(stall),
+		.SPART_STALL_DBG_ONLY(1'b0),
 		.spart_int(spart_int),
 		.spu_int(spu_int)
 	);
@@ -80,8 +80,8 @@ module proc_hier_bench();
 		.data_out(Inst),
 		.data_in(32'h0),
 		.addr(PC),
-		.enable(1'b1),
-		.wr(1'b0),
+		.enable(4'b1111),
+		.wr(4'b0),
 		.createdump(1'b0),
 		.clk(clk),
 		.rst(rst)

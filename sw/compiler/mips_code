@@ -1,5 +1,15 @@
-.data
-str:
-.asciiz " : is answer \n"
-.text
-.globl main
+
+	main :
+	sw $ret 0($sp)
+
+	lw $t0 -08($sp)
+
+	lw $t1 -12($sp)
+
+	stok $strp $t0 $t1
+	lw $ret -00($sp)
+	sw $0 -00($sp)
+	j _L00
+	lw $ret -00($sp)
+	_L00 :
+	jr $ret

@@ -6,7 +6,7 @@ public class InstructionResult {
 	
 	public int MemoryAddress; 
 	public int MemoryDataToWrite;
-	public boolean WriteMemory; 
+	public int WriteMemory; 
 	public boolean ReadMemory; 
 	
 	public int NewPC; 
@@ -16,7 +16,7 @@ public class InstructionResult {
 	{
 		WriteRegister = false; 
 		ReadMemory = false;
-		WriteMemory = false; 
+		WriteMemory = 0; 
 		TakeBranch = false; 
 	}
 }

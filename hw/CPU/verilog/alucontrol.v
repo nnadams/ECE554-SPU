@@ -316,6 +316,28 @@ always @(*) begin
 			_alusrc = `ALU_SRC_IMM;
 		end
 		
+		// LB
+		8'b110000_xx:
+		begin
+			_Op     = `OPCODE_ADD;
+			_invA   = 1'b0; 
+			_invB   = 1'b0;
+			_Cin    = 1'b0; 
+			_sign   = 1'b0;
+			_alusrc = `ALU_SRC_IMM;
+		end
+		
+		// SB
+		8'b111000_xx:
+		begin
+			_Op     = `OPCODE_ADD;
+			_invA   = 1'b0; 
+			_invB   = 1'b0;
+			_Cin    = 1'b0; 
+			_sign   = 1'b0;
+			_alusrc = `ALU_SRC_IMM;
+		end
+		
 		// STU
 		8'b010011_xx:
 		begin

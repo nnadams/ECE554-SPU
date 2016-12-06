@@ -1,0 +1,6 @@
+
+	main :
+
+	strtok test1 test2
+	RETURN return_value 0
+	RETURN : END OF SUB ROUTINE

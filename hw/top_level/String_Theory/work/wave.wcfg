@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="I:/554/project/ECE554-SPU/hw/top_level/String_Theory/work/test_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="test" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="139" />
+   <wvobject fp_name="/test/DUT/PROC/data_mem_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_mem_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_mem_addr[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/data_mem_write_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_mem_write_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_mem_write_data[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/data_mem_wr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_mem_wr[3:0]</obj_property>
+      <obj_property name="ObjectShortName">data_mem_wr[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/data_mem_en" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_mem_en[3:0]</obj_property>
+      <obj_property name="ObjectShortName">data_mem_en[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/instr_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instr_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instr_addr[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/data_mem_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_mem_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_mem_data[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/instruction_fetch" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction_fetch[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction_fetch[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">id_instruction[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_instruction[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_instruction[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/take_branch" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">take_branch</obj_property>
+      <obj_property name="ObjectShortName">take_branch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/branch_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">branch_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">branch_addr[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_instruction[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/HALTED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">HALTED</obj_property>
+      <obj_property name="ObjectShortName">HALTED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/spart_int" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">spart_int</obj_property>
+      <obj_property name="ObjectShortName">spart_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/spu_int" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">spu_int</obj_property>
+      <obj_property name="ObjectShortName">spu_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/SPART_STALL_DBG_ONLY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SPART_STALL_DBG_ONLY</obj_property>
+      <obj_property name="ObjectShortName">SPART_STALL_DBG_ONLY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/if_PC_4" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">if_PC_4[31:0]</obj_property>
+      <obj_property name="ObjectShortName">if_PC_4[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/if_HALT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">if_HALT</obj_property>
+      <obj_property name="ObjectShortName">if_HALT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/save_regs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">save_regs</obj_property>
+      <obj_property name="ObjectShortName">save_regs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/restore_regs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">restore_regs</obj_property>
+      <obj_property name="ObjectShortName">restore_regs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_PC_4" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_PC_4[31:0]</obj_property>
+      <obj_property name="ObjectShortName">id_PC_4[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_HALT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_HALT</obj_property>
+      <obj_property name="ObjectShortName">id_HALT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_reg_data_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_reg_data_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">id_reg_data_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_reg_data_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_reg_data_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">id_reg_data_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_aluop" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_aluop[3:0]</obj_property>
+      <obj_property name="ObjectShortName">id_aluop[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_invA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_invA</obj_property>
+      <obj_property name="ObjectShortName">id_invA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_invB" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_invB</obj_property>
+      <obj_property name="ObjectShortName">id_invB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_Cin" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_Cin</obj_property>
+      <obj_property name="ObjectShortName">id_Cin</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_sign" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_sign</obj_property>
+      <obj_property name="ObjectShortName">id_sign</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_alusrc" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_alusrc</obj_property>
+      <obj_property name="ObjectShortName">id_alusrc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_imm_value" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_imm_value[31:0]</obj_property>
+      <obj_property name="ObjectShortName">id_imm_value[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_mem_write" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_mem_write[3:0]</obj_property>
+      <obj_property name="ObjectShortName">id_mem_write[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_mem_enable" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_mem_enable[3:0]</obj_property>
+      <obj_property name="ObjectShortName">id_mem_enable[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_mem_read" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_mem_read</obj_property>
+      <obj_property name="ObjectShortName">id_mem_read</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_write_data_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_write_data_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">id_write_data_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_write_reg_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_write_reg_sel[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_write_reg_sel[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/id_write_reg_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">id_write_reg_en</obj_property>
+      <obj_property name="ObjectShortName">id_write_reg_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_reg_data_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_reg_data_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_reg_data_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_reg_data_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_reg_data_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_reg_data_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_aluop" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_aluop[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_aluop[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_invA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_invA</obj_property>
+      <obj_property name="ObjectShortName">ex_invA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_invB" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_invB</obj_property>
+      <obj_property name="ObjectShortName">ex_invB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_Cin" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_Cin</obj_property>
+      <obj_property name="ObjectShortName">ex_Cin</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_sign" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_sign</obj_property>
+      <obj_property name="ObjectShortName">ex_sign</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_alusrc" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_alusrc</obj_property>
+      <obj_property name="ObjectShortName">ex_alusrc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_imm_value" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_imm_value[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_imm_value[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_mem_write" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_mem_write[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_mem_write[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_mem_enable" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_mem_enable[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_mem_enable[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_mem_read" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_mem_read</obj_property>
+      <obj_property name="ObjectShortName">ex_mem_read</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_write_data_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_write_data_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_write_data_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_write_reg_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_write_reg_sel[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_write_reg_sel[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_write_reg_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_write_reg_en</obj_property>
+      <obj_property name="ObjectShortName">ex_write_reg_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_PC_4" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_PC_4[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_PC_4[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_HALT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_HALT</obj_property>
+      <obj_property name="ObjectShortName">ex_HALT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_ofl" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_ofl</obj_property>
+      <obj_property name="ObjectShortName">ex_ofl</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_Z" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_Z</obj_property>
+      <obj_property name="ObjectShortName">ex_Z</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_N</obj_property>
+      <obj_property name="ObjectShortName">ex_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_alu_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_alu_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_alu_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_alu_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_alu_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_alu_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_ofl" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_ofl</obj_property>
+      <obj_property name="ObjectShortName">mem_ofl</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_Z" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_Z</obj_property>
+      <obj_property name="ObjectShortName">mem_Z</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_N</obj_property>
+      <obj_property name="ObjectShortName">mem_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_reg_data_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_reg_data_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_reg_data_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_reg_data_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_reg_data_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_reg_data_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_mem_write" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_mem_write[3:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_mem_write[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_mem_enable" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_mem_enable[3:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_mem_enable[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_mem_read" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_mem_read</obj_property>
+      <obj_property name="ObjectShortName">mem_mem_read</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_write_data_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_write_data_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_write_data_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_write_reg_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_write_reg_sel[4:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_write_reg_sel[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_write_reg_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_write_reg_en</obj_property>
+      <obj_property name="ObjectShortName">mem_write_reg_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_PC_4" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_PC_4[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_PC_4[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_HALT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_HALT</obj_property>
+      <obj_property name="ObjectShortName">mem_HALT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_mem_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_mem_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_mem_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/mem_stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_stall</obj_property>
+      <obj_property name="ObjectShortName">mem_stall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_mem_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_mem_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_mem_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_alu_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_alu_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_alu_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_PC_4" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_PC_4[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_PC_4[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_write_data_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_write_data_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_write_data_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_write_reg_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_write_reg_sel[4:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_write_reg_sel[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_write_reg_en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_write_reg_en</obj_property>
+      <obj_property name="ObjectShortName">wb_write_reg_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_Z" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_Z</obj_property>
+      <obj_property name="ObjectShortName">wb_Z</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_N</obj_property>
+      <obj_property name="ObjectShortName">wb_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_ofl" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_ofl</obj_property>
+      <obj_property name="ObjectShortName">wb_ofl</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_reg_data_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_reg_data_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_reg_data_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_reg_data_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_reg_data_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_reg_data_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_HALT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_HALT</obj_property>
+      <obj_property name="ObjectShortName">wb_HALT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/wb_reg_write_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_reg_write_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_reg_write_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/stall_id" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall_id</obj_property>
+      <obj_property name="ObjectShortName">stall_id</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/stall_all" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall_all</obj_property>
+      <obj_property name="ObjectShortName">stall_all</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/reg2used" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reg2used</obj_property>
+      <obj_property name="ObjectShortName">reg2used</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/flush_if" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">flush_if</obj_property>
+      <obj_property name="ObjectShortName">flush_if</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/flush_id" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">flush_id</obj_property>
+      <obj_property name="ObjectShortName">flush_id</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/flush_ex" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">flush_ex</obj_property>
+      <obj_property name="ObjectShortName">flush_ex</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/forward_MEM_EX_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_MEM_EX_A</obj_property>
+      <obj_property name="ObjectShortName">forward_MEM_EX_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/forward_MEM_EX_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_MEM_EX_B</obj_property>
+      <obj_property name="ObjectShortName">forward_MEM_EX_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/forward_WB_EX_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_WB_EX_A</obj_property>
+      <obj_property name="ObjectShortName">forward_WB_EX_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/forward_WB_EX_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_WB_EX_B</obj_property>
+      <obj_property name="ObjectShortName">forward_WB_EX_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_data_in_A" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_data_in_A[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_data_in_A[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/ex_data_in_B" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_data_in_B[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_data_in_B[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/decodeRegRead1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">decodeRegRead1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">decodeRegRead1[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/decodeRegRead2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">decodeRegRead2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">decodeRegRead2[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/executeWriteReg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">executeWriteReg[4:0]</obj_property>
+      <obj_property name="ObjectShortName">executeWriteReg[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/executeWriteRegEn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">executeWriteRegEn</obj_property>
+      <obj_property name="ObjectShortName">executeWriteRegEn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/memoryWriteReg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">memoryWriteReg[4:0]</obj_property>
+      <obj_property name="ObjectShortName">memoryWriteReg[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/memoryWriteRegEn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">memoryWriteRegEn</obj_property>
+      <obj_property name="ObjectShortName">memoryWriteRegEn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/reg2used" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reg2used</obj_property>
+      <obj_property name="ObjectShortName">reg2used</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/mem_stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_stall</obj_property>
+      <obj_property name="ObjectShortName">mem_stall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/ex_opcode" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_opcode[5:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_opcode[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/id_opcode" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">id_opcode[5:0]</obj_property>
+      <obj_property name="ObjectShortName">id_opcode[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/SPART_STALL_DBG_ONLY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SPART_STALL_DBG_ONLY</obj_property>
+      <obj_property name="ObjectShortName">SPART_STALL_DBG_ONLY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/stall_id" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall_id</obj_property>
+      <obj_property name="ObjectShortName">stall_id</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/stall_all" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall_all</obj_property>
+      <obj_property name="ObjectShortName">stall_all</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_MEM_EX_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_MEM_EX_A</obj_property>
+      <obj_property name="ObjectShortName">forward_MEM_EX_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_MEM_EX_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_MEM_EX_B</obj_property>
+      <obj_property name="ObjectShortName">forward_MEM_EX_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_WB_EX_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_WB_EX_A</obj_property>
+      <obj_property name="ObjectShortName">forward_WB_EX_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_WB_EX_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_WB_EX_B</obj_property>
+      <obj_property name="ObjectShortName">forward_WB_EX_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/ex_match1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_match1</obj_property>
+      <obj_property name="ObjectShortName">ex_match1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/ex_match2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_match2</obj_property>
+      <obj_property name="ObjectShortName">ex_match2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/ex_stall_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_stall_A</obj_property>
+      <obj_property name="ObjectShortName">ex_stall_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/ex_stall_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_stall_B</obj_property>
+      <obj_property name="ObjectShortName">ex_stall_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_MEM_EX_in_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_MEM_EX_in_A</obj_property>
+      <obj_property name="ObjectShortName">forward_MEM_EX_in_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_MEM_EX_in_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_MEM_EX_in_B</obj_property>
+      <obj_property name="ObjectShortName">forward_MEM_EX_in_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/isStoreInstr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">isStoreInstr</obj_property>
+      <obj_property name="ObjectShortName">isStoreInstr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/isLdInstr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">isLdInstr</obj_property>
+      <obj_property name="ObjectShortName">isLdInstr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/isJumpInstr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">isJumpInstr</obj_property>
+      <obj_property name="ObjectShortName">isJumpInstr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/mem_match1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_match1</obj_property>
+      <obj_property name="ObjectShortName">mem_match1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/mem_match2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_match2</obj_property>
+      <obj_property name="ObjectShortName">mem_match2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/mem_use_stall_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_use_stall_A</obj_property>
+      <obj_property name="ObjectShortName">mem_use_stall_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/mem_use_stall_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_use_stall_B</obj_property>
+      <obj_property name="ObjectShortName">mem_use_stall_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_WB_EX_in_A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_WB_EX_in_A</obj_property>
+      <obj_property name="ObjectShortName">forward_WB_EX_in_A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/forward_WB_EX_in_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forward_WB_EX_in_B</obj_property>
+      <obj_property name="ObjectShortName">forward_WB_EX_in_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/ex_stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_stall</obj_property>
+      <obj_property name="ObjectShortName">ex_stall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test/DUT/PROC/hd/mem_use_stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_use_stall</obj_property>
+      <obj_property name="ObjectShortName">mem_use_stall</obj_property>
+   </wvobject>
+</wave_config>

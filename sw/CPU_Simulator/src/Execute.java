@@ -1,3 +1,4 @@
+import java.lang.Math.*;
 
 public class Execute {
 	private static int GetFirstSourceRegisterValue(RegisterFile RegFile, int Instruction)
@@ -487,14 +488,11 @@ public class Execute {
 		Val1 = GetFirstSourceRegisterValue(RegFile, Instruction);
 		Val2 = GetSecondSourceRegisterValue(RegFile, Instruction);
 		
-		try
-		{
-			Result = 0;
-			Math.addExact(Val1, Val2);
-		}
-		catch (ArithmeticException e)
-		{
-			Result = 1;
+		Result = 0; 
+		int r = Val1 + Val2;
+		// HD 2-12 Overflow iff both arguments have the opposite sign of the result
+		if (((Val1 ^ r) & (Val2 ^ r)) < 0) {
+			Result = 1; 
 		}
 		
 		ir.RegisterToWrite = WriteReg; 
@@ -515,7 +513,7 @@ public class Execute {
 		Val1 = GetFirstSourceRegisterValue(RegFile, Instruction);
 		Val2 = GetSignExtendedImmediate(Instruction);
 		
-		Result = DMem.Read(Val1 + Val2);
+		Result = DMem.Read(Val1 + Val2, 4);
 		
 		ir.RegisterToWrite = WriteReg; 
 		ir.RegisterWriteData = Result; 
@@ -524,6 +522,44 @@ public class Execute {
 		ir.MemoryAddress = Val1 + Val2;
 		
 		return ir; 
+	}
+	
+	public static InstructionResult LB(RegisterFile RegFile, Memory DMem, int Instruction)
+	{
+		InstructionResult ir = new InstructionResult(); 
+		int WriteReg;
+		int Result;
+		int Val1, Val2; 
+		
+		WriteReg = GetRegValPos2(Instruction);
+		Val1 = GetFirstSourceRegisterValue(RegFile, Instruction);
+		Val2 = GetSignExtendedImmediate(Instruction);
+		
+		Result = DMem.Read(Val1 + Val2,1);
+		
+		ir.RegisterToWrite = WriteReg; 
+		ir.RegisterWriteData = (Result & 0xff); 
+		ir.WriteRegister = true;
+		ir.ReadMemory = true;
+		ir.MemoryAddress = Val1 + Val2;
+		
+		return ir; 
+	}
+	
+	public static InstructionResult SB(RegisterFile RegFile, Memory DMem, int Instruction)
+	{
+		InstructionResult ir = new InstructionResult(); 
+		int Val1, Val2, Val; 
+		
+		Val = GetSecondSourceRegisterValue(RegFile, Instruction);
+		Val1 = GetFirstSourceRegisterValue(RegFile, Instruction);
+		Val2 = GetSignExtendedImmediate(Instruction);
+		 
+		ir.WriteMemory = 1;
+		ir.MemoryAddress = Val1 + Val2;
+		ir.MemoryDataToWrite = Val;
+		
+		return ir;
 	}
 	
 	public static InstructionResult ST(RegisterFile RegFile, Memory DMem, int Instruction)
@@ -535,7 +571,7 @@ public class Execute {
 		Val1 = GetFirstSourceRegisterValue(RegFile, Instruction);
 		Val2 = GetSignExtendedImmediate(Instruction);
 		 
-		ir.WriteMemory = true;
+		ir.WriteMemory = 4;
 		ir.MemoryAddress = Val1 + Val2;
 		ir.MemoryDataToWrite = Val;
 		
@@ -551,7 +587,7 @@ public class Execute {
 		Val1 = GetFirstSourceRegisterValue(RegFile, Instruction);
 		Val2 = GetSignExtendedImmediate(Instruction);
 		 
-		ir.WriteMemory = true;
+		ir.WriteMemory = 4;
 		ir.MemoryAddress = Val1 + Val2;
 		ir.MemoryDataToWrite = Val;
 		ir.WriteRegister = true;
@@ -565,7 +601,7 @@ public class Execute {
 	{
 		InstructionResult ir = new InstructionResult(); 
 		ir.TakeBranch = true; 
-		ir.NewPC = PC + 4 + (Instruction & 0x03ffffff);
+		ir.NewPC = (Instruction & 0x03ffffff);
 		return ir;
 	}
 	
@@ -573,7 +609,7 @@ public class Execute {
 	{
 		InstructionResult ir = new InstructionResult(); 
 		ir.TakeBranch = true; 
-		ir.NewPC = PC + 4 + (Instruction & 0x03ffffff);
+		ir.NewPC = (Instruction & 0x03ffffff);
 		ir.WriteRegister = true; 
 		ir.RegisterToWrite = 31;
 		ir.RegisterWriteData = PC + 4;

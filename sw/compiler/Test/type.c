@@ -1,6 +1,5 @@
 int main()
 {
-  int x;
-  x="abcd";
+  char x[] = "test";
   return 0;
 }

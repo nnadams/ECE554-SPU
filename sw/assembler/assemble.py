@@ -31,7 +31,7 @@ def zero_fill(num_bytes, out, simulator):
   if simulator == 'modelsim':
     for i in range(0,num_bytes):
       out.write("00\n")
-  elif simulator == 'xylinx':
+  elif simulator == 'xilinx':
     for i in range(0,num_bytes/4):
         out.write("00000000,\n")
 
@@ -49,8 +49,8 @@ output = open(args['output'], 'w') if 'output' in args else None
 endianness = "little" if args['littleendian'] else "top"
 
 if 'output' in args:
-  start_addr = int(args['text_base'],16)
-
+  text_base = int(args['text_base'],16)
+  start_addr = text_base + mp.Label("main")*4
   with open(args['output'], 'w') as out:
     print "Writing text to '%s'..."%(args['output']),
 
@@ -58,15 +58,15 @@ if 'output' in args:
     if args['simulator'] == 'modelsim':
       out.write("@0\n")
       out.write("%02x\n%02x\n%02x\n%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
-      zero_fill(start_addr/4, out, args['simulator'])
+      zero_fill(text_base - 4 , out, args['simulator'])
       for b in bytes:
         out.write("%02x\n"%(b,))
 
-    elif args['simulator'] == 'xylinx':
+    elif args['simulator'] == 'xilinx':
       out.write("memory_initialization_radix=16;\n")
       out.write("memory_initialization_vector=\n")
-      out.write("%02x%02x%02x%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
-      zero_fill(start_addr/4, out, args['simulator'])
+      out.write("%02x%02x%02x%02x,\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
+      zero_fill(text_base - 1, out, args['simulator'])
       for j in range(len(bytes)/4):
         out.write("%02x%02x%02x%02x,\n"%tuple(bytes[j*4:j*4+4]))
 
@@ -83,19 +83,26 @@ if 'data_out' in args:
         for b in list(bytearray(s)):
           out.write("%02x\n"%b)
 
-    elif args['simulator'] == 'xylinx':
-      c = 1
+    elif args['simulator'] == 'xilinx':
+      c = 0
       out.write("memory_initialization_radix=16;\n")
       out.write("memory_initialization_vector=\n")
+      
+      bytes = []
       for s in mp.data:
-        for b in list(bytearray(s)):
-          if c%4 == 0:
-            out.write("%02x,\n"%b)
-          else:
-            out.write("%02x"%b)
-          c+=1
-      if c%4 != 0:
-        out.write("00"*(c%4) + "00,\n")
+        bytes += bytearray(s)
+      diff = 0
+      for i in range(len(bytes)/4):
+        c+=4
+        out.write("%02x%02x%02x%02x,\n"%(bytes[i*4+3],bytes[i*4+2],bytes[i*4+1],bytes[i*4+0]))
+        diff = len(bytes) - c
+      a = c
+      while (diff + a) % 4 != 0:
+        a+=1
+        out.write("00")
+      for i in range(diff):  
+        out.write("%02x"%bytes[len(bytes) - i - 1])
+      out.write("\n")
     else:
       print("Invalid simulator %s" % args['simulator'])
   print "done!"

@@ -25,9 +25,9 @@ module decode(
 	output [31:0] imm_value,
 	
 	/* Memory Control Outputs */
-	output mem_write,
+	output [3:0] mem_write,
 	output mem_read,
-	output mem_enable,
+	output [3:0] mem_enable,
 	
 	/* Writeback Control Outputs */
 	output [1:0] write_data_sel_out,
@@ -41,18 +41,23 @@ module decode(
 	wire 	         write_reg;
 	wire [4:0] 	     read_reg_1;
 	wire [4:0] 	     read_reg_2;
-
+	wire [3:0] 		 mem_en_intermed; 
+	
 	/* Register File Decode */ 
 	assign read_reg_1 = instr[25:21];
 	assign read_reg_2 = instr[20:16];
-
+	
 	/* Memory Control */
 	assign mem_write = 
-					(instr[31:26] == 6'b010000) ? 1'b1 :
-					(instr[31:26] == 6'b010011) ? 1'b1 : 1'b0;			
+					(instr[31:26] == 6'b010000) ? 4'b1111 :
+					(instr[31:26] == 6'b010011) ? 4'b1111 : 
+					(instr[31:26] == 6'b111000) ? 4'b0001 : 4'b0000;			
 					  
-	assign mem_read = (instr[31:26] == 6'b010001) ? 1'b1 : 1'b0;
-	assign mem_enable = mem_read | mem_write;
+	assign mem_read = |mem_en_intermed;
+	assign mem_en_intermed =  (instr[31:26] == 6'b010001) ? 4'b1111 : 
+							  (instr[31:26] == 6'b110000) ? 4'b0001 : 4'b0000;
+							  
+	assign mem_enable = mem_write | mem_en_intermed;
 
    // Register File
    rf_bypass regfile (

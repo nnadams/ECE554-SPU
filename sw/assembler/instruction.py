@@ -67,44 +67,19 @@ s_type_op = {
 
 r_type = {
   # Our instrutions
-  "add":     (0x0,0b011011, ["rd", "rs", "rt"]),
-  "sub":     (0x0,0b011011, ["rd", "rs", "rt"]),
-  "and":     (0x0,0b100100, ["rd", "rs", "rt"]),
-  "rol":     (0x0,0b011010, ["rd", "rs", "rt"]),
-  "ror":     (0x0,0b011010, ["rd", "rs", "rt"]),
-  "srl":     (0x0,0b011010, ["rd", "rs"]),
-  "seq":     (0x0,0b011100, ["rd", "rs", "rt"]),
-  "sle":     (0x0,0b011110, ["rd", "rs", "rt"]),
-  "sco":     (0x0,0b011111, ["rd", "rs", "rt"]),
-  "andn":    (0x0,0b011011, ["rd", "rs", "rt"]),
-
-
-  # Existing instructions
-  "addu":    (0x0,0b100001, ["rd", "rs", "rt"]),
-  "break":   (0x0,0b001101, []),
-  "div":     (0x0,0b011010, ["rd", "rs", "rt"]),
-  "divu":    (0x0,0b011011, ["rs", "rt"]),
-  "mfhi":    (0x0,0b010000, ["rd"]),
-  "mflo":    (0x0,0b010010, ["rd"]),
-  "mthi":    (0x0,0b010001, ["rs"]),
-  "mtlo":    (0x0,0b010011, ["rs"]),
-  "mult":    (0x0,0b011000, ["rs", "rt"]),
-  "multu":   (0x0,0b011001, ["rs", "rt"]),
-  "nor":     (0x0,0b100111, ["rd", "rs", "rt"]),
-  "or":      (0x0,0b100101, ["rd", "rs", "rt"]),
-  "sll":     (0x0,0b011010, ["rd", "rt"]),
-  "sllv":    (0x0,0b000100, ["rd", "rt"]),
-  "slt":     (0x0,0b011101, ["rd", "rs", "rt"]),
-  "sltu":    (0x0,0b101011, ["rd", "rs", "rt"]),
-  "sra":     (0x0,0b000011, ["rd", "rt"]),
-  "srav":    (0x0,0b000111, ["rd", "rt"]),
-  "srl":     (0x0,0b000010, ["rd", "rt"]),
-  "srlv":    (0x0,0b000110, ["rd", "rt", "rs"]),
-  "subu":    (0x0,0b100011, ["rd", "rs", "rt"]),
-  "syscall": (0x0,0b001100, []),
-  "xor":     (0x0,0b100110, ["rd", "rs", "rt"]),
-  "move":    (0x0,0b100111, ["rd", "rs", "rt"]),
-
+  "add":     (0b011011, 0b00, ["rd", "rs", "rt"]),
+  "sub":     (0b011011, 0b01, ["rd", "rs", "rt"]),
+  "xor":     (0b011011, 0b10, ["rd", "rs", "rt"]),
+  "andn":    (0b011011, 0b11, ["rd", "rs", "rt"]),
+  "rol":     (0b011010, 0b00, ["rd", "rs", "rt"]),
+  "sll":     (0b011010, 0b01, ["rd", "rt"]),
+  "ror":     (0b011010, 0b10, ["rd", "rs", "rt"]),
+  "srl":     (0b011010, 0b11, ["rd", "rs"]),
+  "seq":     (0b011100, 0b00, ["rd", "rs", "rt"]),
+  "sle":     (0b011110, 0b00, ["rd", "rs", "rt"]),
+  "sco":     (0b011111, 0b00, ["rd", "rs", "rt"]),
+  "slt":     (0b011101, 0b00, ["rd", "rs", "rt"]),
+  "halt":    (0b000000, 0b00, [])
 }
 
 i_type = {
@@ -121,47 +96,23 @@ i_type = {
   "slbi":  (0b010010,["rs"]),
   "st":    (0b010000,["rt", "rs"]),
   "ld":    (0b010001,["rt", "rs"]),
+  "sb":    (0b111000,["rt", "rs"]),
+  "lb":    (0b110000,["rt", "rs"]),
   "stu":   (0b010011,["rt", "rs"]),
-  "bltz":  (0b001110,0b00000,["rs"]),
-  "beqz":  (0b001100,0b00000,["rs"]),
-  "bnez":  (0b001101,0b00000,["rs"]),
-  "bgez":  (0b001111,0b00001,["rs"]),
-  "jalr":  (0b000111, ["rd", "rs"]), #change the opcode
-  "jr":    (0b000101, ["rs"]),
-  
-  # Existing instructions
-  "addiu": (0b001001,["rt", "rs"]),
-  "andi":  (0b001100,["rt", "rs"]),
-  "beq":   (0b000100,["rs", "rt"]),
-  "bgtz":  (0b000111,0b00000,["rs"]),
-  "blez":  (0b000110,0b00000,["rs"]),
-  "bne":   (0b000101,["rs", "rt"]),
-  "lb":    (0b100000,["rt", "rs"]),
-  "lbu":   (0b100100,["rt", "rs"]),
-  "lh":    (0b100001,["rt", "rs"]),
-  "lhu":   (0b100101,["rt", "rs"]),
-  "lui":   (0b001111,["rt"]),
-  "lw":    (0b100011,["rt", "rs"]),
-  "lwc1":  (0b110001,["rt", "rs"]),
-  "ori":   (0b001101,["rt", "rs"]),
-  "sb":    (0b101000,["rt", "rs"]),
-  "slti":  (0b001010,["rt", "rs"]),
-  "sltiu": (0b001011,["rt", "rs"]),
-  "sh":    (0b101001,["rt", "rs"]),
-  "sw":    (0b101011,["rt", "rs"]),
-  "sc":    (0b111000,["rt", "rs"]),
-  "swc1":  (0b111001,["rt", "rs"]),
-  
-}
+  "bltz":  (0b001110,["rs"]),
+  "beqz":  (0b001100,["rs"]),
+  "bnez":  (0b001101,["rs"]),
+  "bgez":  (0b001111,["rs"]),
+  "jalr":  (0b000111, ["rs"]),
+  "jr":    (0b000101, ["rs"])
+  }
 
 j_type = {
-"j":       (0b000100,[]),
-"jal":     (0b000110,[]),
-"jr":      (0b000101,[]),
-"jalr":    (0b000111,[]),
+  "j":       (0b000100,[]),
+  "jal":     (0b000110,[]),
 }
 
-supported_pseudoinstructions = ['li', 'nop', 'halt']
+supported_pseudoinstructions = ['li', 'nop']
 
 def MakeInstruction(position, **kwargs):
   if 'name' in kwargs and \
@@ -177,10 +128,10 @@ class Instruction:
       imm=None, label=None):
 
     name = name.lower()
-    if imm is not None: 
-      print(imm)
-    if label is not None: 
-      print(label)
+    #if imm is not None: 
+      #print(imm)
+    #if label is not None: 
+      #print(label)
     if name not in r_type.keys() and \
        name not in i_type.keys() and \
        name not in s_type.keys() and \
@@ -246,47 +197,41 @@ class Instruction:
 
   def ToBinary(self):
     if self.name in r_type.keys():
-      b = 0                            # opcode
+      b = (r_type[self.name][0] << 26)                            # opcode
       b |= (self.rs.binary() << 21)    # rs
       b |= (self.rt.binary() << 16)    # rt
       b |= (self.rd.binary() << 11)    # rd
 
-      b |= (self.imm << 6)             # shamt
+      #b |= (self.imm << 6)             # shamt
       b |= (r_type[self.name][1] << 0) # funct
       return b
 
     if self.name in i_type.keys():
       b = i_type[self.name][0] << 26 # opcode
+      #if "jr" == self.name[0]:
+          #print self.rs.binary()
       b |= (self.rs.binary() << 21)  # rs
       b |= (self.rt.binary() << 16)  # rt
-      if len(i_type[self.name]) > 2:
-        # this is a b[gl][et]z instruction. Mux this in.
-        b |= (i_type[self.name][1] << 16)  # rt adjustment
-      #print(str(self.name) + "   " + str(self.label))
       if self.label is not None:
-        # horribly hacky. are we a branch?
-
         if "b" == self.name[0]:
-          z =  self.program.Label(self.label) - self.position - 1
+          #print "branch"
+          #print self.program.Label(self.label)
+          #print self.position
+          z =  (self.program.Label(self.label) - self.position - 1)*4
         else:
           z =  self.program.Label(self.label)
         b |= (z & 0xFFFF)         # label
       else:
-        # horribly hacky. are we a branch?
-        if "b" == self.name[0]:
-          b |= (self.imm>>2 & 0xFFFF) # imm
-        else:
-          b |= (self.imm & 0xFFFF)   # imm
+        b |= (self.imm & 0xFFFF)   # imm
 
       return b
 
     if self.name in j_type.keys():
       b = (j_type[self.name][0]) << 26 #opcode
       if self.label is not None:
-        b |= (self.program.Label(self.label) +
-            (self.program.text_base >> 2)) # label
+        b |= (self.program.Label(self.label))*4 + self.program.text_base
       else:
-        b |= (self.imm >> 2 & 0x03FFFFFF) # address
+        b |= (self.imm & 0x03FFFFFF) # address
       return b
 
     if self.name in s_type.keys():
@@ -332,27 +277,18 @@ class PseudoInstruction:
       if label is not None:
         # get all fancy
         self.instructions.append(Instruction(self.program, position,
-          name="lui", first=first,
+          name="lbi", first=first,
           label=lambda: program.Label(label) >> 16 & 0xFFFF))
         self.instructions.append(Instruction(self.program, position+1,
-          name="ori", first=first, second=first,
+          name="slbi", first=first,
           label=lambda: program.Label(label) & 0xFFFF))
       else:
         self.instructions.append(Instruction(self.program, position,
-          name="lui", first=first,
+          name="lbi", first=first,
           imm=((eval(imm) >> 16) & 0xFFFF)))
         self.instructions.append(Instruction(self.program, position+1,
-          name="ori", first=first, second=first,
+          name="slbi", first=first, 
           imm=(eval(imm) & 0xFFFF)))
-    elif name == "hault":
-      self.instructions.append(Instruction(self.program, position,
-        name="sll", first="$0", second="$0", imm="0x0"))
-    elif name == "nop":
-      self.instructions.append(Instruction(self.program, position,
-        name="bltz", first="$0", imm="0x0"))
-    # elif name == "":
-    #   self.instructions.append(Instruction(self.program, position,
-    #     name="string", first="$0", imm="0x0"))
     else:
       raise "'%s' not support/not a pseudoinstruction"%(name)
 
