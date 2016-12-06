@@ -6,6 +6,11 @@ module proc (
    output [3:0] data_mem_en,
    output [31:0] instr_addr,
    output HALTED,
+   output spu_en_out,
+   output [3:0] spu_op_out,
+   output [31:0] spu_data_a,
+   output [31:0] spu_data_b,
+   output [7:0]  spu_immed_out,
    // Inputs
    input clk,
    input rst,
@@ -48,6 +53,8 @@ module proc (
    wire [1:0]  id_write_data_sel;
    wire [4:0]  id_write_reg_sel;
    wire        id_write_reg_en;   
+   wire        id_spu_en; 
+   wire [3:0]  id_spu_op;
    
    // Pipelined Decode Outputs (Execute Inputs)
    wire [31:0] ex_reg_data_1;
@@ -68,6 +75,8 @@ module proc (
    wire [31:0] ex_instruction; 
    wire [31:0] ex_PC_4; 
    wire        ex_HALT; 
+   wire        ex_spu_en; 
+   wire [3:0]  ex_spu_op; 
    
    // ALU Outputs 
    wire        ex_ofl; 
@@ -199,7 +208,10 @@ module proc (
 		.write_data_sel_out(id_write_data_sel),
 		.write_reg_sel_out(id_write_reg_sel),
 		.write_reg_en_out(id_write_reg_en),
-		.reg2used(reg2used)
+		.reg2used(reg2used),
+		/*String Ouputs*/
+		.spu_en(id_spu_en),
+		.spu_op(id_spu_op)
 	);
 
    // ID -> EX Pipeline Register
@@ -226,6 +238,8 @@ module proc (
 		.id_instruction(id_instruction),
 		.id_PC_4(id_PC_4),
 		.id_HALT(id_HALT),
+		.id_spu_en(id_spu_en),
+		.id_spu_op(id_spu_op),
 		.stall(stall_all),
 
 		/*Outputs*/
@@ -246,7 +260,9 @@ module proc (
 		.ex_write_reg_en(ex_write_reg_en),
 		.ex_instruction(ex_instruction),
 		.ex_PC_4(ex_PC_4),
-		.ex_HALT(ex_HALT)
+		.ex_HALT(ex_HALT),
+		.ex_spu_en(ex_spu_en),
+		.ex_spu_op(ex_spu_op)
 	);
 	
 	// Execute Forwarding Logic 
@@ -258,7 +274,14 @@ module proc (
 						  
 	assign ex_data_in_B = forward_MEM_EX_B ? mem_alu_out :
 					      forward_WB_EX_B  ? wb_reg_write_data : ex_reg_data_2;
-						  
+		
+	// SPU Execute Unit Signals
+	assign spu_en_out = ex_spu_en;
+	assign spu_op_out = ex_spu_op;
+	assign spu_data_a = ex_data_in_A;
+	assign spu_data_b = ex_data_in_B;
+	assign spu_immed_out = ex_instruction[7:0];
+
    // Execute Unit
    execute EX (
 		/*Inputs*/

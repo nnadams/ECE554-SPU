@@ -62,3 +62,5 @@ CPU_Xilinx/_ngo/
 CPU_Xilinx/_xmsgs/
 integration/CPU_MMU/CPU_MMU/iseconfig/CPU_MMU.projectmgr
 integration/CPU_MMU/CPU_MMU/_xmsgs/pn_parser.xmsgs
+top_level/String_Theory/work/isim/
+top_level/String_Theory/work/

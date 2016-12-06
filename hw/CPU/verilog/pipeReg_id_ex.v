@@ -19,6 +19,8 @@ module pipeReg_id_ex
    input [1:0]  id_write_data_sel,
    input [4:0]  id_write_reg_sel, 
    input        id_write_reg_en, 
+   input        id_spu_en,
+   input [3:0]  id_spu_op,
    /* Carried From FETCH */
    input [31:0] id_instruction,
    input [31:0] id_PC_4,
@@ -39,7 +41,9 @@ module pipeReg_id_ex
    output        ex_mem_read, 
    output [1:0]  ex_write_data_sel,
    output [4:0]  ex_write_reg_sel, 
-   output        ex_write_reg_en, 
+   output        ex_write_reg_en,
+   output        ex_spu_en,
+   output [3:0]  ex_spu_op,   
    /* Carried From FETCH */
    output [31:0] ex_instruction,
    output [31:0] ex_PC_4,
@@ -51,12 +55,14 @@ module pipeReg_id_ex
    wire [3:0] id_mem_enable_in;
    wire [3:0] id_mem_write_in;
    wire halt_in; 
+   wire spu_en; 
    assign id_instruction_in = flush_id ? 32'b000001xxxxxxxxxxxxxxxxxxxxxxxxxx : id_instruction;
    assign id_write_reg_en_in = flush_id ? 1'b0 : id_write_reg_en;
    assign id_mem_enable_in = flush_id ? 4'b0000 : id_mem_enable;
    assign id_mem_write_in = flush_id ? 4'b0000 : id_mem_write; 
    assign id_mem_read_in = flush_id ? 1'b0 : id_mem_read;
    assign halt_in = flush_id ? 1'b0 : id_HALT;
+   assign spu_en = flush_id ? 1'b0 : id_spu_en;
    
    dff_en reg_data_1_ff [31:0] (.clk(clk), .rst(rst), .d(id_reg_data_1), .q(ex_reg_data_1), .en(~stall)); 
    dff_en reg_data_2_ff [31:0] (.clk(clk), .rst(rst), .d(id_reg_data_2), .q(ex_reg_data_2), .en(~stall)); 
@@ -76,5 +82,6 @@ module pipeReg_id_ex
    dff_en instr_ff[31:0] (.d(id_instruction_in), .q(ex_instruction), .clk(clk), .rst(rst), .en(~stall));
    dff_en halt_ff (.d(halt_in), .q(ex_HALT), .clk(clk), .rst(rst), .en(~stall));
    dff_en PC_2_ff[31:0] (.d(id_PC_4), .q(ex_PC_4), .clk(clk), .rst(rst), .en(~stall));
-   
+   dff_en spu_en_ff (.d(spu_en), .q(ex_spu_en), .clk(clk), .rst(rst), .en(~stall));
+   dff_en spu_op_ff [3:0] (.d(id_spu_op), .q(ex_spu_op), .clk(clk), .rst(rst), .en(~stall));
    endmodule
