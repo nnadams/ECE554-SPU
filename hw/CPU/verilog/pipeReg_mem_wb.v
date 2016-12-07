@@ -10,7 +10,7 @@ module pipeReg_mem_wb
    input        mem_N,
    input        mem_ofl,
    /* Carried From Decode */ 
-   input [1:0]  mem_write_data_sel, 
+   input [2:0]  mem_write_data_sel, 
    input [4:0]  mem_write_reg_sel,
    input        mem_write_reg_en,
    input [31:0] mem_reg_data_1, 
@@ -28,7 +28,7 @@ module pipeReg_mem_wb
    output        wb_N,
    output        wb_ofl,
    /* Carried From Decode */ 
-   output [1:0]	 wb_write_data_sel,
+   output [2:0]	 wb_write_data_sel,
    output [4:0]  wb_write_reg_sel, 
    output        wb_write_reg_en,
    output [31:0] wb_reg_data_1, 
@@ -44,7 +44,7 @@ module pipeReg_mem_wb
    dff_en z_ff (.clk(clk), .rst(rst), .d(mem_Z), .q(wb_Z), .en(~stall));
    dff_en n_ff (.clk(clk), .rst(rst), .d(mem_N), .q(wb_N), .en(~stall));
    dff_en ofl_ff (.clk(clk), .rst(rst), .d(mem_ofl), .q(wb_ofl), .en(~stall));
-   dff_en write_data_sel_ff [1:0] (.clk(clk), .rst(rst), .d(mem_write_data_sel), .q(wb_write_data_sel), .en(~stall)); 
+   dff_en write_data_sel_ff [2:0] (.clk(clk), .rst(rst), .d(mem_write_data_sel), .q(wb_write_data_sel), .en(~stall)); 
    dff_en write_reg_sel_ff [4:0] (.clk(clk), .rst(rst), .d(mem_write_reg_sel), .q(wb_write_reg_sel), .en(~stall));
    dff_en write_reg_en_ff (.clk(clk), .rst(rst), .d(mem_write_reg_en), .q(wb_write_reg_en), .en(~stall));
    dff_en reg_data_1_ff [31:0] (.clk(clk), .rst(rst), .d(mem_reg_data_1), .q(wb_reg_data_1), .en(~stall)); 

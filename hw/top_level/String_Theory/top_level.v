@@ -39,7 +39,13 @@ module top_level(
 	wire [3:0] data_mem_en;
 	wire [31:0] instr_addr;
 	wire HALTED; 
-   
+	wire [3:0] spu_op;
+	wire spu_en; 
+	wire [31:0] spu_data_a; 
+	wire [31:0] spu_data_b;
+	wire [7:0] spu_delim;
+    wire [3:0] spu_reg;
+	
 	// Inputs to CPU
 	wire [31:0] data_mem_data;
 	wire [31:0] instruction;
@@ -88,6 +94,12 @@ module top_level(
 		.HALTED(HALTED),
 		.spart_int(1'b0),
 		.spu_int(1'b0),
+		.spu_en_out(spu_en),
+		.spu_op_out(spu_op),
+		.spu_data_a(spu_data_a),
+		.spu_data_b(spu_data_b),
+		.spu_delim(spu_delim),
+        .spu_dest_reg(spu_reg),
 		
 		// TEST signal only, used to stall proc until 
 		// Theres room in the fifo to send more uart data_mem_addr

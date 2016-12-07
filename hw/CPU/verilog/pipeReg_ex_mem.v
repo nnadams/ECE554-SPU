@@ -15,7 +15,7 @@ module pipeReg_ex_mem
    input [3:0]  ex_mem_write, 
    input [3:0]  ex_mem_enable, 
    input        ex_mem_read, 
-   input [1:0]  ex_write_data_sel,
+   input [2:0]  ex_write_data_sel,
    input [4:0]  ex_write_reg_sel,
    input        ex_write_reg_en,
    /* Carried From FETCH */
@@ -33,7 +33,7 @@ module pipeReg_ex_mem
    output [3:0]  mem_mem_write, 
    output [3:0]  mem_mem_enable, 
    output        mem_mem_read, 
-   output [1:0]  mem_write_data_sel,
+   output [2:0]  mem_write_data_sel,
    output [4:0]  mem_write_reg_sel,
    output        mem_write_reg_en,
    output [31:0] mem_instruction,
@@ -63,7 +63,7 @@ module pipeReg_ex_mem
    dff_en mem_write_ff [3:0] (.clk(clk), .rst(rst), .d(ex_mem_write_in), .q(mem_mem_write), .en(~stall)); 
    dff_en mem_enable_ff [3:0] (.clk(clk), .rst(rst), .d(ex_mem_enable_in), .q(mem_mem_enable), .en(~stall)); 
    dff_en mem_read_ff(.clk(clk), .rst(rst), .d(ex_mem_read_in), .q(mem_mem_read), .en(~stall)); 
-   dff_en write_data_sel_ff [1:0] (.clk(clk), .rst(rst), .d(ex_write_data_sel), .q(mem_write_data_sel), .en(~stall)); 
+   dff_en write_data_sel_ff [2:0] (.clk(clk), .rst(rst), .d(ex_write_data_sel), .q(mem_write_data_sel), .en(~stall)); 
    dff_en write_reg_sel_ff [4:0] (.clk(clk), .rst(rst), .d(ex_write_reg_sel), .q(mem_write_reg_sel), .en(~stall));
    dff_en write_reg_en_ff (.clk(clk), .rst(rst), .d(ex_write_reg_en_in), .q(mem_write_reg_en), .en(~stall));
    dff_en instr_ff[31:0] (.d(ex_instruction_in), .q(mem_instruction), .clk(clk), .rst(rst), .en(~stall));

@@ -30,11 +30,14 @@ module decode(
 	output [3:0] mem_enable,
 	
 	/* Writeback Control Outputs */
-	output [1:0] write_data_sel_out,
+	output [2:0] write_data_sel_out,
 	output [4:0] write_reg_sel_out,
 	output 	     write_reg_en_out,
 	
-	output reg2used
+	output reg2used,
+	
+	output spu_en,
+	output [3:0] spu_op
 );
 
 	wire [4:0] 	     reg_write;
@@ -59,6 +62,10 @@ module decode(
 							  
 	assign mem_enable = mem_write | mem_en_intermed;
 
+	// String Instruction
+	assign spu_en = (instr[31:26] == 6'b100011) ? 1 : 0 ;
+	assign spu_op = instr[11:8];
+	
    // Register File
    rf_bypass regfile (
 		.read1data(read1data),
