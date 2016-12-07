@@ -10,7 +10,8 @@ module proc (
    output [3:0] spu_op_out,
    output [31:0] spu_data_a,
    output [31:0] spu_data_b,
-   output [7:0]  spu_immed_out,
+   output [3:0]  spu_dest_reg,
+   output [7:0]  spu_delim,
    // Inputs
    input clk,
    input rst,
@@ -50,7 +51,7 @@ module proc (
    wire [3:0]  id_mem_write; 
    wire [3:0]  id_mem_enable; 
    wire        id_mem_read; 
-   wire [1:0]  id_write_data_sel;
+   wire [2:0]  id_write_data_sel;
    wire [4:0]  id_write_reg_sel;
    wire        id_write_reg_en;   
    wire        id_spu_en; 
@@ -69,7 +70,7 @@ module proc (
    wire [3:0]  ex_mem_write; 
    wire [3:0]  ex_mem_enable; 
    wire        ex_mem_read; 
-   wire [1:0]  ex_write_data_sel;
+   wire [2:0]  ex_write_data_sel;
    wire [4:0]  ex_write_reg_sel;
    wire        ex_write_reg_en; 
    wire [31:0] ex_instruction; 
@@ -94,7 +95,7 @@ module proc (
    wire [3:0]  mem_mem_write;
    wire [3:0]  mem_mem_enable;
    wire        mem_mem_read;
-   wire [1:0]  mem_write_data_sel;
+   wire [2:0]  mem_write_data_sel;
    wire [4:0]  mem_write_reg_sel;
    wire        mem_write_reg_en; 
    wire [31:0] mem_instruction;
@@ -113,7 +114,7 @@ module proc (
    wire [31:0] wb_mem_out;
    wire [31:0] wb_alu_out;
    wire [31:0] wb_PC_4;
-   wire [1:0]  wb_write_data_sel;
+   wire [2:0]  wb_write_data_sel;
    wire [4:0]  wb_write_reg_sel;
    wire        wb_write_reg_en;    
    wire [31:0] wb_instruction;
@@ -280,7 +281,8 @@ module proc (
 	assign spu_op_out = ex_spu_op;
 	assign spu_data_a = ex_data_in_A;
 	assign spu_data_b = ex_data_in_B;
-	assign spu_immed_out = ex_instruction[7:0];
+	assign spu_dest_reg = ex_instruction[15:12];
+    assign spu_delim = ex_instruction[7:0];
 
    // Execute Unit
    execute EX (
@@ -415,6 +417,7 @@ module proc (
 		.PC_4(wb_PC_4),
 		.write_reg_sel(wb_write_data_sel),
 		.flag_opcode(wb_instruction[27:26]),
+        .spu_reg(wb_instruction[15:12]),
 		.Z(wb_Z),
 		.N(wb_N),
 		.ofl(wb_ofl),

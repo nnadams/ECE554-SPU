@@ -7,6 +7,7 @@ NAME_NO_SPACE = "(?P<name>[a-zA-Z]+)"
 NAME   = NAME_NO_SPACE + "\s+"
 LABEL  = "(?P<label>[a-zA-Z_][_0-9a-zA-Z]+)\s*"
 IMM    = "(?P<imm>-?[0-9][x0-9A-Fa-f]*)\s*"
+IMMB    = "(?P<immb>-?[0-9][x0-9A-Fa-f]*)\s*"
 FIRST  = "(?P<first>\$[0-9a-zA-Z]+)\s*"
 SECOND = "(?P<second>\$[0-9a-zA-Z]+)\s*"
 THIRD  = "(?P<third>\$[0-9a-zA-Z]+)\s*"
@@ -46,14 +47,17 @@ instruction_types = [
       NAME + IMM + EOL),
 
     re.compile(LINE_BEGIN +
-      NAME_NO_SPACE + EOL)
+      NAME_NO_SPACE + EOL),
+	  
+	re.compile(LINE_BEGIN +
+      NAME + FIRST + SEPERATOR + SECOND + SEPERATOR + IMM + SEPERATOR + IMMB + EOL)
 ]
 s_type = {
   # String instrucitons
-  "slen":    (0x0,0b100011, ["rd", "rs", "rt"]),
-  "scmp":    (0x0,0b100011, ["rd", "rs", "rt"]),
-  "scat":    (0x0,0b100011, ["rd", "rs", "rt"]),
-  "stok":    (0x0,0b100011, ["rd", "rs", "rt"]),
+  "slen":    (0b100011, ["rs", "rt"]),
+  "scmp":    (0b100011, ["rs", "rt"]),
+  "scat":    (0b100011, ["rs", "rt"]),
+  "stok":    (0b100011, ["rs", "rt"]),
 }
 
 s_type_op = {
@@ -79,7 +83,8 @@ r_type = {
   "sle":     (0b011110, 0b00, ["rd", "rs", "rt"]),
   "sco":     (0b011111, 0b00, ["rd", "rs", "rt"]),
   "slt":     (0b011101, 0b00, ["rd", "rs", "rt"]),
-  "halt":    (0b000000, 0b00, [])
+  "halt":    (0b000000, 0b00, []),
+  "nop":     (0b000001, 0b00, [])
 }
 
 i_type = {
@@ -112,7 +117,7 @@ j_type = {
   "jal":     (0b000110,[]),
 }
 
-supported_pseudoinstructions = ['li', 'nop']
+supported_pseudoinstructions = ['li']
 
 def MakeInstruction(position, **kwargs):
   if 'name' in kwargs and \
@@ -125,7 +130,7 @@ def MakeInstruction(position, **kwargs):
 class Instruction:
   def __init__(self, program, position, name=None,
       first=None, second=None, third=None,
-      imm=None, label=None):
+      imm=None, label=None, immb=None):
 
     name = name.lower()
     #if imm is not None: 
@@ -175,8 +180,12 @@ class Instruction:
       self.imm = imm
     else:
       self.imm = eval(imm) if imm is not None else 0
+    if isinstance(immb, int):
+      self.immb = immb
+    else:
+      self.immb = eval(immb) if immb is not None else 0
     self.label = label
-
+    
     if imm is not None and self.label is not None:
       raise Exception("A label and an immediate. Confused.")
 
@@ -187,7 +196,6 @@ class Instruction:
       m = t.match(line)
       if m is not None:
         g = m.groupdict()
-
         if 'name' in g and \
             g['name'].lower() in supported_pseudoinstructions:
           return PseudoInstruction(program, position, **m.groupdict())
@@ -235,15 +243,12 @@ class Instruction:
       return b
 
     if self.name in s_type.keys():
-      # binary = lambda n: '' if n==0 else binary(n/2) + str(n%2)
-      b = 0                            # opcode
+      b =  (s_type[self.name][0]) << 26 #opcode                           # opcode
       b |= (self.rs.binary() << 21)    # rs
       b |= (self.rt.binary() << 16)    # rt
-      b |= (self.rd.binary() << 11)    # rd
-
-      # print(s_type_op[self.name]) 
-      b |= (s_type_op[self.name] << 7)            # opcode cont.
-      #b |= (r_type[self.name][1] << 0)  # delim # TODO figure out what to do here
+      b |= (self.imm << 12)    # spu reg
+      b |= (s_type_op[self.name] << 8)            # opcode cont.
+      b |= (self.immb)  #delim
       return b
 
   # The size, in words, of this instruction

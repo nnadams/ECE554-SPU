@@ -16,7 +16,7 @@ module pipeReg_id_ex
    input [3:0]  id_mem_write, 
    input [3:0]  id_mem_enable, 
    input        id_mem_read, 
-   input [1:0]  id_write_data_sel,
+   input [2:0]  id_write_data_sel,
    input [4:0]  id_write_reg_sel, 
    input        id_write_reg_en, 
    input        id_spu_en,
@@ -39,7 +39,7 @@ module pipeReg_id_ex
    output [3:0]  ex_mem_write, 
    output [3:0]  ex_mem_enable, 
    output        ex_mem_read, 
-   output [1:0]  ex_write_data_sel,
+   output [2:0]  ex_write_data_sel,
    output [4:0]  ex_write_reg_sel, 
    output        ex_write_reg_en,
    output        ex_spu_en,
@@ -76,7 +76,7 @@ module pipeReg_id_ex
    dff_en mem_write_ff [3:0] (.clk(clk), .rst(rst), .d(id_mem_write_in), .q(ex_mem_write), .en(~stall)); 
    dff_en mem_enable_ff [3:0] (.clk(clk), .rst(rst), .d(id_mem_enable_in), .q(ex_mem_enable), .en(~stall)); 
    dff_en mem_read_ff(.clk(clk), .rst(rst), .d(id_mem_read_in), .q(ex_mem_read), .en(~stall)); 
-   dff_en write_data_sel_ff [1:0] (.clk(clk), .rst(rst), .d(id_write_data_sel), .q(ex_write_data_sel), .en(~stall)); 
+   dff_en write_data_sel_ff [2:0] (.clk(clk), .rst(rst), .d(id_write_data_sel), .q(ex_write_data_sel), .en(~stall)); 
    dff_en write_reg_sel_ff [4:0] (.clk(clk), .rst(rst), .d(id_write_reg_sel), .q(ex_write_reg_sel), .en(~stall));
    dff_en write_reg_en_ff (.clk(clk), .rst(rst), .d(id_write_reg_en_in), .q(ex_write_reg_en), .en(~stall));
    dff_en instr_ff[31:0] (.d(id_instruction_in), .q(ex_instruction), .clk(clk), .rst(rst), .en(~stall));

@@ -2,17 +2,18 @@ module writebackcontrol(
 	input [31:0] instr,
 	output [4:0] reg_write,
 	output write_reg,
-	output [1:0] write_reg_sel
+	output [2:0] write_reg_sel
 );
 
-`define WRITE_REG_ALU    2'b00
-`define WRITE_REG_MEM    2'b01
-`define WRITE_REG_PC     2'b10
-`define WRITE_REG_FLAGS  2'b11
+`define WRITE_REG_ALU    3'b000
+`define WRITE_REG_MEM    3'b001
+`define WRITE_REG_PC     3'b010
+`define WRITE_REG_FLAGS  3'b011
+`define WRITE_REG_SPU    3'b100
 
 reg [4:0] _reg_write; 
 reg _write_reg;
-reg [1:0] _write_reg_sel;
+reg [2:0] _write_reg_sel;
 
 assign reg_write = _reg_write;
 assign write_reg = _write_reg;
@@ -244,13 +245,21 @@ always @(*) begin
 			_write_reg_sel = `WRITE_REG_PC;
 		end
 
+        // String Inst 
+        6'b100011:
+		begin
+			_reg_write = 5'd27; 
+			_write_reg = 1'b1;
+			_write_reg_sel = `WRITE_REG_SPU;
+		end
+        
 		// OP code is not relevant to the ALU. Pass through values unchanged and set flags
 		// This includes all BEQZ BNEZ BGEZ BLTZ LBI all Jumps HALT
 		default:
 			begin
 			_reg_write = 4'bxxxx; 
 			_write_reg = 1'b0;
-			_write_reg_sel = 2'bxx;
+			_write_reg_sel = 3'bxx;
 		end
 	endcase
 end 

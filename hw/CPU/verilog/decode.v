@@ -30,7 +30,7 @@ module decode(
 	output [3:0] mem_enable,
 	
 	/* Writeback Control Outputs */
-	output [1:0] write_data_sel_out,
+	output [2:0] write_data_sel_out,
 	output [4:0] write_reg_sel_out,
 	output 	     write_reg_en_out,
 	
