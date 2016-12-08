@@ -31,10 +31,14 @@ module interrupt_controller(
 	
 	// SPU ENABLE FLOP
 	wire spu_int_en_wr; 
-	wire spu_int_en; 
+	reg spu_int_en; 
 	assign spu_int_en_wr = (instruction[31:26] == 6'b111111) ? 1'b1 : 1'b0; 
-	dff_en spu_int_en_flop(.clk(clk), .rst(rst), .d(instruction[1]), .en(spu_int_en_wr), .q(spu_int_en));
-	
+	always @(posedge clk, posedge rst) begin
+		if(rst) spu_int_en <= 1;
+		else if(spu_int_en_wr) spu_int_en <= instruction[1]; 
+        else spu_int_en <= spu_int_en;
+	end
+    
 	// SPU Status Reg 
 	wire spu_int_wr; 
 	wire spu_int_ff; 
@@ -43,9 +47,13 @@ module interrupt_controller(
 	
 	// SPART ENABLE FLOP
 	wire spart_int_en_wr; 
-	wire spart_int_en; 
+	reg spart_int_en; 
 	assign spart_int_en_wr = (instruction[31:26] == 6'b111111) ? 1'b1 : 1'b0; 
-	dff_en spart_int_en_flop(.clk(clk), .rst(rst), .d(instruction[2]), .en(spart_int_en_wr), .q(spart_int_en));
+	always @(posedge clk, posedge rst) begin
+		if(rst) spart_int_en <= 1;
+		else if(spart_int_en_wr) spart_int_en <= instruction[2]; 
+        else spart_int_en <= spart_int_en;
+	end
 	
 	// SPART Status Reg 
 	wire spart_int_wr; 
@@ -67,7 +75,7 @@ module interrupt_controller(
 	// We need to take that branch. 
 	wire [31:0] PC_return; 
 	assign PC_return = take_branch ? PC_BRANCH : PC_CURR;
-	reg_32 ret_pc_reg(.clk(clk), .rst(rst), .writeData(PC_return), .write(int_src_set | take_branch), .data(PC_RESUME));
+	reg_32 ret_pc_reg(.clk(clk), .rst(rst), .writeData(PC_return), .write(int_src_set | (take_branch & int_wait)), .data(PC_RESUME));
 	
 	// The PC the fetch unit should take on an interrupt
 	wire [31:0] _PC_INT;
@@ -75,7 +83,7 @@ module interrupt_controller(
 	assign PC_INT = 
 					(load_reset)                   ? 32'h0 :
 					(load_pc && int_src == 3'b001) ? 32'h8 :
-					(load_pc && int_src == 3'b010) ? 32'hC : _PC_INT;
+					(load_pc && int_src == 3'b010) ? 32'h4 : _PC_INT;
 					
 	reg_32 int_pc_reg(.clk(clk), .rst(rst), .writeData(instruction), .write(flop_pc), .data(_PC_INT));
 		

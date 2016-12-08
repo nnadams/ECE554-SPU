@@ -84,7 +84,8 @@ r_type = {
   "sco":     (0b011111, 0b00, ["rd", "rs", "rt"]),
   "slt":     (0b011101, 0b00, ["rd", "rs", "rt"]),
   "halt":    (0b000000, 0b00, []),
-  "nop":     (0b000001, 0b00, [])
+  "nop":     (0b000001, 0b00, []),
+  "rfe":     (0b111110, 0b00, [])
 }
 
 i_type = {
@@ -201,6 +202,7 @@ class Instruction:
           return PseudoInstruction(program, position, **m.groupdict())
 
         return Instruction(program=program, position=position, **g)
+    print line
     raise Exception("'%s' not an instruction"%(line))
 
   def ToBinary(self):

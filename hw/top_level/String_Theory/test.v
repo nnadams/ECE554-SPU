@@ -23,6 +23,7 @@ module test(
 
 	reg clk; 
 	reg rst;
+	reg spu_int; 
 	wire GPIO_LED_0; 
 	wire GPIO_LED_1; 
 	wire GPIO_LED_2; 
@@ -44,15 +45,21 @@ top_level DUT(
 	.GPIO_LED_5(GPIO_LED_5),  
 	.GPIO_LED_6(GPIO_LED_6),  
 	.GPIO_LED_7(GPIO_LED_7),  
-	.txd(txd)
+	.txd(txd),
+	.spu_int(spu_int)
 );
 
 
    initial begin
       clk = 0; 
       rst = 1; 
+		spu_int = 0; 
       repeat (5) @(posedge clk);
-      rst = 0; 
+      rst = 0;
+		repeat (5) @(posedge clk);		
+		spu_int = 1; 
+		@(posedge clk);
+		spu_int = 0;
    end
 	
 	   

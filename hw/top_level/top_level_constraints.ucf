@@ -13,3 +13,4 @@ NET  GPIO_LED_4           LOC="G16";   # Bank 3, Vcco=2.5V, No DCI
 NET  GPIO_LED_5           LOC="AD25";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  GPIO_LED_6           LOC="AD24";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  GPIO_LED_7           LOC="AE24";  # Bank 21, Vcco=1.8V, 
+NET spu_int LOC="AC24";

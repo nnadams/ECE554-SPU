@@ -11,5 +11,7 @@ main:
     nop
     halt
 
+SPU_IRQ:
+SPART_IRQ:
 
 

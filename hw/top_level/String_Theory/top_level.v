@@ -21,6 +21,7 @@
 module top_level(
 	input clk, 
 	input rst,
+	input spu_int,
 	output GPIO_LED_0, 
 	output GPIO_LED_1, 
 	output GPIO_LED_2, 
@@ -93,7 +94,7 @@ module top_level(
 		.instruction(instruction),
 		.HALTED(HALTED),
 		.spart_int(1'b0),
-		.spu_int(1'b0),
+		.spu_int(spu_int),
 		.spu_en_out(spu_en),
 		.spu_op_out(spu_op),
 		.spu_data_a(spu_data_a),

@@ -96,7 +96,15 @@ always @(*) begin
 			src2_sel = 1'b0;
 			_take_branch = 1'b1;
 		end
-		
+
+        // RFE
+		6'b111100:
+		begin
+			src1_sel = 2'b01;
+			src2_sel = 1'b0;
+			_take_branch = 1'b1;
+		end
+        
 		default:
 		begin
 			src1_sel = 1'bx;
