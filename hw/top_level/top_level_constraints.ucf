@@ -47,5 +47,5 @@ NET "clk_vga"             LOC="AL10" | IOSTANDARD = LVCMOS33 | DRIVE = 24 | SLEW
 NET "clk_vga_n"           LOC="AL11" | IOSTANDARD = LVCMOS33 | DRIVE = 24 | SLEW = FAST;
 NET "dvi_rst"             LOC="AK6"  |  IOSTANDARD = LVCMOS33;
 
-NET  "scl_tri"            LOC="U27"  | SLEW = SLOW |  DRIVE = 6 | TIG |  IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
-NET  "sda_tri"            LOC="T29"  | SLEW = SLOW |  DRIVE = 6 | TIG |  IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET "scl_tri"             LOC="U27"  | SLEW = SLOW |  DRIVE = 6 | TIG |  IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET "sda_tri"             LOC="T29"  | SLEW = SLOW |  DRIVE = 6 | TIG |  IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors

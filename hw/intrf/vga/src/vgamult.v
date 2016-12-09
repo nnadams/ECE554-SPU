@@ -1,3 +1,4 @@
+
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -22,8 +23,8 @@ module vgamult(
     input clk,
     input rst,
     input [63:0] clk_cnt, 
-	 input [31:0] dataa, datab, datac,
-	 input locked_dcm,
+    input [31:0] dataa, datab, datac,
+    input locked_dcm,
     output hsync,
     output vsync,
     output blank,
@@ -32,8 +33,7 @@ module vgamult(
     output [7:0] pixel_g,
     output [7:0] pixel_b,
     output [11:0] D,
-    inout scl_tri, sda_tri
-    
+    inout scl_tri, sda_tri 
 );
 
     wire [9:0] pixel_x;

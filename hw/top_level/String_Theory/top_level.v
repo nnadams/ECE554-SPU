@@ -19,10 +19,15 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module top_level(
-	input clk, 
+	input clk_100mhz, 
 	input rst,
 	input spu_int,
-	input rxd, 
+	input rxd,
+	input [5:0] vga_cfg,
+	output hsync,
+	output vsync,
+	output blank,
+	output dvi_rst,
 	output GPIO_LED_0, 
 	output GPIO_LED_1, 
 	output GPIO_LED_2, 
@@ -31,6 +36,13 @@ module top_level(
 	output GPIO_LED_5, 
 	output GPIO_LED_6, 
 	output GPIO_LED_7, 
+	output [7:0] pixel_r,
+	output [7:0] pixel_g,
+	output [7:0] pixel_b,
+	output [11:0] D,
+	output clk_vga,
+	output clk_vga_n,
+	inout scl_tri, sda_tri,
 	output txd
 );
 	
@@ -59,13 +71,29 @@ module top_level(
 	wire [7:0] spart_tx_data;
 	wire [7:0] spart_rx_data;
 	wire rx_empty; 
-	wire rd_spart; 
+	wire rd_spart;
+	
+	//vga stuff    
+	reg  [31:0] vga_data_1_reg, vga_data_2_reg, vga_data_3_reg;
+	wire [31:0] vga_data_1, vga_data_2, vga_data_3;
 	
 	// Clk Count
 	wire [63:0] clk_cnt; 
+	wire clk_25mhz, clkin_ibufg_out, locked_dcm;
+	assign clk_vga = clk_25mhz;
+	assign clk_vga_n = ~clk_25mhz;
+
+	vga_clk vga_clk_gen1(
+		.CLKIN_IN(clk_100mhz), 
+		.RST_IN(rst), 
+		.CLKDV_OUT(clk_25mhz), 
+		.CLKIN_IBUFG_OUT(clkin_ibufg_out), 
+		.CLK0_OUT(clk), 
+		.LOCKED_OUT(locked_dcm)
+	);
 
 	 //LED Config 
-	 led_controller leds(
+	led_controller leds(
 		 .clk(clk),
 		 .rst(rst),
 		 .led0(halt), .led0_triggered(1'b0),
@@ -104,7 +132,7 @@ module top_level(
 		.spu_data_a(spu_data_a),
 		.spu_data_b(spu_data_b),
 		.spu_delim(spu_delim),
-        .spu_dest_reg(spu_reg),
+      .spu_dest_reg(spu_reg),
 		
 		// TEST signal only, used to stall proc until 
 		// Theres room in the fifo to send more uart data_mem_addr
@@ -130,8 +158,9 @@ module top_level(
 		.cpu_read_data(data_mem_data),
 		.instruction(instruction),
 		.spu_read_data(),
-		.vga_data_1(),
-		.vga_data_3(),
+		.vga_data_1(vga_data_1),
+		.vga_data_2(vga_data_2),
+		.vga_data_3(vga_data_3),
 		.spart_tx_data(spart_tx_data),
 		.spart_trmt(trmt),
 		.spart_rd(rd_spart)
@@ -154,6 +183,26 @@ module top_level(
 		.rx_data(spart_rx_data),
 		.empty(rx_empty)
 	);
+	
+	vgamult VGA(
+		.clk(clk_25mhz),
+		.rst(rst),
+		.clk_cnt(clk_cnt),
+		.dataa(data_1),
+		.datab(data_2),
+		.datac(data_3),
+		.locked_dcm(locked_dcm),
+		.hsync(hsync),
+		.vsync(vsync),
+		.blank(blank),
+		.dvi_rst(dvi_rst),
+		.pixel_r(pixel_r),
+		.pixel_g(pixel_g),
+		.pixel_b(pixel_b),
+		.D(D),
+		.scl_tri(scl_tri), 
+		.sda_tri(sda_tri)
+	);
 
 	clk_counter clock_count(
 		.clk(clk), 
@@ -161,5 +210,34 @@ module top_level(
 		.halt(HALTED), 
 		.clk_cnt(clk_cnt)
 	);
-	
+    assign data_1 = vga_data_1_reg;
+    assign data_2 = vga_data_2_reg;
+    assign data_3 = vga_data_3_reg;	
+always @(posedge clk) begin 
+    vga_data_1_reg = 32'h0;
+    case(vga_cfg[5:4])
+        4'h0 : vga_data_1_reg = 32'hFF;
+        4'h1 : vga_data_1_reg = 32'hFF00;
+        4'h2 : vga_data_1_reg = 32'hFF0000;
+        4'h3 : vga_data_1_reg = 32'hFF000000;
+    endcase
+end
+always @(posedge clk) begin 
+    vga_data_2_reg = 32'h0;
+    case(vga_cfg[3:2])
+        4'h0 : vga_data_2_reg = 32'hFF;
+        4'h1 : vga_data_2_reg = 32'hFF00;
+        4'h2 : vga_data_2_reg = 32'hFF0000;
+        4'h3 : vga_data_2_reg = 32'hFF000000;
+    endcase
+end
+always @(posedge clk) begin 
+    vga_data_3_reg = 32'h0;
+    case(vga_cfg[1:0])
+        4'h0 : vga_data_3_reg = 32'hFF;
+        4'h1 : vga_data_3_reg = 32'hFF00;
+        4'h2 : vga_data_3_reg = 32'hFF0000;
+        4'h3 : vga_data_3_reg = 32'hFF000000;
+    endcase
+end
 endmodule

@@ -1,74 +1,14 @@
-WARNING:coreutil:954 - Unable to map repository entry for IP
-   'xilinx.com:ip:blk_mem_gen:6.1' because the metadata file
-   'C:\ProgramData\App-V\DAA02E26-5322-4947-BF0F-062031F30E14\68790BDD-0F39-406E
-   -A1BC-DAF286566E4F\Root\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\
-   ip\blk_mem_gen_v6_1\component.xml' does not exist.
-WARNING:coreutil:954 - Unable to map repository entry for IP
-   'xilinx.com:ip:blk_mem_gen:6.2' because the metadata file
-   'C:\ProgramData\App-V\DAA02E26-5322-4947-BF0F-062031F30E14\68790BDD-0F39-406E
-   -A1BC-DAF286566E4F\Root\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\
-   ip\blk_mem_gen_v6_2\component.xml' does not exist.
 INFO:sim:172 - Generating IP...
-Applying current project options...
-Finished applying current project options.
-Resolving generics for 'inst_mem'...
-WARNING:sim - A core named 'inst_mem' already exists in the project. Output
-   products for this core may be overwritten.
-Applying external generics to 'inst_mem'...
-Delivering associated files for 'inst_mem'...
-Delivering EJava files for 'inst_mem'...
-Generating implementation netlist for 'inst_mem'...
-INFO:sim - Pre-processing HDL files for 'inst_mem'...
-Running synthesis for 'inst_mem'
-Running ngcbuild...
-Writing VEO instantiation template for 'inst_mem'...
-Writing Verilog behavioral simulation model for 'inst_mem'...
-WARNING:sim - Overwriting existing file
-   I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_
-   mem/doc/blk_mem_gen_v7_3_vinfo.html with file from view xilinx_documentation
-Delivered 1 file into directory
-I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_mem
-Generating ASY schematic symbol...
+Customizing IP...
+Architecture Wizard completed successfully.
+Finished Customizing.
+Resolving generic values...
+Finished resolving generic values.
+INFO:sim:993 - The selected IP does not support an ASY schematic symbol.
 INFO:sim:949 - Finished generation of ASY schematic symbol.
-Generating SYM schematic symbol for 'inst_mem'...
-Generating metadata file...
-Regenerating ISE project file for 'inst_mem'...
-Generating ISE project...
-XCO file found: inst_mem.xco
-XMDF file found: inst_mem_xmdf.tcl
-Adding
-I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_mem
-.asy -view all -origin_type imported
-Adding
-I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_mem
-.ngc -view all -origin_type created
-Checking file
-"I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_me
-m.ngc" for project device match ...
-File
-"I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_me
-m.ngc" device information matches project device.
-Adding
-I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_mem
-.sym -view all -origin_type imported
-Adding
-I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_mem
-.v -view all -origin_type created
-INFO:HDLCompiler:1845 - Analyzing Verilog file
-   "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst
-   _mem.v" into library work
-INFO:ProjectMgmt - Parsing design hierarchy completed successfully.
-Adding
-I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_mem
-.veo -view all -origin_type imported
-INFO:TclTasksC:2116 - The automatic calculation of top has been turned-off.
-   Please set the new top explicitly by running the "project set top" command.
-   To re-calculate the new top automatically, set the "Auto Implementation Top"
-   property to true.
-Top level has been set to "/inst_mem"
-Generating README file...
+WARNING:sim - The chosen IP does not support an SYM schematic symbol.
 Generating FLIST file...
 INFO:sim:948 - Finished FLIST file generation.
 Moving files to output directory...
 Finished moving files to output directory
-Wrote CGP file for project 'inst_mem'.
+Wrote CGP file for project 'vga_clk'.
