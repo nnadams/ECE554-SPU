@@ -84,7 +84,8 @@ r_type = {
   "sco":     (0b011111, 0b00, ["rd", "rs", "rt"]),
   "slt":     (0b011101, 0b00, ["rd", "rs", "rt"]),
   "halt":    (0b000000, 0b00, []),
-  "nop":     (0b000001, 0b00, [])
+  "nop":     (0b000001, 0b00, []),
+  "rfe":     (0b111110, 0b00, [])
 }
 
 i_type = {
@@ -117,6 +118,10 @@ j_type = {
   "jal":     (0b000110,[]),
 }
 
+interrupt_type = {
+      "imod":       (0b111111,[])
+}
+
 supported_pseudoinstructions = ['li']
 
 def MakeInstruction(position, **kwargs):
@@ -140,7 +145,8 @@ class Instruction:
     if name not in r_type.keys() and \
        name not in i_type.keys() and \
        name not in s_type.keys() and \
-       name not in j_type.keys():
+       name not in j_type.keys() and \
+       name not in interrupt_type.keys():
       raise Exception("'%s' is not a MIPS opcode"%(name.lower()))
 
     self.program = program
@@ -155,7 +161,8 @@ class Instruction:
     registers = (r_type[name][-1] if name in r_type else \
                  s_type[name][-1] if name in s_type else \
                  i_type[name][-1] if name in i_type else \
-                 j_type[name][-1])
+                 j_type[name][-1] if name in j_type else \
+                 interrupt_type[name][-1])
     rlist = [x for x in [first, second, third] if x is not None]
 
     if len(registers) == 3 and (first is None or second is None \
@@ -201,6 +208,7 @@ class Instruction:
           return PseudoInstruction(program, position, **m.groupdict())
 
         return Instruction(program=program, position=position, **g)
+    print line
     raise Exception("'%s' not an instruction"%(line))
 
   def ToBinary(self):
@@ -249,8 +257,14 @@ class Instruction:
       b |= (self.imm << 12)    # spu reg
       b |= (s_type_op[self.name] << 8)            # opcode cont.
       b |= (self.immb)  #delim
-      return b
+      return b 
 
+    if self.name in interrupt_type.keys():
+      b = (interrupt_type[self.name][0]) << 26
+      b |= self.imm
+      return b
+      
+      
   # The size, in words, of this instruction
   def Size(self):
     return 1

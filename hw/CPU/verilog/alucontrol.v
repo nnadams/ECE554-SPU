@@ -56,8 +56,8 @@ always @(*) begin
 		8'b001001_xx:
 		begin
 			_Op     = `OPCODE_ADD;
-			_invA   = 1'b1; 
-			_invB   = 1'b0;
+			_invA   = 1'b0; 
+			_invB   = 1'b1;
 			_Cin    = 1'b1; 
 			_sign   = 1'b1;
 			_alusrc = `ALU_SRC_IMM;

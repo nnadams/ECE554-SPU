@@ -51,10 +51,10 @@ module hazard_detect (
 	assign ex_stall = ( (isJumpInstr & ex_stall_A) | (isStoreInstr & ex_stall_B) | (ex_stall_A & ~forward_MEM_EX_in_A) | (ex_stall_B & ~forward_MEM_EX_in_B) );
 
 	// We cant forward if it is a memory load instruction currently in the execute phase
-	assign isLdInstr = (ex_opcode == 6'b010001) ? 1'b1 : 1'b0;
+	assign isLdInstr = (ex_opcode == 6'b010001 | ex_opcode == 6'b110000) ? 1'b1 : 1'b0;
 								
 	// We cant forward the store data. 
-	assign isStoreInstr = (id_opcode == 6'b010000) | (id_opcode == 6'b010011);
+	assign isStoreInstr = (id_opcode == 6'b010000) | (id_opcode == 6'b010011) | (id_opcode == 6'b111000);
 
 	// Cant Forward Jump Stuff
 	assign isJumpInstr = (id_opcode == 6'b000101 | id_opcode == 6'b000111);

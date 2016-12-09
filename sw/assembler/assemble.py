@@ -10,12 +10,15 @@ from register import Register
 from instruction import Instruction
 import instruction
 
+text_base = 0x10 
+data_base = 0x00800000
+
 parser = argparse.ArgumentParser(description="A very small MIPS assembler.")
 parser.add_argument('filename')
-parser.add_argument('-t', '--text_base', default=0,
-    help="Base location of code", metavar="addr")
-parser.add_argument('-d', '--data_base', default=0x0000,
-    help="Base location of data", metavar="addr")
+#parser.add_argument('-t', '--text_base', default=0,
+ #   help="Base location of code", metavar="addr")
+#parser.add_argument('-d', '--data_base', default=0x0000,
+#    help="Base location of data", metavar="addr")
 parser.add_argument('-o', '--output', default=argparse.SUPPRESS,
   help="Output file", metavar="filename")
 parser.add_argument('-p', '--data_out', default=argparse.SUPPRESS,
@@ -42,15 +45,17 @@ lines = f.readlines()
 lines = [x.replace("\n", "") for x in lines]
 f.close()
 
-mp = mips.MIPSProgram(text_base=args['text_base'], data_base=args['data_base'])
+mp = mips.MIPSProgram(text_base=text_base, data_base=data_base)
 mp.AddLines(lines)
 
 output = open(args['output'], 'w') if 'output' in args else None
 endianness = "little" if args['littleendian'] else "top"
 
 if 'output' in args:
-  text_base = int(args['text_base'],16)
+  #text_base = int(args['text_base'],16)
   start_addr = text_base + mp.Label("main")*4
+  spu_int_addr = text_base + mp.Label("SPU_IRQ")*4
+  spart_int_addr = text_base + mp.Label("SPART_IRQ")*4
   with open(args['output'], 'w') as out:
     print "Writing text to '%s'..."%(args['output']),
 
@@ -58,7 +63,9 @@ if 'output' in args:
     if args['simulator'] == 'modelsim':
       out.write("@0\n")
       out.write("%02x\n%02x\n%02x\n%02x\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
-      zero_fill(text_base - 4 , out, args['simulator'])
+      out.write("%02x\n%02x\n%02x\n%02x\n"%(spu_int_addr>>24,(spu_int_addr>>16)&0xff,(spu_int_addr >> 8)&0xff,spu_int_addr&0xff))
+      out.write("%02x\n%02x\n%02x\n%02x\n"%(spart_int_addr>>24,(spart_int_addr>>16)&0xff,(spart_int_addr >> 8)&0xff,spart_int_addr&0xff))
+      out.write("00\n00\n00\n00\n")
       for b in bytes:
         out.write("%02x\n"%(b,))
 
@@ -66,10 +73,11 @@ if 'output' in args:
       out.write("memory_initialization_radix=16;\n")
       out.write("memory_initialization_vector=\n")
       out.write("%02x%02x%02x%02x,\n"%(start_addr>>24,(start_addr>>16)&0xff,(start_addr >> 8)&0xff,start_addr&0xff))
-      zero_fill(text_base - 1, out, args['simulator'])
+      out.write("%02x%02x%02x%02x,\n"%(spu_int_addr>>24,(spu_int_addr>>16)&0xff,(spu_int_addr >> 8)&0xff,spu_int_addr&0xff))
+      out.write("%02x%02x%02x%02x,\n"%(spart_int_addr>>24,(spart_int_addr>>16)&0xff,(spart_int_addr >> 8)&0xff,spart_int_addr&0xff))
+      out.write("00000000,\n")
       for j in range(len(bytes)/4):
         out.write("%02x%02x%02x%02x,\n"%tuple(bytes[j*4:j*4+4]))
-
     else:
       print("Invalid simulator %s" % args['simulator'])
   print "done!"

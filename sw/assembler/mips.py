@@ -47,6 +47,14 @@ class MIPSProgram:
       if m is not None:
         self.RegisterDataLabel(m.group('label'), eval(m.group('str')))
         return
+           
+      m = re.match(
+          r'''^\s*\.WORD\s*(?P<label>[_a-zA-Z0-9]+)\s*''',
+          line)
+      if m is not None:
+        self.RegisterIntLabel(m.group('label'))
+        return
+        
       m = re.match("^\s*(?P<label>[_a-zA-Z0-9]+):\.*$", line)
       if m is not None:
         #print "reg label"
@@ -74,6 +82,11 @@ class MIPSProgram:
     self.labels[label] = self.data_base + position
     self.data.append(string)
 
+  def RegisterIntLabel(self, label):
+    position = sum([len(x) for x in self.data])
+    self.labels[label] = self.data_base + position
+    self.data.append("0000") #random 4 bytes to hold space
+    
   # Returns the label position
   def Label(self, label):
     if hasattr(label, '__call__'):
