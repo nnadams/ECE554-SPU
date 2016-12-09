@@ -4,8 +4,7 @@
 void main()
 {
   char cmp[19]  = "sdlfkjhadsldfbasdg";
-  char test[2]  = "ad";
-
-  strtok(cmp, test);
+  char tok[2]  = "ad";
+  strtok(cmp, tok);
   return;
 }

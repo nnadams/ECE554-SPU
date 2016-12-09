@@ -1,11 +1,10 @@
 #define TEST_STR  "lkdjfhvakjdfhvlkjahdvkabjshdfkjvhadkfvjh";
-#define TEST_TOK  "ab";
+#define TEST_CMP  "ab";
 
 void main()
 {
   char cmp[19]  = "sdlfkjhadsldfbasdg";
   char test[2]  = "ad";
-
-  strtok(cmp, test);
+  strcmp(cmp, test);
   return;
 }

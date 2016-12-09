@@ -248,6 +248,11 @@ def InitializeSymTable(KEYWORD):
       p=InsertSymTable("while",0,KEYWORD,0)
       #p.keywordval=WHILE
       p=InsertSymTable("print_t",0,KEYWORD,0)
+
+      p=InsertSymTable("strtok",0,KEYWORD,0)
+      p=InsertSymTable("strcmp",0,KEYWORD,0)
+      p=InsertSymTable("strlen",0,KEYWORD,0)
+      p=InsertSymTable("strcat",0,KEYWORD,0)
       p.keywordval=0
       p.isFunction=1
       p.linenum=0
