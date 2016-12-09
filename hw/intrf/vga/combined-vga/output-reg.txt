@@ -1,4 +1,0 @@
-Reg1: 
-Reg2: 
-Reg3: 
-PC  : 

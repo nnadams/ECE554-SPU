@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# PlanAhead v14.7 (64-bit)
+# Build 321239 by xbuild on Fri Sep 27 19:29:51 MDT 2013
+# Start of session at: Wed Dec 07 12:54:19 2016
+# Process ID: 7948
+# Log file: I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/intrf/vga/test/combined-vga/planAhead_run_1/planAhead.log
+# Journal file: I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/intrf/vga/test/combined-vga/planAhead_run_1/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/intrf/vga/test/combined-vga/pa.fromNetlist.tcl
