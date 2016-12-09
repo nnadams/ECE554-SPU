@@ -1,0 +1,10 @@
+Command line:
+   \\userspace.cae.wisc.edu\people\b\barry-lenoch\Documents\School\Classes\5th_year\Fall_2016\ece554\project\ECE554-SPU\hw\integration\MMU_VGA\test\mmu-vga\mmu_hier_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  55380
+
+Thu Dec 08 17:51:16 2016
+
+
+ Elaboration Time: 15.2569 sec
