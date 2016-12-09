@@ -41,7 +41,8 @@ module mmu_hier(
     output [31:0]  vga_data_2,
     output [31:0]  vga_data_3,
     output [7:0]   spart_tx_data,
-	 output         spart_trmt
+	 output         spart_trmt,
+	 output 			 spart_rd
     );
 	 
     reg [31:0] spu_reg [0:15];
@@ -50,8 +51,11 @@ module mmu_hier(
     reg cpu_inst_read, mem_mapped_read;
     wire [31:0] cpu_data_mem, cpu_data_inst;
     reg [31:0] cpu_addr_mem, cpu_addr_inst;
+    wire [3:0] aligned_cpu_wr_en;
+    wire [31:0] cpu_wr_data; 
     integer    i;
     reg spart_trmt_reg; 
+	 reg spart_rd_reg; 
 	wire [3:0] cpu_data_mem_wr_en; 
     assign vga_data_1 = spu_reg[0];
     assign vga_data_2 = spu_reg[1];
@@ -59,20 +63,34 @@ module mmu_hier(
     assign spart_tx_data = spart_tx_reg;
 	assign spart_trmt = spart_trmt_reg & |cpu_we;
 	assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
-	
+	assign spart_rd = spart_rd_reg & |cpu_en;
 	// For byte reads 
 	assign cpu_read_data = (cpu_en == 4'b1111) ? cpu_rdata_reg :
 						   (cpu_addr[1:0] == 2'b00) ? (cpu_rdata_reg & 32'h000000ff) :
 						   (cpu_addr[1:0] == 2'b01) ? (cpu_rdata_reg & 32'h0000ff00) >> 8 :
 						   (cpu_addr[1:0] == 2'b10) ? (cpu_rdata_reg & 32'h00ff0000) >> 16 :
 						   (cpu_addr[1:0] == 2'b11) ? (cpu_rdata_reg & 32'hff000000) >> 24: cpu_rdata_reg;
-						   
+	
+    // For Byte writes 
+    assign aligned_cpu_wr_en = (cpu_data_mem_wr_en == 4'b0000) ? 4'b0000 :
+                               (cpu_data_mem_wr_en == 4'b1111) ? 4'b1111 :
+                               (cpu_addr[1:0] == 2'b00) ? 4'b0001 :
+                               (cpu_addr[1:0] == 2'b01) ? 4'b0010 :
+                               (cpu_addr[1:0] == 2'b10) ? 4'b0100 :
+                               (cpu_addr[1:0] == 2'b11) ? 4'b1000 : 4'b0000;
+    
+    assign cpu_wr_data =  (cpu_data_mem_wr_en == 4'b1111) ? cpu_wdata :
+						  (cpu_addr[1:0] == 2'b00) ? (cpu_wdata & 32'h000000ff) :
+						  (cpu_addr[1:0] == 2'b01) ? (cpu_wdata & 32'h000000ff) << 8 :
+						  (cpu_addr[1:0] == 2'b10) ? (cpu_wdata & 32'h000000ff) << 16 :
+						  (cpu_addr[1:0] == 2'b11) ? (cpu_wdata & 32'h000000ff) << 24: cpu_wdata; 
+                          
 main_mem data_mem (
   .clka(clk), // input clka
   .rsta(rst), // input rsta
-  .wea(cpu_data_mem_wr_en), // input [3 : 0] wea
+  .wea(aligned_cpu_wr_en), // input [3 : 0] wea
   .addra(cpu_addr_mem), // input [31 : 0] addra
-  .dina(cpu_wdata), // input [31 : 0] dina
+  .dina(cpu_wr_data), // input [31 : 0] dina
   .douta(cpu_data_mem), // output [31 : 0] douta
   .clkb(clk), // input clkb
   .rstb(rst), // input rstb
@@ -132,6 +150,7 @@ inst_mem imem(
         spart_tx_reg = 8'h0;
         mem_mapped_reg = 32'h0;
         spart_trmt_reg = 1'b0; 
+		  spart_rd_reg = 1'b0;
 		  
         case(cpu_addr[23:20])
             4'h0 : begin
@@ -150,7 +169,10 @@ inst_mem imem(
                     end
                     4'h4 : mem_mapped_reg = {31'h0,spart_tx_full};
                     4'h8 : mem_mapped_reg = {31'h0,spart_rx_empty};
-                    4'hC : mem_mapped_reg = {24'h0,spart_rx_reg};
+                    4'hC : begin 
+								mem_mapped_reg = {24'h0,spart_rx_data};
+								spart_rd_reg = 1'b1;
+							end
                 endcase
             end
             4'hB : begin

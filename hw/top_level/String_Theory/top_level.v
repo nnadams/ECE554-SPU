@@ -22,6 +22,7 @@ module top_level(
 	input clk, 
 	input rst,
 	input spu_int,
+	input rxd, 
 	output GPIO_LED_0, 
 	output GPIO_LED_1, 
 	output GPIO_LED_2, 
@@ -56,18 +57,21 @@ module top_level(
 	wire trmt; 
 	wire full; 
 	wire [7:0] spart_tx_data;
+	wire [7:0] spart_rx_data;
+	wire rx_empty; 
+	wire rd_spart; 
 	
 	// Clk Count
 	wire [63:0] clk_cnt; 
-	
+
 	 //LED Config 
 	 led_controller leds(
 		 .clk(clk),
 		 .rst(rst),
-		 .led0(1'b0), .led0_triggered(1'b0),
-		 .led1(1'b0), .led1_triggered(1'b0),
-		 .led2(1'b0), .led2_triggered(1'b0),
-		 .led3(1'b0), .led3_triggered(1'b0),
+		 .led0(halt), .led0_triggered(1'b0),
+		 .led1((spart_rx_data == 8'd97)), .led1_triggered(1'b1),
+		 .led2((spart_rx_data == 8'd98)), .led2_triggered(1'b1),
+		 .led3((spart_rx_data == 8'd4)), .led3_triggered(1'b1),
 		 .led4(1'b0), .led4_triggered(1'b0),
 		 .led5(1'b0), .led5_triggered(1'b0),
 		 .led6(1'b0), .led6_triggered(1'b0),		
@@ -93,7 +97,7 @@ module top_level(
 		.data_mem_data(data_mem_data),
 		.instruction(instruction),
 		.HALTED(HALTED),
-		.spart_int(1'b0),
+		.spart_int(~rx_empty),
 		.spu_int(spu_int),
 		.spu_en_out(spu_en),
 		.spu_op_out(spu_op),
@@ -120,8 +124,8 @@ module top_level(
 		.spu_res_addr(4'd0),
 		.spu_res_data(32'd0),
 		.spart_tx_full(full),
-		.spart_rx_empty(1'b1),
-		.spart_rx_data(8'd0),
+		.spart_rx_empty(rx_empty),
+		.spart_rx_data(spart_rx_data),
 		
 		.cpu_read_data(data_mem_data),
 		.instruction(instruction),
@@ -129,10 +133,11 @@ module top_level(
 		.vga_data_1(),
 		.vga_data_3(),
 		.spart_tx_data(spart_tx_data),
-		.spart_trmt(trmt)
+		.spart_trmt(trmt),
+		.spart_rd(rd_spart)
 	 );
 	
-	spart_tx_fifo spart(
+	spart_tx_fifo spart_tx(
 		.clk(clk),
 		.rst(rst),
 		.write(trmt),
@@ -141,6 +146,15 @@ module top_level(
 		.txd(txd)
 	);	
 	
+	spart_rx_fifo spart_rx(
+		.clk(clk),
+		.rst(rst),
+		.rxd(rxd),
+		.rd_spart(rd_spart),
+		.rx_data(spart_rx_data),
+		.empty(rx_empty)
+	);
+
 	clk_counter clock_count(
 		.clk(clk), 
 		.rst(rst),

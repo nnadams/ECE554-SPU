@@ -23,7 +23,9 @@ module test(
 
 	reg clk; 
 	reg rst;
-	reg spu_int; 
+	reg trmt; 
+	wire tbr;
+	reg [7:0] tx_data; 
 	wire GPIO_LED_0; 
 	wire GPIO_LED_1; 
 	wire GPIO_LED_2; 
@@ -33,6 +35,7 @@ module test(
 	wire GPIO_LED_6; 
 	wire GPIO_LED_7; 
 	wire txd;
+	wire rxd;
 	
 top_level DUT(
 	.clk(clk), 
@@ -43,23 +46,116 @@ top_level DUT(
 	.GPIO_LED_3(GPIO_LED_3), 
 	.GPIO_LED_4(GPIO_LED_4), 
 	.GPIO_LED_5(GPIO_LED_5),  
-	.GPIO_LED_6(GPIO_LED_6),  
+	.GPIO_LED_6(GPIO_LED_6),   
 	.GPIO_LED_7(GPIO_LED_7),  
 	.txd(txd),
-	.spu_int(spu_int)
+	.rxd(rxd),
+	.spu_int(1'b0)
+);
+
+spart_tx test_spart(
+	.clk(clk),
+	.rst(rst),
+	.trmt(trmt),
+	.tx_data(tx_data),
+	.load_baud(1'b1),
+	.baud_val(16'h10),
+	.TBR(tbr),
+	.TX(rxd)
 );
 
 
    initial begin
       clk = 0; 
       rst = 1; 
-		spu_int = 0; 
+		trmt = 0; 
+		tx_data = 8'd05;
       repeat (5) @(posedge clk);
       rst = 0;
-		repeat (5) @(posedge clk);		
-		spu_int = 1; 
+		repeat (20) @(posedge clk);
+		
+		trmt = 1;
 		@(posedge clk);
-		spu_int = 0;
+		trmt = 0;
+		
+		tx_data = 8'd01; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+		tx_data = 8'd96; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+
+		tx_data = 8'd97; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+		tx_data = 8'd98; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+		tx_data = 8'd0; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+		tx_data = 8'd02; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+		tx_data = 8'd96; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+
+		tx_data = 8'd97; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+		tx_data = 8'd98; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+		tx_data = 8'd0; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+	   tx_data = 8'd4; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
    end
 	
 	   
