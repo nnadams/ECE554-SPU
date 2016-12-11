@@ -7,6 +7,7 @@
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/SPU I:|ECE554-SPU|hw|SPU|verilog|SPU.v</ClosedNode>
          <ClosedNode>/cpu_mmu_integration I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v</ClosedNode>
          <ClosedNode>/cpu_trace I:|554|project|ECE554-SPU|hw|CPU|verilog|CPU_trace.v</ClosedNode>
          <ClosedNode>/mmu_hier I:|554|project|ECE554-SPU|hw|MMU|verilog|mmu_hier.v</ClosedNode>
@@ -16,32 +17,61 @@
          <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/MMU - mmu_hier</ClosedNode>
          <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc</ClosedNode>
          <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/D - decode</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/EX - execute</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/F - fetch</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/WB - writeback</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/bc - branch_control</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/ex_mem - pipeReg_ex_mem</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/hd - hazard_detect</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/id_ex - pipeReg_id_ex</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/if_id - pipeReg_if_id</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/mem_wb - pipeReg_mem_wb</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spu - SPU/core1 - SPUCore</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|top_level.v/spart0 - spart</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v/spart - spart_tx_fifo/spart - spart_tx</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/D - decode</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/EX - execute</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/int_pc_reg - reg_32</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/int_src_flop - dff_en</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/ret_pc_reg - reg_32</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/spart_int_en_flop - dff_en</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/spu_int_en_flop - dff_en</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/pc_reg - reg_32</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/WB - writeback</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/bc - branch_control</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/ex_mem - pipeReg_ex_mem</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/hd - hazard_detect</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/id_ex - pipeReg_id_ex</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/if_id - pipeReg_if_id</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/mem_wb - pipeReg_mem_wb</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/SPU - spu/core1 - spu_core</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>DUT - top_level (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</SelectedItem>
+         <SelectedItem>DUT - top_level (I:/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000144000000020000000000000000000000000200000064ffffffff000000810000000300000002000001440000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000015b000000020000000000000000000000000200000064ffffffff0000008100000003000000020000015b0000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>DUT - top_level (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</CurrentItem>
+      <CurrentItem>DUT - top_level (I:/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
-         <ClosedNode>Design Utilities/Compile HDL Simulation Libraries</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem>Design Utilities</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f8000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem>Design Utilities</CurrentItem>
    </ItemView>
    <ItemView guiview="File" >
       <ClosedNodes>
@@ -69,43 +99,79 @@
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VERILOG" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
-         <ClosedNode>Design Utilities/Compile HDL Simulation Libraries</ClosedNode>
          <ClosedNode>Implement Design/Map</ClosedNode>
          <ClosedNode>Implement Design/Place &amp; Route</ClosedNode>
          <ClosedNode>Implement Design/Translate</ClosedNode>
-         <ClosedNode>Synthesize - XST</ClosedNode>
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Generate Programming File</SelectedItem>
+         <SelectedItem>Design Summary/Reports</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000e7000000010000000100000000000000000000000064ffffffff000000810000000000000001000000e70000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f8000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Generate Programming File</CurrentItem>
+      <CurrentItem>Design Summary/Reports</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/SPU_tb I:|ECE554-SPU|hw|SPU|test|SPU_tb.v/DUT - SPU/core1 - SPUCore</ClosedNode>
+         <ClosedNode>/comparator_tb I:|ECE554-SPU|hw|SPU|test|comparator_tb.v</ClosedNode>
+         <ClosedNode>/comparator_tb I:|ECE554-SPU|hw|top_level|String_Theory|comparator_tb.v</ClosedNode>
+         <ClosedNode>/msb_priority_enc_tb I:|ECE554-SPU|hw|SPU|test|msb_priority_enc_tb.v</ClosedNode>
+         <ClosedNode>/msb_priority_enc_tb I:|ECE554-SPU|hw|top_level|String_Theory|msb_priority_enc_tb.v</ClosedNode>
+         <ClosedNode>/priority_enc_tb I:|ECE554-SPU|hw|SPU|test|priority_enc_tb.v</ClosedNode>
+         <ClosedNode>/priority_enc_tb I:|ECE554-SPU|hw|top_level|String_Theory|priority_enc_tb.v</ClosedNode>
          <ClosedNode>/receive_control I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|receive_control.v</ClosedNode>
          <ClosedNode>/rx_tb I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|rx_tb.v</ClosedNode>
          <ClosedNode>/spart I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|spart.v</ClosedNode>
          <ClosedNode>/spart_rx I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|spart_rx.v</ClosedNode>
+         <ClosedNode>/spu_core_STRSTR_tb I:|ECE554-SPU|hw|SPU|test|spu_core_STRSTR_tb.v</ClosedNode>
+         <ClosedNode>/spu_core_STRSTR_tb I:|ECE554-SPU|hw|top_level|String_Theory|spu_core_STRSTR_tb.v</ClosedNode>
+         <ClosedNode>/spu_core_tb I:|ECE554-SPU|hw|SPU|test|spu_core_tb.v</ClosedNode>
+         <ClosedNode>/spu_core_tb I:|ECE554-SPU|hw|top_level|String_Theory|spu_core_tb.v</ClosedNode>
+         <ClosedNode>/spu_tb I:|ECE554-SPU|hw|SPU|test|spu_tb.v</ClosedNode>
+         <ClosedNode>/spu_tb I:|ECE554-SPU|hw|top_level|String_Theory|spu_tb.v</ClosedNode>
          <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spu - SPU</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v/MMU - mmu_hier</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v/spart - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/D - decode</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/EX - execute</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/int_pc_reg - reg_32</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/int_src_flop - dff_en</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/ret_pc_reg - reg_32</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/spart_int_en_flop - dff_en</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/int_control - interrupt_controller/spu_int_en_flop - dff_en</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/F - fetch/pc_reg - reg_32</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/WB - writeback</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/bc - branch_control</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/ex_mem - pipeReg_ex_mem</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/hd - hazard_detect</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/id_ex - pipeReg_id_ex</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/if_id - pipeReg_if_id</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/mem_wb - pipeReg_mem_wb</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/SPU - spu/core1 - spu_core</ClosedNode>
+         <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/spart - spart_tx_fifo/spart - spart_tx</ClosedNode>
          <ClosedNode>/tx_tb I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|tx_tb.v</ClosedNode>
+         <ClosedNode>/zero_counter_tb I:|ECE554-SPU|hw|SPU|test|zero_counter_tb.v</ClosedNode>
+         <ClosedNode>/zero_counter_tb I:|ECE554-SPU|hw|top_level|String_Theory|zero_counter_tb.v</ClosedNode>
+         <ClosedNode>/zero_priority_enc_tb I:|ECE554-SPU|hw|SPU|test|zero_priority_enc_tb.v</ClosedNode>
+         <ClosedNode>/zero_priority_enc_tb I:|ECE554-SPU|hw|top_level|String_Theory|zero_priority_enc_tb.v</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>test (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test.v)</SelectedItem>
+         <SelectedItem>test (I:/ECE554-SPU/hw/top_level/String_Theory/test.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000000ec000000020000000000000000000000000200000064ffffffff000000810000000300000002000000ec0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000015b000000020000000000000000000000000200000064ffffffff0000008100000003000000020000015b0000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>test (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test.v)</CurrentItem>
+      <CurrentItem>test (I:/ECE554-SPU/hw/top_level/String_Theory/test.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -118,7 +184,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f8000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
    </ItemView>
@@ -127,13 +193,13 @@
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem>Simulate Behavioral Model</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f8000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem>Simulate Behavioral Model</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_BMM" guiview="Process" >
       <ClosedNodes>
@@ -152,27 +218,40 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f8000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000131000000010000000100000000000000000000000064ffffffff000000810000000000000001000001310000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XCO" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>CORE Generator</SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000169000000010000000100000000000000000000000064ffffffff000000810000000000000001000001690000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>CORE Generator</CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <SourceProcessView>000000ff00000000000000020000011b0000011b01000000050100000002</SourceProcessView>
    <CurrentView>Implementation</CurrentView>
+   <ItemView engineview="BehavioralSim" sourcetype="DESUT_XCO" guiview="Process" >
+      <ClosedNodes>
+         <ClosedNodesVersion>1</ClosedNodesVersion>
+      </ClosedNodes>
+      <SelectedItems>
+         <SelectedItem/>
+      </SelectedItems>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
+      <CurrentItem/>
+   </ItemView>
 </Project>

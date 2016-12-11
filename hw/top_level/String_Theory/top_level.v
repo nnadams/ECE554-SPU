@@ -40,7 +40,7 @@ module top_level(
 	wire [31:0] instr_addr;
 	wire HALTED; 
 	wire [3:0] spu_op;
-	wire spu_en; 
+	wire spu_en;
 	wire [31:0] spu_data_a; 
 	wire [31:0] spu_data_b;
 	wire [7:0] spu_delim;
@@ -56,6 +56,13 @@ module top_level(
 	wire full; 
 	wire [7:0] spart_tx_data;
 	
+	// SPU stuff
+	wire spu_we; // FOR DEBUG
+	wire spu_int;
+	wire [3:0] spu_res_addr;
+	wire [31:0] spu_res_data, spu_addr;
+	wire [127:0] spu_mem_data;
+	
 	// Clk Count
 	wire [63:0] clk_cnt; 
 	
@@ -63,14 +70,14 @@ module top_level(
 	 led_controller leds(
 		 .clk(clk),
 		 .rst(rst),
-		 .led0(1'b0), .led0_triggered(1'b0),
-		 .led1(1'b0), .led1_triggered(1'b0),
-		 .led2(1'b0), .led2_triggered(1'b0),
-		 .led3(1'b0), .led3_triggered(1'b0),
-		 .led4(1'b0), .led4_triggered(1'b0),
-		 .led5(1'b0), .led5_triggered(1'b0),
-		 .led6(1'b0), .led6_triggered(1'b0),		
-		 .led7(1'b0), .led7_triggered(1'b0),
+		 .led0(spu_res_data[0] & spu_we), .led0_triggered(1'b1),
+		 .led1(spu_res_data[1] & spu_we), .led1_triggered(1'b1),
+		 .led2(spu_res_data[2] & spu_we), .led2_triggered(1'b1),
+		 .led3(spu_res_data[3] & spu_we), .led3_triggered(1'b1),
+		 .led4(spu_res_data[4] & spu_we), .led4_triggered(1'b1),
+		 .led5(spu_res_data[5] & spu_we), .led5_triggered(1'b1),
+		 .led6(spu_res_data[6] & spu_we), .led6_triggered(1'b1),		
+		 .led7(spu_res_data[7] & spu_we), .led7_triggered(1'b1),
 		 .GPIO_LED_0(GPIO_LED_0),
 		 .GPIO_LED_1(GPIO_LED_1),
 		 .GPIO_LED_2(GPIO_LED_2),
@@ -93,13 +100,13 @@ module top_level(
 		.instruction(instruction),
 		.HALTED(HALTED),
 		.spart_int(1'b0),
-		.spu_int(1'b0),
+		.spu_int(spu_int),
 		.spu_en_out(spu_en),
 		.spu_op_out(spu_op),
 		.spu_data_a(spu_data_a),
 		.spu_data_b(spu_data_b),
 		.spu_delim(spu_delim),
-        .spu_dest_reg(spu_reg),
+      .spu_dest_reg(spu_reg),
 		
 		// TEST signal only, used to stall proc until 
 		// Theres room in the fifo to send more uart data_mem_addr
@@ -115,21 +122,38 @@ module top_level(
 		.cpu_en(data_mem_en),
 		.cpu_we(data_mem_wr),
 		.spu_wdata(128'd0),
-		.spu_addr(32'd0),
-		.spu_res_addr(4'd0),
-		.spu_res_data(32'd0),
+		.spu_addr(spu_addr),
+		.spu_res_addr(spu_res_addr),
+		.spu_res_data(spu_res_data),
 		.spart_tx_full(full),
 		.spart_rx_empty(1'b1),
 		.spart_rx_data(8'd0),
 		
 		.cpu_read_data(data_mem_data),
 		.instruction(instruction),
-		.spu_read_data(),
+		.spu_read_data(spu_mem_data),
 		.vga_data_1(),
 		.vga_data_3(),
 		.spart_tx_data(spart_tx_data),
 		.spart_trmt(trmt)
 	 );
+	
+	SPU spu(
+		.clk(clk),
+		.rst(rst),
+		.i_start(spu_en),
+		.i_op(spu_op),
+		.i_dest(spu_reg),
+		.i_imm(spu_delim),
+		.i_strAlocation(spu_data_a),
+		.i_strBlocation(spu_data_b),
+		.i_mem_data(spu_mem_data),
+  		.o_mem_addr(spu_addr),
+  		.o_sreg_data(spu_res_data),
+  		.o_sreg_addr(spu_res_addr),
+  		.o_sreg_we(spu_we),
+  		.o_done(spu_int)
+	);
 	
 	spart_tx_fifo spart(
 		.clk(clk),

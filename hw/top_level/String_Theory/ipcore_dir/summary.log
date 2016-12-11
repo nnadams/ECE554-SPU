@@ -5,7 +5,7 @@ Algorithm				:	Minimum_Area
 Memory Type				:	Dual_Port_ROM
 Port A Read Width		:	32
 Port B Read Width		:	32
-Memory Depth			:	1000
+Memory Depth			:	128
 --------------------------------------------------------------
 
 Block RAM resource(s) (18K BRAMs)		: 0
