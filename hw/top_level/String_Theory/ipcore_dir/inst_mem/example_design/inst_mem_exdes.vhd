@@ -89,7 +89,11 @@ ENTITY inst_mem_exdes IS
   PORT (
       --Inputs - Port A
     RSTA           : IN STD_LOGIC;  --opt port
+  
+    WEA            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+  
+    DINA           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
     DOUTA          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
   
@@ -98,7 +102,11 @@ ENTITY inst_mem_exdes IS
   
       --Inputs - Port B
     RSTB           : IN STD_LOGIC;  --opt port
+  
+    WEB            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRB          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+  
+    DINB           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTB          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     CLKB           : IN STD_LOGIC
 
@@ -120,7 +128,11 @@ ARCHITECTURE xilinx OF inst_mem_exdes IS
   PORT (
       --Port A
     RSTA       : IN STD_LOGIC;  --opt port
+  
+    WEA        : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+  
+    DINA       : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
     DOUTA      : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
 
@@ -130,7 +142,11 @@ ARCHITECTURE xilinx OF inst_mem_exdes IS
   
       --Port B
     RSTB       : IN STD_LOGIC;  --opt port
+  
+    WEB        : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRB      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+  
+    DINB       : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTB      : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     CLKB       : IN STD_LOGIC
 
@@ -161,7 +177,11 @@ BEGIN
     PORT MAP (
       --Port A
       RSTA       => RSTA,
+  
+      WEA        => WEA,
       ADDRA      => ADDRA,
+  
+      DINA       => DINA,
   
       DOUTA      => DOUTA,
 
@@ -170,7 +190,11 @@ BEGIN
   
       --Port B
       RSTB       => RSTB,
+  
+      WEB        => WEB,
       ADDRB      => ADDRB,
+  
+      DINB       => DINB,
       DOUTB      => DOUTB,
       CLKB       => CLKB_buf
 

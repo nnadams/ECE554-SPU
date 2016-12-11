@@ -26,6 +26,8 @@ inst_mem\implement\xst.scr
 inst_mem\simulation\addr_gen.vhd
 inst_mem\simulation\bmg_stim_gen.vhd
 inst_mem\simulation\bmg_tb_pkg.vhd
+inst_mem\simulation\checker.vhd
+inst_mem\simulation\data_gen.vhd
 inst_mem\simulation\functional\simcmds.tcl
 inst_mem\simulation\functional\simulate_isim.bat
 inst_mem\simulation\functional\simulate_mti.bat

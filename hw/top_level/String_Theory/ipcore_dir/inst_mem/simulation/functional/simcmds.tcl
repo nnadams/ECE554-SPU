@@ -56,10 +56,14 @@ wave add /inst_mem_tb/status
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/RSTA
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/CLKA
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/ADDRA
+      wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/DINA
+      wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/WEA
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/DOUTA
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/RSTB
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/CLKB
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/ADDRB
+      wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/DINB
+      wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/WEB
       wave add  /inst_mem_tb/inst_mem_synth_inst/BMG_PORT/DOUTB
 run all
 quit

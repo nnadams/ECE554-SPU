@@ -92,9 +92,6 @@ USE work.ALL;
 USE work.BMG_TB_PKG.ALL;
 
 ENTITY blk_mem_gen_v7_3_synth IS
-GENERIC ( 
-   C_ROM_SYNTH : INTEGER := 1
-   );
 PORT(
 	CLK_IN     : IN  STD_LOGIC;
 	CLKB_IN     : IN  STD_LOGIC;
@@ -110,13 +107,17 @@ COMPONENT blk_mem_gen_v7_3_exdes
   PORT (
       --Inputs - Port A
     RSTA           : IN STD_LOGIC;  --opt port
+    WEA            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    DINA           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTA          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     CLKA       : IN STD_LOGIC;
 
       --Inputs - Port B
     RSTB           : IN STD_LOGIC;  --opt port
+    WEB            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRB          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    DINB           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTB          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     CLKB           : IN STD_LOGIC
 
@@ -127,20 +128,31 @@ END COMPONENT;
 
   SIGNAL CLKA: STD_LOGIC := '0';
   SIGNAL RSTA: STD_LOGIC := '0';
+  SIGNAL WEA: STD_LOGIC_VECTOR(3 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL WEA_R: STD_LOGIC_VECTOR(3 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRA: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRA_R: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRA_SHIFT: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRA_SHIFT_R: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRB_SHIFT: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRB_SHIFT_R: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL DINA: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL DINA_R: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL DOUTA: STD_LOGIC_VECTOR(31 DOWNTO 0);
   SIGNAL CLKB: STD_LOGIC := '0';
   SIGNAL RSTB: STD_LOGIC := '0';
+  
+  SIGNAL WEB: STD_LOGIC_VECTOR(3 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL WEB_R: STD_LOGIC_VECTOR(3 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRB: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL ADDRB_R: STD_LOGIC_VECTOR(31 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL DINB: STD_LOGIC_VECTOR( 31 DOWNTO 0) := (OTHERS => '0');
+  SIGNAL DINB_R: STD_LOGIC_VECTOR( 31 DOWNTO 0) := (OTHERS => '0');
   SIGNAL DOUTB: STD_LOGIC_VECTOR(31 DOWNTO 0);
   SIGNAL CHECKER_EN : STD_LOGIC:='0';
   SIGNAL CHECKER_EN_R : STD_LOGIC:='0';
+  SIGNAL CHECK_DATA_TDP : STD_LOGIC_VECTOR(1 DOWNTO 0) := (OTHERS => '0'); 
+  SIGNAL CHECKER_ENB_R : STD_LOGIC :=  '0'; 
   SIGNAL STIMULUS_FLOW : STD_LOGIC_VECTOR(22 DOWNTO 0) := (OTHERS =>'0');
   SIGNAL clk_in_i: STD_LOGIC;
  
@@ -213,25 +225,67 @@ END PROCESS;
 STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
 
 
+   BMG_DATA_CHECKER_INST_A: ENTITY work.CHECKER
+      GENERIC MAP ( 
+         WRITE_WIDTH => 32,
+		 READ_WIDTH  => 32      )
+      PORT MAP (
+         CLK     => CLKA,
+         RST     => RSTA, 
+         EN      => CHECKER_EN_R,
+         DATA_IN => DOUTA,
+         STATUS  => ISSUE_FLAG(0)
+	   );
+   PROCESS(CLKA)
+   BEGIN
+      IF(RISING_EDGE(CLKA)) THEN
+         IF(RSTA='1') THEN
+		    CHECKER_EN_R <= '0';
+	     ELSE
+		    CHECKER_EN_R <= CHECK_DATA_TDP(0) AFTER 50 ns;
+         END IF;
+      END IF;
+   END PROCESS;
+
+   BMG_DATA_CHECKER_INST_B: ENTITY work.CHECKER
+      GENERIC MAP ( 
+         WRITE_WIDTH => 32,
+		 READ_WIDTH  => 32      )
+      PORT MAP (
+         CLK     => CLKB,
+         RST     => RSTB, 
+         EN      => CHECKER_ENB_R,
+         DATA_IN => DOUTB,
+         STATUS  => ISSUE_FLAG(1)
+	   );
+   PROCESS(CLKB)
+   BEGIN
+      IF(RISING_EDGE(CLKB)) THEN
+         IF(RSTB='1') THEN
+		    CHECKER_ENB_R <= '0';
+	     ELSE
+		    CHECKER_ENB_R <= CHECK_DATA_TDP(1) AFTER 50 ns;
+         END IF;
+      END IF;
+   END PROCESS;
 
 
 
     BMG_STIM_GEN_INST:ENTITY work.BMG_STIM_GEN
-    GENERIC MAP(  C_ROM_SYNTH => C_ROM_SYNTH
-              )
-
-     PORT MAP(
-                CLKA => clk_in_i,
-            	RSTA => RSTA,
-                CLKB => clkb_in_i,
-            	RSTB => RSTB,
-                TB_RST => RSTA,
-                ADDRA  => ADDRA,
-                ADDRB  => ADDRB,
-				DATA_IN_A => DOUTA,
-				DATA_IN_B => DOUTB,
-				STATUS => ISSUE_FLAG(1 downto 0)
-             );
+      PORT MAP(
+        CLKA => CLKA,
+        CLKB => CLKB,
+    	RSTA => RSTA,
+ 	    RSTB => RSTB,
+     	TB_RST => RSTA,
+        ADDRA  => ADDRA,
+        DINA => DINA,
+        WEA => WEA,
+        WEB => WEB,
+        ADDRB => ADDRB,
+        DINB => DINB,
+        CHECK_DATA => CHECK_DATA_TDP
+      );
 
       PROCESS(CLKA)
       BEGIN
@@ -256,12 +310,11 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
         IF(RISING_EDGE(CLKA)) THEN
 		  IF(RESET_SYNC_R3='1') THEN
 		      STIMULUS_FLOW <= (OTHERS => '0'); 
-           ELSIF(ADDRA(0)='1') THEN
+           ELSIF(WEA(0)='1') THEN
 		      STIMULUS_FLOW <= STIMULUS_FLOW+1;
          END IF;
 	    END IF;
       END PROCESS;
-
 
    ADDRA_SHIFT(31 DOWNTO 2) <= ADDRA(29 DOWNTO 0) ;
    ADDRA_SHIFT(1 DOWNTO 0)  <= (OTHERS=> '0' );
@@ -272,9 +325,19 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
       BEGIN
         IF(RISING_EDGE(CLKA)) THEN
 		  IF(RESET_SYNC_R3='1') THEN
+            WEA_R  <= (OTHERS=>'0') AFTER 50 ns;
+            DINA_R <= (OTHERS=>'0') AFTER 50 ns;
+  
+            WEB_R <= (OTHERS=>'0') AFTER 50 ns;
+            DINB_R <= (OTHERS=>'0') AFTER 50 ns;
           
 
            ELSE
+            WEA_R  <= WEA AFTER 50 ns;
+            DINA_R <= DINA AFTER 50 ns;
+  
+            WEB_R <= WEB AFTER 50 ns;
+            DINB_R <= DINB AFTER 50 ns;
 
          END IF;
 	    END IF;
@@ -298,12 +361,18 @@ STATUS(7 DOWNTO 0) <= ISSUE_FLAG_STATUS;
     BMG_PORT: blk_mem_gen_v7_3_exdes PORT MAP ( 
       --Port A
       RSTA       => RSTA,
+      WEA        => WEA_R,
       ADDRA      => ADDRA_SHIFT_R,
+      DINA       => DINA_R,
       DOUTA      => DOUTA,
       CLKA       => CLKA,
       --Port B
       RSTB       => RSTB,
+  
+      WEB        => WEB_R,
       ADDRB      => ADDRB_SHIFT_R,
+  
+      DINB       => DINB_R,
       DOUTB      => DOUTB,
       CLKB       => CLKB
 

@@ -56,7 +56,10 @@ ncvhdl -v93 -work work ../../example_design/inst_mem_exdes.vhd
 echo "Compiling Test Bench Files"
 
 ncvhdl -v93 -work work    ../bmg_tb_pkg.vhd
+ncvhdl -v93 -work work    ../random.vhd
+ncvhdl -v93 -work work    ../data_gen.vhd
 ncvhdl -v93 -work work    ../addr_gen.vhd
+ncvhdl -v93 -work work    ../checker.vhd
 ncvhdl -v93 -work work    ../bmg_stim_gen.vhd
 ncvhdl -v93 -work work    ../inst_mem_synth.vhd 
 ncvhdl -v93 -work work    ../inst_mem_tb.vhd
