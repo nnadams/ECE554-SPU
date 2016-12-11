@@ -1,18 +1,16 @@
 # Clock Configuration
 NET clk_100mhz            LOC="AH15";  # Bank 4, Vcco=3.3V, No DCI
-
 # RS232 Configuration
 NET txd       LOC="AG20";  # Bank 4, Vcco=3.3V, No DCI (txd)
 NET rxd       LOC="AG15";  # Bank 4, Vcco=3.3V, No DCI (rxd)
 # Switch Configuration
-NET rst                   LOC="U25"  | IOSTANDARD = LVCMOS18;   # DIP 1, Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET rst                   LOC="U25"  |IOSTANDARD = LVCMOS18;   # DIP 1, Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  vga_cfg<0>           LOC="AF25";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  vga_cfg<1>           LOC="AF26";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  vga_cfg<2>           LOC="AE27";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  vga_cfg<3>           LOC="AE26";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  vga_cfg<4>           LOC="AC25";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  vga_cfg<5>           LOC="AC24";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
-
 
 #GPIO Leds
 NET  GPIO_LED_0           LOC="H18";   # Bank 3, Vcco=2.5V, No DCI
@@ -23,29 +21,31 @@ NET  GPIO_LED_4           LOC="G16";   # Bank 3, Vcco=2.5V, No DCI
 NET  GPIO_LED_5           LOC="AD25";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  GPIO_LED_6           LOC="AD24";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
 NET  GPIO_LED_7           LOC="AE24";  # Bank 21, Vcco=1.8V, 
-
 #DVI output
-NET  "D<0>"               LOC="AB8"  | IOSTANDARD = LVCMOS33; 
-NET  "D<1>"               LOC="AC8"  | IOSTANDARD = LVCMOS33;
-NET  "D<2>"               LOC="AN12" | IOSTANDARD = LVCMOS33;
-NET  "D<3>"               LOC="AP12" | IOSTANDARD = LVCMOS33;
-NET  "D<4>"               LOC="AA9"  | IOSTANDARD = LVCMOS33;
-NET  "D<5>"               LOC="AA8"  | IOSTANDARD = LVCMOS33;
-NET  "D<6>"               LOC="AM13" | IOSTANDARD = LVCMOS33;
-NET  "D<7>"               LOC="AN13" | IOSTANDARD = LVCMOS33;
-NET  "D<8>"               LOC="AA10" | IOSTANDARD = LVCMOS33;
-NET  "D<9>"               LOC="AB10" | IOSTANDARD = LVCMOS33;
-NET  "D<10>"              LOC="AP14" | IOSTANDARD = LVCMOS33;
-NET  "D<11>"              LOC="AN14" | IOSTANDARD = LVCMOS33;
+NET  "D<0>"               LOC="AB8"  |IOSTANDARD = LVCMOS33; 
+NET  "D<1>"               LOC="AC8"  |IOSTANDARD = LVCMOS33;
+NET  "D<2>"               LOC="AN12" |IOSTANDARD = LVCMOS33;
+NET  "D<3>"               LOC="AP12" |IOSTANDARD = LVCMOS33;
+NET  "D<4>"               LOC="AA9"  |IOSTANDARD = LVCMOS33;
+NET  "D<5>"               LOC="AA8"  |IOSTANDARD = LVCMOS33;
+NET  "D<6>"               LOC="AM13" |IOSTANDARD = LVCMOS33;
+NET  "D<7>"               LOC="AN13" |IOSTANDARD = LVCMOS33;
+NET  "D<8>"               LOC="AA10" |IOSTANDARD = LVCMOS33;
+NET  "D<9>"               LOC="AB10" |IOSTANDARD = LVCMOS33;
+NET  "D<10>"              LOC="AP14" |IOSTANDARD = LVCMOS33;
+NET  "D<11>"              LOC="AN14" |IOSTANDARD = LVCMOS33;
 
 NET D<*>                  IOSTANDARD = LVDCI_33;
 
-NET "blank"               LOC="AE8"  | IOSTANDARD = LVDCI_33;  #data enable
-NET "hsync"               LOC="AM12" | IOSTANDARD = LVDCI_33;
-NET "vsync"               LOC="AM11" | IOSTANDARD = LVDCI_33;
-NET "clk_vga"             LOC="AL10" | IOSTANDARD = LVCMOS33 | DRIVE = 24 | SLEW = FAST;
-NET "clk_vga_n"           LOC="AL11" | IOSTANDARD = LVCMOS33 | DRIVE = 24 | SLEW = FAST;
-NET "dvi_rst"             LOC="AK6"  |  IOSTANDARD = LVCMOS33;
+NET "blank"               LOC="AE8"  |IOSTANDARD = LVDCI_33;  #data enable
+NET "hsync"               LOC="AM12" |IOSTANDARD = LVDCI_33;
+NET "vsync"               LOC="AM11" |IOSTANDARD = LVDCI_33;
+NET "clk_vga"             LOC="AL10" |IOSTANDARD = LVCMOS33 |DRIVE = 24 |SLEW = FAST;
+NET "clk_vga_n"           LOC="AL11" |IOSTANDARD = LVCMOS33 |DRIVE = 24 |SLEW = FAST;
+NET "dvi_rst"             LOC="AK6"  |IOSTANDARD = LVCMOS33;
 
-NET "scl_tri"             LOC="U27"  | SLEW = SLOW |  DRIVE = 6 | TIG |  IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
-NET "sda_tri"             LOC="T29"  | SLEW = SLOW |  DRIVE = 6 | TIG |  IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET "scl_tri"             LOC="U27"  |SLEW = SLOW |DRIVE = 6 |TIG |IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET "sda_tri"             LOC="T29"  |SLEW = SLOW |DRIVE = 6 |TIG |IOSTANDARD = LVCMOS18;   # Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
+#Created by Constraints Editor (xc5vlx110t-ff1136-1) - 2016/12/11
+NET "clk_100mhz" TNM_NET = clk_100mhz;
+TIMESPEC TS_clk_100mhz = PERIOD "clk_100mhz" 100 MHz HIGH 50%;

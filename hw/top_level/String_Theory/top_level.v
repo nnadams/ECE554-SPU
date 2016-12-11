@@ -89,15 +89,16 @@ module top_level(
 	assign clk_vga = clk_25mhz;
 	assign clk_vga_n = ~clk_25mhz;
 
-	wire locked_rst = rst | ~locked_dcm;
-	vga_clk vga_clk_gen1(
+	wire locked_rst = rst; //| ~locked_dcm;
+	assign clk = clk_100mhz;
+	/*vga_clk vga_clk_gen1(
 		.CLKIN_IN(clk_100mhz), 
 		.RST_IN(rst), 
 		.CLKDV_OUT(clk_25mhz), 
 		.CLKIN_IBUFG_OUT(clkin_ibufg_out), 
 		.CLK0_OUT(clk), 
 		.LOCKED_OUT(locked_dcm)
-	);
+	);*/
 
 	 //LED Config 
 	led_controller leds(
@@ -216,7 +217,7 @@ module top_level(
 		.empty(rx_empty)
 	);
 	
-	vgamult VGA(
+	/*vgamult VGA(
 		.clk(clk_25mhz),
 		.rst(locked_rst),
 		.clk_cnt(clk_cnt),
@@ -234,7 +235,7 @@ module top_level(
 		.D(D),
 		.scl_tri(scl_tri), 
 		.sda_tri(sda_tri)
-	);
+	);*/
 
 	clk_counter clock_count(
 		.clk(clk), 
