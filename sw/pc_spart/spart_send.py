@@ -23,7 +23,7 @@ def main(args):
             break
         data.extend(ch)
      
-    data = bytearray([6, ord('c'), 1,\
+    data = bytearray([8, ord('b'), 1,\
                         ord('a'), ord('b'), ord('c'),ord('c'),ord('c'),ord('c'),\
                         ord('a'), ord('b'), ord('c'),ord('c'),ord('c'),ord('c'),\
                         ord('a'), ord('b'), ord('c'),ord('c'),ord('c'),ord('c'),\
@@ -623,7 +623,7 @@ def main(args):
                         ord('a'), ord('b'), ord('c'),ord('c'),ord('c'),ord('c'),\
                         ord('a'), ord('b'), ord('c'),ord('c'),ord('c'),ord('c'),\
                         ord('a'), ord('b'), ord('c'),ord('c'),ord('c'),ord('c'),\
-                        ord('a'), ord('b'), ord('c'),ord('c'),ord('d'),ord('s'),\
+                        ord('a'), ord('b'), ord('c'),ord('c'),ord('d'),ord('c'),\
                         ord('a'), ord('b'), ord('c'),ord('c'),ord('c'),ord('c'),\
                         0, 4])
     print data 

@@ -372,24 +372,15 @@ _M2:
     jr $ret
     
 _strstr_nospu:
+
 ################################################
 ######SPU ROUTINES##############################
 ################################################ 
 _strlen_spu:
-    addi $t0 $zero 32 #op code 
-    slli $t0 $t0 26 #shift
-    addi $t1 $zero 4 #src reg always a0
-    slli $t1 $t1 21
-    or $t0 $t0 $t1 
-    li $t2 _strlen_inst
-    st $t0 $t2 0 #store the instruction
     nop
     nop
     nop
-    nop
-    nop
-_strlen_inst:
-    nop
+    slen $a0 0 0
 #    li $t0 spu_irq_happend
 #_slen_wait:
 #    ld $t1 $t0 0 
@@ -403,29 +394,10 @@ _strlen_inst:
     jr $ret
     
 _strcmp_spu:
-    addi $t0 $zero 32 #op code 
-    slli $t0 $t0 26 #shift
-    addi $t1 $zero 4 #src reg always a0
-    slli $t1 $t1 21
-    or $t0 $t0 $t1 
-    addi $t1 $zero 5 #src2 reg always a1
-    slli $t1 $t1 16
-    or $t0 $t0 $t1 
-    addi $t1 $zero 0 #dest reg always 0 for now
-    slli $t1 $t1 12
-    or $t0 $t0 $t1 
-    addi $t1 $zero 1 #scmp op
-    slli $t1 $t1 8
-    or $t0 $t0 $t1 
-    li $t2 _strcmp_inst
-    st $t0 $t2 0 #store the instruction
     nop
     nop
     nop
-    nop
-    nop
-_strcmp_inst:
-    nop 
+    scmp $a0 $a1 0 0
 #    li $t0 spu_irq_happend
 #_scmp_wait:
 #    ld $t1 $t0 0 
