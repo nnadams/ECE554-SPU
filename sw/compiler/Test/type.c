@@ -1,5 +1,5 @@
 int main()
 {
-  char x[] = "test";
+  char x[4] = "test";
   return 0;
 }

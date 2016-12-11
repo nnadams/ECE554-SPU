@@ -1,0 +1,28 @@
+Command line:
+   \\userspace.cae.wisc.edu\people\b\barry-lenoch\Documents\School\Classes\5th_year\Fall_2016\ece554\project\ECE554-SPU\hw\integration\MMU_VGA\test\mmu-vga\test_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  55454
+
+Thu Dec 08 18:04:42 2016
+
+
+ Elaboration Time: 14.8201 sec
+
+ Current Memory Usage: 2334.84 Meg
+
+ Total Signals          : 520
+ Total Nets             : 3029
+ Total Signal Drivers   : 236
+ Total Blocks           : 64
+ Total Primitive Blocks : 44
+ Total Processes        : 379
+ Total Traceable Variables  : 991
+ Total Scalar Nets and Variables : 4955271
+
+ Total Simulation Time: 15.2101 sec
+
+ Current Memory Usage: 1705.66 Meg
+
+Thu Dec 08 18:18:19 2016
+

@@ -19,8 +19,15 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module top_level(
-	input clk, 
+	input clk_100mhz, 
 	input rst,
+	input spu_int,
+	input rxd,
+	input [5:0] vga_cfg,
+	output hsync,
+	output vsync,
+	output blank,
+	output dvi_rst,
 	output GPIO_LED_0, 
 	output GPIO_LED_1, 
 	output GPIO_LED_2, 
@@ -29,6 +36,13 @@ module top_level(
 	output GPIO_LED_5, 
 	output GPIO_LED_6, 
 	output GPIO_LED_7, 
+	output [7:0] pixel_r,
+	output [7:0] pixel_g,
+	output [7:0] pixel_b,
+	output [11:0] D,
+	output clk_vga,
+	output clk_vga_n,
+	inout scl_tri, sda_tri,
 	output txd
 );
 	
@@ -55,6 +69,13 @@ module top_level(
 	wire trmt; 
 	wire full; 
 	wire [7:0] spart_tx_data;
+	wire [7:0] spart_rx_data;
+	wire rx_empty; 
+	wire rd_spart;
+	
+	//vga stuff    
+	reg  [31:0] vga_data_1_reg, vga_data_2_reg, vga_data_3_reg;
+	wire [31:0] vga_data_1, vga_data_2, vga_data_3;
 	
 	// SPU stuff
 	wire spu_we; // FOR DEBUG
@@ -65,9 +86,21 @@ module top_level(
 	
 	// Clk Count
 	wire [63:0] clk_cnt; 
-	
+	wire clk_25mhz, clkin_ibufg_out, locked_dcm;
+	assign clk_vga = clk_25mhz;
+	assign clk_vga_n = ~clk_25mhz;
+
+	vga_clk vga_clk_gen1(
+		.CLKIN_IN(clk_100mhz), 
+		.RST_IN(rst), 
+		.CLKDV_OUT(clk_25mhz), 
+		.CLKIN_IBUFG_OUT(clkin_ibufg_out), 
+		.CLK0_OUT(clk), 
+		.LOCKED_OUT(locked_dcm)
+	);
+
 	 //LED Config 
-	 led_controller leds(
+	led_controller leds(
 		 .clk(clk),
 		 .rst(rst),
 		 .led0(spu_res_data[0] & spu_we), .led0_triggered(1'b1),
@@ -78,6 +111,14 @@ module top_level(
 		 .led5(spu_res_data[5] & spu_we), .led5_triggered(1'b1),
 		 .led6(spu_res_data[6] & spu_we), .led6_triggered(1'b1),		
 		 .led7(spu_res_data[7] & spu_we), .led7_triggered(1'b1),
+		 /*.led0(halt), .led0_triggered(1'b0),
+		 .led1((spart_rx_data == 8'd97)), .led1_triggered(1'b1),
+		 .led2((spart_rx_data == 8'd98)), .led2_triggered(1'b1),
+		 .led3((spart_rx_data == 8'd4)), .led3_triggered(1'b1),
+		 .led4(1'b0), .led4_triggered(1'b0),
+		 .led5(1'b0), .led5_triggered(1'b0),
+		 .led6(1'b0), .led6_triggered(1'b0),		
+		 .led7(1'b0), .led7_triggered(1'b0),*/
 		 .GPIO_LED_0(GPIO_LED_0),
 		 .GPIO_LED_1(GPIO_LED_1),
 		 .GPIO_LED_2(GPIO_LED_2),
@@ -99,7 +140,7 @@ module top_level(
 		.data_mem_data(data_mem_data),
 		.instruction(instruction),
 		.HALTED(HALTED),
-		.spart_int(1'b0),
+		.spart_int(~rx_empty),
 		.spu_int(spu_int),
 		.spu_en_out(spu_en),
 		.spu_op_out(spu_op),
@@ -126,16 +167,18 @@ module top_level(
 		.spu_res_addr(spu_res_addr),
 		.spu_res_data(spu_res_data),
 		.spart_tx_full(full),
-		.spart_rx_empty(1'b1),
-		.spart_rx_data(8'd0),
+		.spart_rx_empty(rx_empty),
+		.spart_rx_data(spart_rx_data),
 		
 		.cpu_read_data(data_mem_data),
 		.instruction(instruction),
-		.spu_read_data(spu_mem_data),
-		.vga_data_1(),
-		.vga_data_3(),
+		.spu_read_data(),
+		.vga_data_1(vga_data_1),
+		.vga_data_2(vga_data_2),
+		.vga_data_3(vga_data_3),
 		.spart_tx_data(spart_tx_data),
-		.spart_trmt(trmt)
+		.spart_trmt(trmt),
+		.spart_rd(rd_spart)
 	 );
 	
 	SPU spu(
@@ -155,7 +198,7 @@ module top_level(
   		.o_done(spu_int)
 	);
 	
-	spart_tx_fifo spart(
+	spart_tx_fifo spart_tx(
 		.clk(clk),
 		.rst(rst),
 		.write(trmt),
@@ -164,11 +207,69 @@ module top_level(
 		.txd(txd)
 	);	
 	
+	spart_rx_fifo spart_rx(
+		.clk(clk),
+		.rst(rst),
+		.rxd(rxd),
+		.rd_spart(rd_spart),
+		.rx_data(spart_rx_data),
+		.empty(rx_empty)
+	);
+	
+	vgamult VGA(
+		.clk(clk_25mhz),
+		.rst(rst),
+		.clk_cnt(clk_cnt),
+		.dataa(data_1),
+		.datab(data_2),
+		.datac(data_3),
+		.locked_dcm(locked_dcm),
+		.hsync(hsync),
+		.vsync(vsync),
+		.blank(blank),
+		.dvi_rst(dvi_rst),
+		.pixel_r(pixel_r),
+		.pixel_g(pixel_g),
+		.pixel_b(pixel_b),
+		.D(D),
+		.scl_tri(scl_tri), 
+		.sda_tri(sda_tri)
+	);
+
 	clk_counter clock_count(
 		.clk(clk), 
 		.rst(rst),
 		.halt(HALTED), 
 		.clk_cnt(clk_cnt)
 	);
-	
+    assign data_1 = vga_data_1_reg;
+    assign data_2 = vga_data_2_reg;
+    assign data_3 = vga_data_3_reg;	
+always @(posedge clk) begin 
+    vga_data_1_reg = 32'h0;
+    case(vga_cfg[5:4])
+        4'h0 : vga_data_1_reg = 32'hFF;
+        4'h1 : vga_data_1_reg = 32'hFF00;
+        4'h2 : vga_data_1_reg = 32'hFF0000;
+        4'h3 : vga_data_1_reg = 32'hFF000000;
+    endcase
+end
+always @(posedge clk) begin 
+    vga_data_2_reg = 32'h0;
+    case(vga_cfg[3:2])
+        4'h0 : vga_data_2_reg = 32'hFF;
+        4'h1 : vga_data_2_reg = 32'hFF00;
+        4'h2 : vga_data_2_reg = 32'hFF0000;
+        4'h3 : vga_data_2_reg = 32'hFF000000;
+    endcase
+end
+always @(posedge clk) begin 
+    vga_data_3_reg = 32'h0;
+    case(vga_cfg[1:0])
+        4'h0 : vga_data_3_reg = 32'hFF;
+        4'h1 : vga_data_3_reg = 32'hFF00;
+        4'h2 : vga_data_3_reg = 32'hFF0000;
+        4'h3 : vga_data_3_reg = 32'hFF000000;
+    endcase
+end
 endmodule

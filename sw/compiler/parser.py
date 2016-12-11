@@ -38,7 +38,7 @@ fcgFile = file('mips_code','w')
 icgFile = file('intermediate_code','w')
 
 
-tokens =  ['STRING', 'INTEGER', 'DECIMALFLOAT', 'FLOATVAL', 'CHARACTER', 'ESCAPECHAR', 'IF', 'ELSE', 'IDENTIFIER', 'SIZEOF', 'PTR_OP', 'INC_OP', 'DEC_OP', 'LEFT_OP', 'RIGHT_OP', 'LE_OP', 'GE_OP', 'EQ_OP', 'NE_OP', 'AND_OP', 'OR_OP', 'MUL_ASSIGN', 'DIV_ASSIGN', 'MOD_ASSIGN', 'ADD_ASSIGN', 'SUB_ASSIGN', 'LEFT_ASSIGN', 'RIGHT_ASSIGN', 'TYPE_NAME', 'TYPEDEF', 'CHAR', 'INT', 'FLOAT', 'VOID', 'CASE', 'DEFAULT', 'SWITCH', 'WHILE', 'DO', 'FOR', 'CONTINUE', 'BREAK', 'RETURN']
+tokens =  ['STRING', 'INTEGER', 'DECIMALFLOAT', 'FLOATVAL', 'CHARACTER', 'ESCAPECHAR', 'IF', 'ELSE', 'IDENTIFIER', 'SIZEOF', 'PTR_OP', 'INC_OP', 'DEC_OP', 'LEFT_OP', 'RIGHT_OP', 'LE_OP', 'GE_OP', 'EQ_OP', 'NE_OP', 'AND_OP', 'OR_OP', 'MUL_ASSIGN', 'DIV_ASSIGN', 'MOD_ASSIGN', 'ADD_ASSIGN', 'SUB_ASSIGN', 'LEFT_ASSIGN', 'RIGHT_ASSIGN', 'TYPE_NAME', 'TYPEDEF', 'CHAR', 'INT', 'FLOAT', 'VOID', 'CASE', 'DEFAULT', 'SWITCH', 'WHILE', 'DO', 'FOR', 'CONTINUE', 'BREAK', 'RETURN', 'INCLUDE']
 
 reserved_words = {      
         'break': 'BREAK',
@@ -100,10 +100,21 @@ def t_FLOATVAL(t):
 
 def t_DEFINE(t):
 	r'\#define.*'
+
+	# Hack to define global strings
+	p = re.compile('"[a-zA-Z0-9_\$]*"')
+	result = p.findall(str(t.value))
+	if len(result) > 0:
+		fcgFile.write(".STRING " + t.value.replace('#define','')+"\n")
+		icgFile.write(".STRING " + t.value.replace('#define','')+ "\n")
+	else:
+		fcgFile.write(".DEFINE " + t.value.replace('#define','') + "\n")
+		icgFile.write(".DEFINE " + t.value.replace('#define','') + "\n")
 	pass
 
 def t_INCLUDE(t):
 	r'\#include[ ]*(<)([A-Za-z_][\w_]*)(\.h)?(>)'
+	print(t)
 	pass
 
 def t_SINGLELINECOMMENT(t):
@@ -124,7 +135,6 @@ def t_ESCAPECHAR(t):
 
 def t_STRING(t):
 	r'"[a-zA-Z0-9_\$]*"'
-	print(t)
 	return t
 
 def t_newline(t):
@@ -332,9 +342,9 @@ def p_primary_expression_1(t):
         global error_flag
         if (DEBUGP):
 	  print "\nprimary_expression : identifier\n"
-	if (t[1].type==0):
-	  error_flag=1
-	  print "Error " +t[1].id+" not Defined "
+	# if (t[1].type==0):
+	#   error_flag=1
+	#   print "Error " +t[1].id+" not Defined "
 	t[0]=PassSymEntry(t[1])
 	t[0].specifier=t[0].type/100 
 
@@ -499,6 +509,7 @@ def p_postfix_expression_4(t):
 	print "\npostfix_expression : postfix_expression'(' argument_expression_list ')' \n"      
       t[0]=PassAttribute(t[1])
       t[0].isFunction=0
+      t[1].isFunction=1
       t[0].numParameters=0
       print(t[1].id)
       
@@ -546,15 +557,22 @@ def p_postfix_expression_4(t):
 	  intcode=intcode+coded
 
 	  # Load Address of first parameter into register $t0??
-	  coded="\n\tlw $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
+	  if t[3].ParameterList[0].type == 200:
+	  	coded="\n\tld $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
+	  	finalcode=finalcode+coded
+	  else:
+	  	coded="\n\tld $t0 "+t[3].ParameterList[0].id+"\n"
 	  finalcode=finalcode+coded
 
 	  # Load Address of second parameter into register $t0??
-	  coded="\n\tlw $t1 "+toAddr(t[3].ParameterList[1].offset)+"\n"
+	  if t[3].ParameterList[0].type == 200:
+	  	coded="\n\tld $t1 "+toAddr(t[3].ParameterList[1].offset)+"\n"
+	  else:
+	  	coded="\n\tld $t1 "+t[3].ParameterList[1].id+"\n"
 	  finalcode=finalcode+coded
 
 	  # Execute string function
-	  coded="\n\tstok $strp $t0 $t1\n"
+	  coded="\n\tstok $t0 $t1 1 0\n" # What needs to be the immediate values here?
 
 	  #TODO: add loop code if wait parameter is true
 
@@ -576,15 +594,22 @@ def p_postfix_expression_4(t):
 	  intcode=intcode+coded
 
 	  # Load Address of first parameter into register $t0??
-	  coded="\n\tlw $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
+	  if t[3].ParameterList[0].type == 200:
+	  	coded="\n\tld $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
+	  	finalcode=finalcode+coded
+	  else:
+	  	coded="\n\tld $t0 "+t[3].ParameterList[0].id+"\n"
 	  finalcode=finalcode+coded
 
 	  # Load Address of second parameter into register $t0??
-	  coded="\n\tlw $t1 "+toAddr(t[3].ParameterList[1].offset)+"\n"
+	  if t[3].ParameterList[0].type == 200:
+	  	coded="\n\tld $t1 "+toAddr(t[3].ParameterList[1].offset)+"\n"
+	  else:
+	  	coded="\n\tld $t1 "+t[3].ParameterList[1].id+"\n"
 	  finalcode=finalcode+coded
 
 	  # Execute string function
-	  coded="\n\tscmp $strp $t0 $t1\n"
+	  coded="\n\tscmp $t0 $t1 2 0\n"
 
 	  #TODO: add loop code if wait parameter is true
 	  
@@ -606,15 +631,22 @@ def p_postfix_expression_4(t):
 	  intcode=intcode+coded
 
 	  # Load Address of first parameter into register $t0??
-	  coded="\n\tlw $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
+	  if t[3].ParameterList[0].type == 200:
+	  	coded="\n\tld $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
+	  	finalcode=finalcode+coded
+	  else:
+	  	coded="\n\tld $t0 "+t[3].ParameterList[0].id+"\n"
 	  finalcode=finalcode+coded
 
 	  # Load Address of second parameter into register $t0??
-	  coded="\n\tlw $t1 "+toAddr(t[3].ParameterList[1].offset)+"\n"
+	  if t[3].ParameterList[0].type == 200:
+	  	coded="\n\tld $t1 "+toAddr(t[3].ParameterList[1].offset)+"\n"
+	  else:
+	  	coded="\n\tld $t1 "+t[3].ParameterList[1].id+"\n"
 	  finalcode=finalcode+coded
 
 	  # Execute string function
-	  coded="\n\tscat $strp $t0 $t1\n"
+	  coded="\n\tscat $t0 $t1 0 3\n"
 
 	  #TODO: add loop code if wait parameter is true
 	  
@@ -636,15 +668,15 @@ def p_postfix_expression_4(t):
 	  intcode=intcode+coded
 
 	  # Load Address of first parameter into register $t0??
-	  coded="\n\tlw $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
-	  finalcode=finalcode+coded
-
-	  # Load Address of second parameter into register $t0??
-	  coded="\n\tlw $t1 "+toAddr(t[3].ParameterList[1].offset)+"\n"
+	  if t[3].ParameterList[0].type == 200:
+	  	coded="\n\tld $t0 "+toAddr(t[3].ParameterList[0].offset)+"\n"
+	  	finalcode=finalcode+coded
+	  else:
+	  	coded="\n\tld $t0 "+t[3].ParameterList[0].id+"\n"
 	  finalcode=finalcode+coded
 
 	  # Execute string function
-	  coded="\n\tslen $strp $t0 $t1\n"
+	  coded="\n\tslen $t0 0 4\n" # Not sure what to do here for immedates
 
 	  #TODO: add loop code if wait parameter is true
 	  #TODO: load data from $strp? register??
@@ -2540,10 +2572,13 @@ def p_init_declarator_1(t):
       else:
 	t[0].isArray=1
 	t[1].isArray=1
-	if(t[3].numParameters==0):
-	  error_flag=1
-	  print "\nError : Invalid assignment to an array.\n"
-	elif(t[3].numParameters>t[1].ArrayLimit and t[1].ArrayLimit>0):
+
+	# This doesn't let you define char arrays
+
+	# if(t[3].numParameters==0):
+	#   error_flag=1
+	#   print "\nError : Invalid assignment to an array.\n"
+	if(t[3].numParameters>t[1].ArrayLimit and t[1].ArrayLimit>0):
 	  error_flag=1
 	  print "\nError : List Size greater than Array Size, do not match.\n"
 	elif(t[1].ArrayLimit==0):

@@ -1,12 +1,16 @@
+.STRING  TEST_STR  "lkdjfhvakjdfhvlkjahdvkabjshdfkjvhadkfvjh";
+.STRING  TEST_TOK  "ab";
 
 	main :
 	sw $ret 0($sp)
 
-	lw $t0 -08($sp)
+	ld $t0 -04($sp)
 
-	lw $t1 -12($sp)
+	ld $t0 -04($sp)
 
-	stok $strp $t0 $t1
+	ld $t1 -84($sp)
+
+	stok $t0 $t1 1 0
 	lw $ret -00($sp)
 	sw $0 -00($sp)
 	j _L00

@@ -1,6 +1,8 @@
+.STRING  TEST_STR  "lkdjfhvakjdfhvlkjahdvkabjshdfkjvhadkfvjh";
+.STRING  TEST_TOK  "ab";
 
 	main :
 
-	strtok test1 test2
+	strtok cmp test
 	RETURN return_value 0
 	RETURN : END OF SUB ROUTINE

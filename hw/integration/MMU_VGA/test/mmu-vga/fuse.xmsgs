@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../mmu_vga_test-top-level.v" Line 44: Port <arg fmt="%s" index="1">spart_trmt</arg> is not connected to this instance
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../mmu_vga_test-top-level.v" Line 50: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">cpu_we</arg>&gt;. Formal port size is <arg fmt="%d" index="2">4</arg>-bit while actual signal size is <arg fmt="%d" index="1">1</arg>-bit.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"N:/P.20131013/rtf/verilog/src/XilinxCoreLib/BLK_MEM_GEN_V7_3.v" Line 4104: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">ADDRB</arg>&gt;. Formal port size is <arg fmt="%d" index="2">15</arg>-bit while actual signal size is <arg fmt="%d" index="1">17</arg>-bit.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../mmu_vga_test-top-level.v" Line 71: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">clk_cnt</arg>&gt;. Formal port size is <arg fmt="%d" index="2">64</arg>-bit while actual signal size is <arg fmt="%d" index="1">32</arg>-bit.
+</msg>
+
+</messages>
+
