@@ -50,11 +50,14 @@ instruction_types = [
       NAME_NO_SPACE + EOL),
 	  
 	re.compile(LINE_BEGIN +
-      NAME + FIRST + SEPERATOR + SECOND + SEPERATOR + IMM + SEPERATOR + IMMB + EOL)
+      NAME + FIRST + SEPERATOR + SECOND + SEPERATOR + IMM + SEPERATOR + IMMB + EOL),
+     
+    re.compile(LINE_BEGIN +
+      NAME + FIRST + SEPERATOR + IMM + SEPERATOR + IMMB + EOL)
 ]
 s_type = {
   # String instrucitons
-  "slen":    (0b100011, ["rs", "rt"]),
+  "slen":    (0b100011, ["rs"]),
   "scmp":    (0b100011, ["rs", "rt"]),
   "scat":    (0b100011, ["rs", "rt"]),
   "stok":    (0b100011, ["rs", "rt"]),
@@ -71,10 +74,11 @@ s_type_op = {
 
 r_type = {
   # Our instrutions
-  "add":     (0b011011, 0b00, ["rd", "rs", "rt"]),
-  "sub":     (0b011011, 0b01, ["rd", "rs", "rt"]),
-  "xor":     (0b011011, 0b10, ["rd", "rs", "rt"]),
-  "andn":    (0b011011, 0b11, ["rd", "rs", "rt"]),
+  "add":     (0b011011, 0b000, ["rd", "rs", "rt"]),
+  "sub":     (0b011011, 0b001, ["rd", "rs", "rt"]),
+  "xor":     (0b011011, 0b010, ["rd", "rs", "rt"]),
+  "andn":    (0b011011, 0b011, ["rd", "rs", "rt"]),
+  "or":      (0b011011, 0b100, ["rd", "rs", "rt"]),
   "rol":     (0b011010, 0b00, ["rd", "rs", "rt"]),
   "sll":     (0b011010, 0b01, ["rd", "rt"]),
   "ror":     (0b011010, 0b10, ["rd", "rs", "rt"]),
