@@ -38,7 +38,7 @@ module test(
 	wire rxd;
 	
 top_level DUT(
-	.clk(clk), 
+	.clk_100mhz(clk), 
 	.rst(rst),
 	.GPIO_LED_0(GPIO_LED_0), 
 	.GPIO_LED_1(GPIO_LED_1),  
@@ -49,8 +49,7 @@ top_level DUT(
 	.GPIO_LED_6(GPIO_LED_6),   
 	.GPIO_LED_7(GPIO_LED_7),  
 	.txd(txd),
-	.rxd(rxd),
-	.spu_int(1'b0)
+	.rxd(rxd)
 );
 
 spart_tx test_spart(

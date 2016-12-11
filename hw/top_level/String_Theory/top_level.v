@@ -21,7 +21,6 @@
 module top_level(
 	input clk_100mhz, 
 	input rst,
-	input spu_int,
 	input rxd,
 	input [5:0] vga_cfg,
 	output hsync,
@@ -78,8 +77,8 @@ module top_level(
 	wire [31:0] vga_data_1, vga_data_2, vga_data_3;
 	
 	// SPU stuff
-	wire spu_we; // FOR DEBUG
 	wire spu_int;
+	wire spu_we; // FOR DEBUG
 	wire [3:0] spu_res_addr;
 	wire [31:0] spu_res_data, spu_addr;
 	wire [127:0] spu_mem_data;
@@ -90,6 +89,7 @@ module top_level(
 	assign clk_vga = clk_25mhz;
 	assign clk_vga_n = ~clk_25mhz;
 
+	wire locked_rst = rst | ~locked_dcm;
 	vga_clk vga_clk_gen1(
 		.CLKIN_IN(clk_100mhz), 
 		.RST_IN(rst), 
@@ -102,7 +102,7 @@ module top_level(
 	 //LED Config 
 	led_controller leds(
 		 .clk(clk),
-		 .rst(rst),
+		 .rst(locked_rst),
 		 .led0(spu_res_data[0] & spu_we), .led0_triggered(1'b1),
 		 .led1(spu_res_data[1] & spu_we), .led1_triggered(1'b1),
 		 .led2(spu_res_data[2] & spu_we), .led2_triggered(1'b1),
@@ -131,7 +131,7 @@ module top_level(
 	
 	proc PROC (
 		.clk(clk),
-		.rst(rst),
+		.rst(locked_rst),
 		.data_mem_addr(data_mem_addr),
 		.data_mem_write_data(data_mem_write_data),
 		.data_mem_wr(data_mem_wr),
@@ -156,7 +156,7 @@ module top_level(
 	 
 	 mmu_hier MMU(
 		.clk(clk),
-		.rst(rst),
+		.rst(locked_rst),
 		.PC(instr_addr),
 		.cpu_wdata(data_mem_write_data),
 		.cpu_addr(data_mem_addr),
@@ -172,7 +172,7 @@ module top_level(
 		
 		.cpu_read_data(data_mem_data),
 		.instruction(instruction),
-		.spu_read_data(),
+		.spu_read_data(spu_mem_data),
 		.vga_data_1(vga_data_1),
 		.vga_data_2(vga_data_2),
 		.vga_data_3(vga_data_3),
@@ -183,7 +183,7 @@ module top_level(
 	
 	SPU spu(
 		.clk(clk),
-		.rst(rst),
+		.rst(locked_rst),
 		.i_start(spu_en),
 		.i_op(spu_op),
 		.i_dest(spu_reg),
@@ -200,7 +200,7 @@ module top_level(
 	
 	spart_tx_fifo spart_tx(
 		.clk(clk),
-		.rst(rst),
+		.rst(locked_rst),
 		.write(trmt),
 		.tx_data(spart_tx_data),
 		.full(full), 
@@ -209,7 +209,7 @@ module top_level(
 	
 	spart_rx_fifo spart_rx(
 		.clk(clk),
-		.rst(rst),
+		.rst(locked_rst),
 		.rxd(rxd),
 		.rd_spart(rd_spart),
 		.rx_data(spart_rx_data),
@@ -218,11 +218,11 @@ module top_level(
 	
 	vgamult VGA(
 		.clk(clk_25mhz),
-		.rst(rst),
+		.rst(locked_rst),
 		.clk_cnt(clk_cnt),
-		.dataa(data_1),
-		.datab(data_2),
-		.datac(data_3),
+		.dataa(vga_data_1),
+		.datab(vga_data_2),
+		.datac(vga_data_3),
 		.locked_dcm(locked_dcm),
 		.hsync(hsync),
 		.vsync(vsync),
@@ -238,7 +238,7 @@ module top_level(
 
 	clk_counter clock_count(
 		.clk(clk), 
-		.rst(rst),
+		.rst(locked_rst),
 		.halt(HALTED), 
 		.clk_cnt(clk_cnt)
 	);

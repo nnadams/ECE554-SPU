@@ -28,8 +28,12 @@
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/id_ex - pipeReg_id_ex</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/if_id - pipeReg_if_id</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/mem_wb - pipeReg_mem_wb</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/VGA - vgamult</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart_rx - spart_rx_fifo</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart_tx - spart_tx_fifo</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spu - SPU/core1 - SPUCore</ClosedNode>
+         <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/test_spart - spart_tx</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|top_level.v/spart0 - spart</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc</ClosedNode>
          <ClosedNode>/top_level I:|554|project|ECE554-SPU|hw|top_level|String_Theory|top_level.v/spart - spart_tx_fifo/spart - spart_tx</ClosedNode>
@@ -51,9 +55,7 @@
          <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/mem_wb - pipeReg_mem_wb</ClosedNode>
          <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/SPU - spu/core1 - spu_core</ClosedNode>
       </ClosedNodes>
-      <SelectedItems>
-         <SelectedItem>DUT - top_level (I:/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</SelectedItem>
-      </SelectedItems>
+      <SelectedItems/>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000015b000000020000000000000000000000000200000064ffffffff0000008100000003000000020000015b0000000100000003000000000000000100000003</ViewHeaderState>
@@ -69,7 +71,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000130000000010000000100000000000000000000000064ffffffff000000810000000000000001000001300000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>Design Utilities</CurrentItem>
    </ItemView>
@@ -105,13 +107,13 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Design Summary/Reports</SelectedItem>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f8000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f80000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000130000000010000000100000000000000000000000064ffffffff000000810000000000000001000001300000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Design Summary/Reports</CurrentItem>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
@@ -253,5 +255,18 @@
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
+   </ItemView>
+   <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XAW" guiview="Process" >
+      <ClosedNodes>
+         <ClosedNodesVersion>1</ClosedNodesVersion>
+      </ClosedNodes>
+      <SelectedItems>
+         <SelectedItem></SelectedItem>
+      </SelectedItems>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000130000000010000000100000000000000000000000064ffffffff000000810000000000000001000001300000000100000000</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
+      <CurrentItem></CurrentItem>
    </ItemView>
 </Project>
