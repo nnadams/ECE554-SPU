@@ -72,7 +72,7 @@ module top_level(
 		 .led1((spart_rx_data == 8'd97)), .led1_triggered(1'b1),
 		 .led2((spart_rx_data == 8'd98)), .led2_triggered(1'b1),
 		 .led3((spart_rx_data == 8'd4)), .led3_triggered(1'b1),
-		 .led4(1'b0), .led4_triggered(1'b0),
+		 .led4(1'b1), .led4_triggered(1'b0),
 		 .led5(1'b0), .led5_triggered(1'b0),
 		 .led6(1'b0), .led6_triggered(1'b0),		
 		 .led7(1'b0), .led7_triggered(1'b0),

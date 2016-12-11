@@ -69,7 +69,7 @@ spart_tx test_spart(
       clk = 0; 
       rst = 1; 
 		trmt = 0; 
-		tx_data = 8'd05;
+		tx_data = 8'd03;
       repeat (5) @(posedge clk);
       rst = 0;
 		repeat (20) @(posedge clk);
@@ -78,6 +78,14 @@ spart_tx test_spart(
 		@(posedge clk);
 		trmt = 0;
 		
+        tx_data = 8'd97; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+        
 		tx_data = 8'd01; 
 		@(posedge tbr); 
 		repeat (50) @(posedge clk);
