@@ -1,0 +1,59 @@
+Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/test_isim_beh.exe" -prj "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/test_beh.prj" "work.test" "work.glbl" 
+ISim P.20131013 (signature 0x7708f090)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../intrf/vga/src/simple_rom.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../intrf/vga/src/draw_logic.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../intrf/vga/src/vga_logic.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../intrf/vga/src/main_logic.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../intrf/vga/src/dvi_ifc.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/ipcore_dir/main_mem.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/ipcore_dir/inst_mem.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../top_level/String_Theory/clk_counter.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../MMU/verilog/mmu_hier.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../../../../intrf/vga/src/vgamult.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/vga_clk.v" into library work
+Analyzing Verilog file "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../mmu_vga_test-top-level.v" into library work
+Analyzing Verilog file "C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
+Starting static elaboration
+WARNING:HDLCompiler:1016 - "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../mmu_vga_test-top-level.v" Line 44: Port spart_trmt is not connected to this instance
+WARNING:HDLCompiler:189 - "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../mmu_vga_test-top-level.v" Line 50: Size mismatch in connection of port <cpu_we>. Formal port size is 4-bit while actual signal size is 1-bit.
+WARNING:HDLCompiler:189 - "N:/P.20131013/rtf/verilog/src/XilinxCoreLib/BLK_MEM_GEN_V7_3.v" Line 4104: Size mismatch in connection of port <ADDRB>. Formal port size is 15-bit while actual signal size is 17-bit.
+WARNING:HDLCompiler:189 - "I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/../mmu_vga_test-top-level.v" Line 71: Size mismatch in connection of port <clk_cnt>. Formal port size is 64-bit while actual signal size is 32-bit.
+Completed static elaboration
+Compiling module BUFG
+Compiling module IBUFG
+Compiling module dcm_adv_clock_divide_by_2
+Compiling module dcm_adv_maximum_period_check(clo...
+Compiling module dcm_adv_maximum_period_check(clo...
+Compiling module dcm_adv_clock_lost
+Compiling module DCM_ADV(CLKDV_DIVIDE=4.0,SIM_DEV...
+Compiling module vga_clk
+Compiling module BLK_MEM_GEN_V7_3_output_stage(C_...
+Compiling module BLK_MEM_GEN_V7_3_output_stage(C_...
+Compiling module BLK_MEM_GEN_V7_3_softecc_output_...
+Compiling module BLK_MEM_GEN_V7_3_mem_module(C_CO...
+Compiling module BLK_MEM_GEN_V7_3(C_FAMILY="virte...
+Compiling module main_mem
+Compiling module BLK_MEM_GEN_V7_3_output_stage(C_...
+Compiling module BLK_MEM_GEN_V7_3_softecc_output_...
+Compiling module BLK_MEM_GEN_V7_3_mem_module(C_CO...
+Compiling module BLK_MEM_GEN_V7_3(C_FAMILY="virte...
+Compiling module inst_mem
+Compiling module mmu_hier
+Compiling module dvi_ifc_default
+Compiling module vga_logic
+Compiling module simple_rom(ADDR_WIDTH=12)
+Compiling module simple_rom(ADDR_WIDTH=11,ROM_DAT...
+Compiling module draw_logic
+Compiling module main_logic
+Compiling module vgamult
+Compiling module clk_counter
+Compiling module test
+Compiling module glbl
+Time Resolution for simulation is 1ps.
+Compiled 30 Verilog Units
+Built simulation executable I:/Documents/School/Classes/5th_year/Fall_2016/ece554/project/ECE554-SPU/hw/integration/MMU_VGA/test/mmu-vga/test_isim_beh.exe
+Fuse Memory Usage: 42700 KB
+Fuse CPU Usage: 1512 ms
