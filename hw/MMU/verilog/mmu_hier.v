@@ -41,8 +41,8 @@ module mmu_hier(
     output [31:0]  vga_data_2,
     output [31:0]  vga_data_3,
     output [7:0]   spart_tx_data,
-	 output         spart_trmt,
-	 output 			 spart_rd
+    output         spart_trmt,
+    output           spart_rd
     );
      
     reg [31:0] spu_reg [0:15];
@@ -55,22 +55,23 @@ module mmu_hier(
     wire [31:0] cpu_wr_data; 
     integer    i;
     reg spart_trmt_reg; 
-	 reg spart_rd_reg; 
-	wire [3:0] cpu_data_mem_wr_en; 
+    reg spart_rd_reg; 
+    wire [3:0] cpu_data_mem_wr_en; 
+    wire [63:0] clk_cnt;
     assign vga_data_1 = spu_reg[0];
     assign vga_data_2 = spu_reg[1];
     assign vga_data_3 = spu_reg[2];
     assign spart_tx_data = spart_tx_reg;
-	assign spart_trmt = spart_trmt_reg & |cpu_we;
-	assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
-	assign spart_rd = spart_rd_reg & |cpu_en;
-	// For byte reads 
-	assign cpu_read_data = (cpu_en == 4'b1111) ? cpu_rdata_reg :
-						   (cpu_addr[1:0] == 2'b00) ? (cpu_rdata_reg & 32'h000000ff) :
-						   (cpu_addr[1:0] == 2'b01) ? (cpu_rdata_reg & 32'h0000ff00) >> 8 :
-						   (cpu_addr[1:0] == 2'b10) ? (cpu_rdata_reg & 32'h00ff0000) >> 16 :
-						   (cpu_addr[1:0] == 2'b11) ? (cpu_rdata_reg & 32'hff000000) >> 24: cpu_rdata_reg;
-	
+    assign spart_trmt = spart_trmt_reg & |cpu_we;
+    assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
+    assign spart_rd = spart_rd_reg & |cpu_en;
+    // For byte reads 
+    assign cpu_read_data = (cpu_en == 4'b1111) ? cpu_rdata_reg :
+                           (cpu_addr[1:0] == 2'b00) ? (cpu_rdata_reg & 32'h000000ff) :
+                           (cpu_addr[1:0] == 2'b01) ? (cpu_rdata_reg & 32'h0000ff00) >> 8 :
+                           (cpu_addr[1:0] == 2'b10) ? (cpu_rdata_reg & 32'h00ff0000) >> 16 :
+                           (cpu_addr[1:0] == 2'b11) ? (cpu_rdata_reg & 32'hff000000) >> 24: cpu_rdata_reg;
+    
     // For Byte writes 
     assign aligned_cpu_wr_en = (cpu_data_mem_wr_en == 4'b0000) ? 4'b0000 :
                                (cpu_data_mem_wr_en == 4'b1111) ? 4'b1111 :
@@ -80,10 +81,10 @@ module mmu_hier(
                                (cpu_addr[1:0] == 2'b11) ? 4'b1000 : 4'b0000;
     
     assign cpu_wr_data =  (cpu_data_mem_wr_en == 4'b1111) ? cpu_wdata :
-						  (cpu_addr[1:0] == 2'b00) ? (cpu_wdata & 32'h000000ff) :
-						  (cpu_addr[1:0] == 2'b01) ? (cpu_wdata & 32'h000000ff) << 8 :
-						  (cpu_addr[1:0] == 2'b10) ? (cpu_wdata & 32'h000000ff) << 16 :
-						  (cpu_addr[1:0] == 2'b11) ? (cpu_wdata & 32'h000000ff) << 24: cpu_wdata; 
+                          (cpu_addr[1:0] == 2'b00) ? (cpu_wdata & 32'h000000ff) :
+                          (cpu_addr[1:0] == 2'b01) ? (cpu_wdata & 32'h000000ff) << 8 :
+                          (cpu_addr[1:0] == 2'b10) ? (cpu_wdata & 32'h000000ff) << 16 :
+                          (cpu_addr[1:0] == 2'b11) ? (cpu_wdata & 32'h000000ff) << 24: cpu_wdata; 
                           
 main_mem data_mem (
   .clka(clk), // input clka
@@ -99,6 +100,8 @@ main_mem data_mem (
   .dinb(spu_wdata), // input [127 : 0] dinb
   .doutb(spu_read_data) // output [127 : 0] doutb
 );
+
+clk_counter cnt(clk, (rst|| ((cpu_addr == 32'h00B00040) || (cpu_addr == 32'h00B00044))) , clk_cnt);
 
 inst_mem imem(
   .clka(clk), // input clka
@@ -119,7 +122,12 @@ inst_mem imem(
             spart_rx_reg <= 8'h0;
         end
         else if(spu_res_mapped_read) begin
-            spu_res_mapped_reg <= spu_reg[cpu_addr[5:2]];
+            if(cpu_addr[7:0] == 8'h40)
+                spu_res_mapped_reg <= clk_cnt[31:0];
+            else if(cpu_addr[7:0] == 8'h44)
+                spu_res_mapped_reg <= clk_cnt[63:32];
+            else
+                spu_res_mapped_reg <= spu_reg[cpu_addr[5:2]];
         end
         else begin
             spu_reg[spu_res_addr] <= spu_res_data;
@@ -156,8 +164,8 @@ inst_mem imem(
         spart_tx_reg = 8'h0;
         mem_mapped_reg = 32'h0;
         spart_trmt_reg = 1'b0; 
-		  spart_rd_reg = 1'b0;
-		  
+        spart_rd_reg = 1'b0;
+          
         case(cpu_addr[23:20])
             4'h0 : begin
                 cpu_inst_read = 1'b1;
@@ -176,13 +184,14 @@ inst_mem imem(
                     4'h4 : mem_mapped_reg = {31'h0,spart_tx_full};
                     4'h8 : mem_mapped_reg = {31'h0,spart_rx_empty};
                     4'hC : begin 
-								mem_mapped_reg = {24'h0,spart_rx_data};
-								spart_rd_reg = 1'b1;
-							end
+                                mem_mapped_reg = {24'h0,spart_rx_data};
+                                spart_rd_reg = 1'b1;
+                            end
                 endcase
             end
             4'hB : begin
                 spu_res_mapped_read = 1'b1;
+
             end
             default : begin
                 //memory fault

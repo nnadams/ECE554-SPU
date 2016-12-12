@@ -20,8 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module clk_counter(
 	input clk,
-	input rst, 
-	input halt,
+	input rst,
 	output [63:0] clk_cnt
     );
 
@@ -30,7 +29,6 @@ module clk_counter(
 	
 	always@(posedge clk, posedge rst) begin
 		if(rst) _count <= 64'd0;
-		else if(~halt) _count <= _count + 1;
-		else _count <= _count;
+		else _count <= _count + 1;
 	end 
 endmodule
