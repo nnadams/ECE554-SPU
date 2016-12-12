@@ -38,7 +38,7 @@ module test(
 	wire rxd;
 	
 top_level DUT(
-	.clk(clk), 
+	.clk_100mhz(clk), 
 	.rst(rst),
 	.GPIO_LED_0(GPIO_LED_0), 
 	.GPIO_LED_1(GPIO_LED_1),  
@@ -49,8 +49,7 @@ top_level DUT(
 	.GPIO_LED_6(GPIO_LED_6),   
 	.GPIO_LED_7(GPIO_LED_7),  
 	.txd(txd),
-	.rxd(rxd),
-	.spu_int(1'b0)
+	.rxd(rxd)
 );
 
 spart_tx test_spart(
@@ -69,7 +68,7 @@ spart_tx test_spart(
       clk = 0; 
       rst = 1; 
 		trmt = 0; 
-		tx_data = 8'd05;
+		tx_data = 8'd03;
       repeat (5) @(posedge clk);
       rst = 0;
 		repeat (20) @(posedge clk);
@@ -78,6 +77,14 @@ spart_tx test_spart(
 		@(posedge clk);
 		trmt = 0;
 		
+        tx_data = 8'd97; 
+		@(posedge tbr); 
+		repeat (50) @(posedge clk);
+		trmt = 1;
+		@(posedge clk);
+		trmt = 0;
+		
+        
 		tx_data = 8'd01; 
 		@(posedge tbr); 
 		repeat (50) @(posedge clk);

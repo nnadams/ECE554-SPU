@@ -84,7 +84,7 @@ module decode(
 	/* ALU Control Decode Block */
 	alucontrol alucont (
 		.opcode(instr[31:26]),
-		.aluop(instr[1:0]), 
+		.aluop(instr[2:0]), 
 		.Op(alu_op_out),
 		.invA(invA),
 		.invB(invB),

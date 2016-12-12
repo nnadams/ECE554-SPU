@@ -7,11 +7,11 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : vga_clk.v
-// /___/   /\     Timestamp : 12/08/2016 19:49:04
+// /___/   /\     Timestamp : 12/11/2016 14:37:20
 // \   \  /  \ 
 //  \___\/\___\ 
 //
-//Command: xaw2verilog -st \\userspace.cae.wisc.edu\people\b\barry-lenoch\Documents\School\Classes\5th_year\Fall_2016\ece554\project\ECE554-SPU\hw\top_level\String_Theory\ipcore_dir\.\vga_clk.xaw \\userspace.cae.wisc.edu\people\b\barry-lenoch\Documents\School\Classes\5th_year\Fall_2016\ece554\project\ECE554-SPU\hw\top_level\String_Theory\ipcore_dir\.\vga_clk
+//Command: xaw2verilog -st \\userspace.cae.wisc.edu\people\n\nnadams\ECE554-SPU\hw\top_level\String_Theory\ipcore_dir\.\vga_clk.xaw \\userspace.cae.wisc.edu\people\n\nnadams\ECE554-SPU\hw\top_level\String_Theory\ipcore_dir\.\vga_clk
 //Design Name: vga_clk
 //Device: xc5vlx110t-1ff1136
 //

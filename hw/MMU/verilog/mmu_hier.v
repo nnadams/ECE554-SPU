@@ -58,20 +58,22 @@ module mmu_hier(
     reg spart_rd_reg; 
     wire [3:0] cpu_data_mem_wr_en; 
     wire [63:0] clk_cnt;
+    wire [3:0] cpu_imem_we;
     assign vga_data_1 = spu_reg[0];
     assign vga_data_2 = spu_reg[1];
     assign vga_data_3 = spu_reg[2];
     assign spart_tx_data = spart_tx_reg;
-    assign spart_trmt = spart_trmt_reg & |cpu_we;
-    assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
-    assign spart_rd = spart_rd_reg & |cpu_en;
-    // For byte reads 
-    assign cpu_read_data = (cpu_en == 4'b1111) ? cpu_rdata_reg :
-                           (cpu_addr[1:0] == 2'b00) ? (cpu_rdata_reg & 32'h000000ff) :
-                           (cpu_addr[1:0] == 2'b01) ? (cpu_rdata_reg & 32'h0000ff00) >> 8 :
-                           (cpu_addr[1:0] == 2'b10) ? (cpu_rdata_reg & 32'h00ff0000) >> 16 :
-                           (cpu_addr[1:0] == 2'b11) ? (cpu_rdata_reg & 32'hff000000) >> 24: cpu_rdata_reg;
-    
+	assign spart_trmt = spart_trmt_reg & |cpu_we;
+	assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
+	assign spart_rd = spart_rd_reg & |cpu_en;
+	assign cpu_imem_we = cpu_inst_read && &cpu_we;
+	// For byte reads 
+	assign cpu_read_data = (cpu_en == 4'b1111) ? cpu_rdata_reg :
+						   (cpu_addr[1:0] == 2'b00) ? (cpu_rdata_reg & 32'h000000ff) :
+						   (cpu_addr[1:0] == 2'b01) ? (cpu_rdata_reg & 32'h0000ff00) >> 8 :
+						   (cpu_addr[1:0] == 2'b10) ? (cpu_rdata_reg & 32'h00ff0000) >> 16 :
+						   (cpu_addr[1:0] == 2'b11) ? (cpu_rdata_reg & 32'hff000000) >> 24: cpu_rdata_reg;
+	
     // For Byte writes 
     assign aligned_cpu_wr_en = (cpu_data_mem_wr_en == 4'b0000) ? 4'b0000 :
                                (cpu_data_mem_wr_en == 4'b1111) ? 4'b1111 :
@@ -106,10 +108,14 @@ clk_counter cnt(clk, (rst|| ((cpu_addr == 32'h00B00040) || (cpu_addr == 32'h00B0
 inst_mem imem(
   .clka(clk), // input clka
   .addra(PC), // input [31 : 0] addra
+  .dina(32'h0000),
+  .wea(4'h0),
   .rsta(rst),
   .douta(instruction), // output [31 : 0] douta
   .clkb(clk), // input clkb
   .rstb(rst),
+  .web(cpu_imem_we),
+  .dinb(cpu_wdata),
   .addrb(cpu_addr_inst), // input [31 : 0] addrb
   .doutb(cpu_data_inst) // output [31 : 0] doutb
 );

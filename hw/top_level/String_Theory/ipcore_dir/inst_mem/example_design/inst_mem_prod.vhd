@@ -81,7 +81,7 @@
 --    C_AXI_TYPE                  :  1 
 --    C_AXI_SLAVE_TYPE            :  0 
 --    C_AXI_ID_WIDTH              :  4 
---    C_MEM_TYPE                  :  4 
+--    C_MEM_TYPE                  :  2 
 --    C_BYTE_SIZE                 :  8 
 --    C_ALGORITHM                 :  1 
 --    C_PRIM_TYPE                 :  1 
@@ -96,13 +96,13 @@
 --    C_INITA_VAL                 :  0 
 --    C_HAS_ENA                   :  0 
 --    C_HAS_REGCEA                :  0 
---    C_USE_BYTE_WEA              :  0 
---    C_WEA_WIDTH                 :  1 
+--    C_USE_BYTE_WEA              :  1 
+--    C_WEA_WIDTH                 :  4 
 --    C_WRITE_MODE_A              :  WRITE_FIRST 
 --    C_WRITE_WIDTH_A             :  32 
 --    C_READ_WIDTH_A              :  32 
---    C_WRITE_DEPTH_A             :  1000 
---    C_READ_DEPTH_A              :  1000 
+--    C_WRITE_DEPTH_A             :  1024 
+--    C_READ_DEPTH_A              :  1024 
 --    C_ADDRA_WIDTH               :  32 
 --    C_HAS_RSTB                  :  1 
 --    C_RST_PRIORITY_B            :  CE 
@@ -110,13 +110,13 @@
 --    C_INITB_VAL                 :  0 
 --    C_HAS_ENB                   :  0 
 --    C_HAS_REGCEB                :  0 
---    C_USE_BYTE_WEB              :  0 
---    C_WEB_WIDTH                 :  1 
+--    C_USE_BYTE_WEB              :  1 
+--    C_WEB_WIDTH                 :  4 
 --    C_WRITE_MODE_B              :  WRITE_FIRST 
 --    C_WRITE_WIDTH_B             :  32 
 --    C_READ_WIDTH_B              :  32 
---    C_WRITE_DEPTH_B             :  1000 
---    C_READ_DEPTH_B              :  1000 
+--    C_WRITE_DEPTH_B             :  1024 
+--    C_READ_DEPTH_B              :  1024 
 --    C_ADDRB_WIDTH               :  32 
 --    C_HAS_MEM_OUTPUT_REGS_A     :  0 
 --    C_HAS_MEM_OUTPUT_REGS_B     :  0 
@@ -155,7 +155,7 @@ ENTITY inst_mem_prod IS
     RSTA       : IN STD_LOGIC;  --opt port
     ENA        : IN STD_LOGIC;  --optional port
     REGCEA     : IN STD_LOGIC;  --optional port
-    WEA        : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    WEA        : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DINA       : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTA      : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -165,7 +165,7 @@ ENTITY inst_mem_prod IS
     RSTB       : IN STD_LOGIC;  --opt port
     ENB        : IN STD_LOGIC;  --optional port
     REGCEB     : IN STD_LOGIC;  --optional port
-    WEB        : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    WEB        : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRB      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DINB       : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTB      : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -188,7 +188,7 @@ ENTITY inst_mem_prod IS
     S_AXI_AWVALID                  : IN  STD_LOGIC;
     S_AXI_AWREADY                  : OUT STD_LOGIC;
     S_AXI_WDATA                    : IN  STD_LOGIC_VECTOR(31  DOWNTO 0);
-    S_AXI_WSTRB                    : IN  STD_LOGIC_VECTOR(0  DOWNTO 0);
+    S_AXI_WSTRB                    : IN  STD_LOGIC_VECTOR(3  DOWNTO 0);
     S_AXI_WLAST                    : IN  STD_LOGIC;
     S_AXI_WVALID                   : IN  STD_LOGIC;
     S_AXI_WREADY                   : OUT STD_LOGIC;
@@ -233,7 +233,11 @@ ARCHITECTURE xilinx OF inst_mem_prod IS
 
       --Port A
     RSTA           : IN STD_LOGIC;  --opt port
+  
+    WEA            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRA          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+  
+    DINA           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
     DOUTA          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
 
@@ -243,7 +247,11 @@ ARCHITECTURE xilinx OF inst_mem_prod IS
   
       --Port B
     RSTB           : IN STD_LOGIC;  --opt port
+  
+    WEB            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     ADDRB          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+  
+    DINB           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     DOUTB          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     CLKB           : IN STD_LOGIC
 
@@ -258,7 +266,11 @@ BEGIN
 
       --Port A
       RSTA       => RSTA,
+  
+      WEA        => WEA,
       ADDRA      => ADDRA,
+  
+      DINA       => DINA,
   
       DOUTA      => DOUTA,
 
@@ -266,7 +278,11 @@ BEGIN
   
       --Port B
       RSTB       => RSTB,
+  
+      WEB        => WEB,
       ADDRB      => ADDRB,
+  
+      DINB       => DINB,
       DOUTB      => DOUTB,
       CLKB       => CLKB
 
