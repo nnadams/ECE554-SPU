@@ -24,19 +24,20 @@ def main(args):
             break
         data.extend(ch)
      
-     
-    op = 0
+    
+    op = 3
     delim = ord('b')
     data = bytearray()
     data.append(op)
     data.append(delim)
     data.append(1)
-    for i in range(0,128*25 - 1):
+    for i in range(0,128*300 - 1):
         data.append(ord('b'))
     data.append(0)
     data.append(2)
-    for i in range(0,128*5 - 1):
+    for i in range(0,128*300 - 2):
         data.append(ord('b'))
+    data.append(ord('f'))
     data.append(4)
     
     ser.write(data)
@@ -69,7 +70,7 @@ def main(args):
     print strg 
     strg = "Clk Count: %d " % clk_cnt
     print strg
-    time = int(clk_cnt) / 1000000.0
+    time = int(clk_cnt) / 50000000.0
     print "Time: " + str(time) + " seconds"
     
 if __name__ == "__main__":

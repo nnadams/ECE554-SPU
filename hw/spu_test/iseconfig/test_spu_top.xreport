@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2016-12-13T15:32:30</DateModified>
+  <DateModified>2016-12-13T16:29:06</DateModified>
   <ModuleName>test_spu_top</ModuleName>
   <SummaryTimeStamp>2016-12-13T13:33:57</SummaryTimeStamp>
   <SavedFilePath>I:/554/project/ECE554-SPU/hw/spu_test/iseconfig/test_spu_top.xreport</SavedFilePath>

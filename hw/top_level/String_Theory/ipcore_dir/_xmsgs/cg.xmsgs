@@ -14,19 +14,85 @@
 <msg type="info" file="sim" num="172" delta="old" >Generating IP...
 </msg>
 
-<msg type="warning" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">A core named &apos;inst_mem&apos; already exists in the project. Output products for this core may be overwritten.</arg>
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">min_area_algorithm: For the configured RAM size, the number of block</arg>
 </msg>
 
-<msg type="info" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">Pre-processing HDL files for &apos;inst_mem&apos;...</arg>
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   RAMs used exceeds the maximum number of 18KB block RAMs in the chosen</arg>
 </msg>
 
-<msg type="warning" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">Overwriting existing file I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/inst_mem/doc/blk_mem_gen_v7_3_vinfo.html with file from view xilinx_documentation</arg>
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   architecture</arg>
 </msg>
 
-<msg type="info" file="sim" num="949" delta="old" >Finished generation of ASY schematic symbol.
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">min_area_algorithm: For the configured RAM size, the number of block</arg>
 </msg>
 
-<msg type="info" file="sim" num="948" delta="old" >Finished FLIST file generation.
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   RAMs used exceeds the maximum number of 18KB block RAMs in the chosen</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   architecture</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">min_area_algorithm: For the configured RAM size, the number of block</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   RAMs used exceeds the maximum number of 18KB block RAMs in the chosen</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   architecture</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">min_area_algorithm: For the configured RAM size, the number of block</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   RAMs used exceeds the maximum number of 18KB block RAMs in the chosen</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   architecture</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">min_area_algorithm: For the configured RAM size, the number of block</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   RAMs used exceeds the maximum number of 18KB block RAMs in the chosen</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   architecture</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">min_area_algorithm: For the configured RAM size, the number of block</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   RAMs used exceeds the maximum number of 18KB block RAMs in the chosen</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   architecture</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">min_area_algorithm: For the configured RAM size, the number of block</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   RAMs used exceeds the maximum number of 18KB block RAMs in the chosen</arg>
+</msg>
+
+<msg type="error" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">   architecture</arg>
+</msg>
+
+<msg type="warning" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">A core named &apos;data_mem&apos; already exists in the project. Output products for this core may be overwritten.</arg>
+</msg>
+
+<msg type="warning" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">A core named &apos;data_mem&apos; already exists in the project. Output products for this core may be overwritten.</arg>
+</msg>
+
+<msg type="info" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">Pre-processing HDL files for &apos;data_mem&apos;...</arg>
+</msg>
+
+<msg type="warning" file="sim" num="0" delta="new" ><arg fmt="%s" index="1">Overwriting existing file I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/tmp/_cg/data_mem/doc/blk_mem_gen_v7_3_vinfo.html with file from view xilinx_documentation</arg>
+</msg>
+
+<msg type="info" file="sim" num="949" delta="new" >Finished generation of ASY schematic symbol.
+</msg>
+
+<msg type="info" file="sim" num="948" delta="new" >Finished FLIST file generation.
 </msg>
 
 </messages>

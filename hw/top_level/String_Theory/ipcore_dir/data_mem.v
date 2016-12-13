@@ -59,10 +59,10 @@ input [31 : 0] dina;
 output [31 : 0] douta;
 input clkb;
 input rstb;
-input [15 : 0] web;
+input [3 : 0] web;
 input [31 : 0] addrb;
-input [127 : 0] dinb;
-output [127 : 0] doutb;
+input [31 : 0] dinb;
+output [31 : 0] doutb;
 
 // synthesis translate_off
 
@@ -103,10 +103,10 @@ output [127 : 0] doutb;
     .C_MEM_TYPE(2),
     .C_MUX_PIPELINE_STAGES(0),
     .C_PRIM_TYPE(1),
-    .C_READ_DEPTH_A(100000),
-    .C_READ_DEPTH_B(25000),
+    .C_READ_DEPTH_A(150000),
+    .C_READ_DEPTH_B(150000),
     .C_READ_WIDTH_A(32),
-    .C_READ_WIDTH_B(128),
+    .C_READ_WIDTH_B(32),
     .C_RST_PRIORITY_A("CE"),
     .C_RST_PRIORITY_B("CE"),
     .C_RST_TYPE("SYNC"),
@@ -120,13 +120,13 @@ output [127 : 0] doutb;
     .C_USE_ECC(0),
     .C_USE_SOFTECC(0),
     .C_WEA_WIDTH(4),
-    .C_WEB_WIDTH(16),
-    .C_WRITE_DEPTH_A(100000),
-    .C_WRITE_DEPTH_B(25000),
+    .C_WEB_WIDTH(4),
+    .C_WRITE_DEPTH_A(150000),
+    .C_WRITE_DEPTH_B(150000),
     .C_WRITE_MODE_A("WRITE_FIRST"),
     .C_WRITE_MODE_B("WRITE_FIRST"),
     .C_WRITE_WIDTH_A(32),
-    .C_WRITE_WIDTH_B(128),
+    .C_WRITE_WIDTH_B(32),
     .C_XDEVICEFAMILY("virtex5")
   )
   inst (
