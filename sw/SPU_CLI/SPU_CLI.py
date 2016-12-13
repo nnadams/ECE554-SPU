@@ -62,14 +62,23 @@ def execute_command(cmd, imm):
 
     # String A
     data.extend(0x01)
+    char_byte_count = 0
     with open(args['file1'], "r") as f:
         for line in f:  
             for ch in line:
                 data.extend(ord(ch))
+                char_byte_count=char_byte_count+1
+
+    if char_byte_count > 145000:
+        print("String A too long")
+        return
+
+    for fill in range(0,char_byte_count % 128):
+        data.extend(0)  # Fill data with zeros
 
     # String B
     data.extend(0x02)
-    if args.file2 is not None:
+    if args['file2'] is not None:
         with open(args['file2'], "r") as f:
             for line in f:  
                 for ch in line:
@@ -95,7 +104,7 @@ def execute_command(cmd, imm):
     # ret_str = "Return Val: %d 0x%08x" % (ret_val , ret_val)
     # print return_string
     # clk_ret_str = "Clk Count: %d " % clk_cnt
-    return ret_val,clk_cnt
+    return ret_val,clk_cnt,int(clk_cnt/50000000)
 
 def menu():
     spinner = Spinner()
@@ -126,11 +135,16 @@ Select a Function:
 
         print("Sending Data Via SPART... ")
         spinner.start()
-        res, clk_cnt = execute_command(cmd, imm)
+        try:
+            res, clk_cnt, time = execute_command(cmd, imm)
+        except Exception as e:
+            spinner.stop()
+            print(e)
         spinner.stop()
-
+        
         print("Return Val: %d 0x%08x" % (res , res))
         print("Clk Count: %d " % clk_cnt)
+        print("Time: %d " % time)
 
 
 if __name__ == '__main__':
