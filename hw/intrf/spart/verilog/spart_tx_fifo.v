@@ -80,8 +80,8 @@ module spart_tx_fifo(
 		.trmt(trmt),
 		.tx_data(data),
 		.load_baud(1'b1),
-		//.baud_val(16'h0a2c),
-      .baud_val(16'h0010),
+		.baud_val(16'h0526),
+      //.baud_val(16'h0010),
 		.TBR(tbr), 
 		.TX(txd)
 	);

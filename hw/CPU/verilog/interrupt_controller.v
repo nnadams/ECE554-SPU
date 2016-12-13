@@ -41,7 +41,7 @@ module interrupt_controller(
 	reg spu_int_en; 
 	assign spu_int_en_wr = (instruction[31:26] == 6'b111111) ? 1'b1 : 1'b0; 
 	always @(posedge clk, posedge rst) begin
-		if(rst) spu_int_en <= 1;
+		if(rst) spu_int_en <= 0;
 		else if(spu_int_en_wr) spu_int_en <= instruction[1]; 
         else spu_int_en <= spu_int_en;
 	end
@@ -49,7 +49,7 @@ module interrupt_controller(
 	// SPU Status Reg 
 	wire spu_int_wr; 
 	wire spu_int_ff; 
-	assign spu_int_wr = clr_spu ? 1'b0 : (spu_int & ~ _spu_int) ? 1'b1 : spu_int_ff;
+	assign spu_int_wr = clr_spu | ~spu_int_en ? 1'b0 : (spu_int & ~ _spu_int) ? 1'b1 : spu_int_ff;
 	dff spu_status_reg(.clk(clk), .rst(rst), .d(spu_int_wr), .q(spu_int_ff));
 	
 	// SPART ENABLE FLOP
@@ -65,7 +65,7 @@ module interrupt_controller(
 	// SPART Status Reg 
 	wire spart_int_wr; 
 	wire spart_int_ff; 
-	assign spart_int_wr = clr_spart ? 1'b0 : (spart_int & ~_spart_int) ? 1'b1 : spart_int_ff;
+	assign spart_int_wr = clr_spart | ~spart_int_en ? 1'b0 : (spart_int & ~_spart_int) ? 1'b1 : spart_int_ff;
 	dff spart_status_reg(.clk(clk), .rst(rst), .d(spart_int_wr), .q(spart_int_ff));
 	
 	// State Flop

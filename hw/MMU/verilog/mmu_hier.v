@@ -30,6 +30,7 @@ module mmu_hier(
     input [31:0]   spu_addr,
     input [3:0]    spu_res_addr,
     input [31:0]   spu_res_data,
+    input          spu_res_wr_en, 
     input          spart_tx_full,
     input          spart_rx_empty,
     input [7:0]    spart_rx_data,
@@ -47,7 +48,7 @@ module mmu_hier(
      
     reg [31:0] spu_reg [0:15];
     reg [31:0] cpu_rdata_reg, mem_mapped_reg, spu_res_mapped_reg;
-    reg [7:0] spart_tx_reg, spart_rx_reg;
+    reg [7:0] spart_tx_reg;
     reg cpu_inst_read, mem_mapped_read, spu_res_mapped_read;
     wire [31:0] cpu_data_mem, cpu_data_inst;
     reg [31:0] cpu_addr_mem, cpu_addr_inst;
@@ -58,6 +59,7 @@ module mmu_hier(
 	 reg spart_rd_reg; 
 	wire [3:0] cpu_data_mem_wr_en; 
 	 wire [3:0] cpu_imem_we;
+    wire [63:0] clk_cnt;
 	
     assign vga_data_1 = spu_reg[0];
     assign vga_data_2 = spu_reg[1];
@@ -66,7 +68,7 @@ module mmu_hier(
 	assign spart_trmt = spart_trmt_reg & |cpu_we;
 	assign cpu_data_mem_wr_en = mem_mapped_read ? 4'b0000 : cpu_we;
 	assign spart_rd = spart_rd_reg & |cpu_en;
-	assign cpu_imem_we = cpu_inst_read && &cpu_we;
+	assign cpu_imem_we = (cpu_inst_read && &cpu_we) ? 4'b1111 : 4'b0000;
 	// For byte reads 
 	assign cpu_read_data = (cpu_en == 4'b1111) ? cpu_rdata_reg :
 						   (cpu_addr[1:0] == 2'b00) ? (cpu_rdata_reg & 32'h000000ff) :
@@ -87,8 +89,11 @@ module mmu_hier(
 						  (cpu_addr[1:0] == 2'b01) ? (cpu_wdata & 32'h000000ff) << 8 :
 						  (cpu_addr[1:0] == 2'b10) ? (cpu_wdata & 32'h000000ff) << 16 :
 						  (cpu_addr[1:0] == 2'b11) ? (cpu_wdata & 32'h000000ff) << 24: cpu_wdata; 
-                          
-main_mem data_mem (
+     
+    wire [31:0] spu_data_mem_addr;
+    assign spu_data_mem_addr = (spu_addr & 32'h000fffff) >> 0;
+    
+data_mem main_mem (
   .clka(clk), // input clka
   .rsta(rst), // input rsta
   .wea(aligned_cpu_wr_en), // input [3 : 0] wea
@@ -98,10 +103,13 @@ main_mem data_mem (
   .clkb(clk), // input clkb
   .rstb(rst), // input rstb
   .web(16'h0), // input [15 : 0] web
-  .addrb(spu_addr), // input [31 : 0] addrb
+  .addrb(spu_data_mem_addr), // input [31 : 0] addrb
   .dinb(spu_wdata), // input [127 : 0] dinb
   .doutb(spu_read_data) // output [127 : 0] doutb
 );
+wire rst_clk_cnt; 
+assign rst_clk_cnt = &cpu_we & ((cpu_addr == 32'h00B00040) || (cpu_addr == 32'h00B00044));
+clk_counter cnt(.clk(clk), .rst(rst), .soft_rst(rst_clk_cnt) , .clk_cnt(clk_cnt));
 
 inst_mem imem(
   .clka(clk), // input clka
@@ -123,14 +131,17 @@ inst_mem imem(
             for(i = 0; i < 16; i=i+1) begin
                 spu_reg[i] <= 32'h0;
             end
-            spart_rx_reg <= 8'h0;
         end
         else if(spu_res_mapped_read) begin
-            spu_res_mapped_reg <= spu_reg[cpu_addr[5:2]];
+              if(cpu_addr[7:0] == 8'h40)
+                 spu_res_mapped_reg <= clk_cnt[31:0];
+             else if(cpu_addr[7:0] == 8'h44)
+                 spu_res_mapped_reg <= clk_cnt[63:32];
+             else
+                 spu_res_mapped_reg <= spu_reg[cpu_addr[5:2]];
         end
-        else begin
+        else if(spu_res_wr_en) begin
             spu_reg[spu_res_addr] <= spu_res_data;
-            spart_rx_reg <= spart_rx_data;
         end
     end
     

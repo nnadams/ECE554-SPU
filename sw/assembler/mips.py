@@ -95,7 +95,11 @@ class MIPSProgram:
     if label not in self.labels.keys():
       raise Exception("Unknown label: '%s'"%(label))
 
-    return self.labels[label]
+    # hack for demo 
+    if label.startswith('_istr'):
+        return self.labels[label] *4 + self.text_base
+    else:
+        return self.labels[label]
 
   def Bytes(self, endian="big"):
     return list(itertools.chain( *[x.Bytes(endian=endian) for x

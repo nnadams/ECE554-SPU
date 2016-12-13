@@ -1,0 +1,17 @@
+# Clock Configuration
+NET clk_100mhz            LOC="AH15";  # Bank 4, Vcco=3.3V, No DCI
+# Switch Configuration
+NET rst                   LOC="U25"  |IOSTANDARD = LVCMOS18;   # DIP 1, Bank 15, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET txd       LOC="AG20";  # Bank 4, Vcco=3.3V, No DCI (txd)
+#GPIO Leds
+NET  GPIO_LED_0           LOC="H18";   # Bank 3, Vcco=2.5V, No DCI
+NET  GPIO_LED_1           LOC="L18";   # Bank 3, Vcco=2.5V, No DCI
+NET  GPIO_LED_2           LOC="G15";   # Bank 3, Vcco=2.5V, No DCI
+NET  GPIO_LED_3           LOC="AD26";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET  GPIO_LED_4           LOC="G16";   # Bank 3, Vcco=2.5V, No DCI
+NET  GPIO_LED_5           LOC="AD25";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET  GPIO_LED_6           LOC="AD24";  # Bank 21, Vcco=1.8V, DCI using 49.9 ohm resistors
+NET  GPIO_LED_7           LOC="AE24";  # Bank 21, Vcco=1.8V, 
+#Created by Constraints Editor (xc5vlx110t-ff1136-1) - 2016/12/11
+NET "clk_100mhz" TNM_NET = clk_100mhz;
+TIMESPEC TS_clk_100mhz = PERIOD "clk_100mhz" 100 MHz HIGH 50%;

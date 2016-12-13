@@ -47,7 +47,6 @@ f.close()
 
 mp = mips.MIPSProgram(text_base=text_base, data_base=data_base)
 mp.AddLines(lines)
-
 output = open(args['output'], 'w') if 'output' in args else None
 endianness = "little" if args['littleendian'] else "top"
 

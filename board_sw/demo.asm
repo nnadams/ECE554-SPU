@@ -120,9 +120,18 @@ main:
     # no byte yet 
     li $t3 spart_irq_happend
     st $zero $t3 0 
+    li $t3 spu_irq_happend
+    st $zero $t3 0 
     #wait for spart data
     jal spart_load
 
+    #enable SPU Ints here
+    nop
+    nop
+    nop
+    nop
+    imod 7
+    
     # do something with the data 
     # echo the data back 
     #jal echo_mem
@@ -136,6 +145,9 @@ main:
     li $t1 immediate
     lb $a1 $t1 0 
    
+    #reset clk count
+    st $t0 $clk 0 
+    
     bnez $t0 _L20
     jal _strlen_nospu
     j results
@@ -206,6 +218,9 @@ _L31:
     halt
     
 results:
+    # load the clk count 
+    ld $s7 $clk 0 
+    
     # write result
     add $a0 $r0 $zero 
     jal write 
@@ -217,7 +232,6 @@ results:
     jal write 
     
     # write clock count LSB first
-	add $s7 $dp $zero 
     add $a0 $s7 $zero 
     jal write 
     srli $a0 $s7 8 
@@ -334,11 +348,9 @@ _J0:
     lb $t1, $a0 0 # load the next character into t1
     beqz $t1, _J2 # check for the null character
     sub $t2 $t1 $a1 #check if its the character
-    bnez $t2, _J1 
-    add $r0 $zero $a0 
-    j _J2
-_J1:
+    beqz $t2, _J2 
     addi $a0, $a0, 1 # increment the string pointer
+    addi $r0 $r0 1 #increment index 
     j _J0 # return to the top of the loop
 _J2:
     jr $ret
@@ -381,13 +393,13 @@ _strlen_spu:
     nop
     nop
     slen $a0 0 0
-#    li $t0 spu_irq_happend
-#_slen_wait:
-#    ld $t1 $t0 0 
-#    beqz $t1 _slen_wait
-#    st $zero $t0 0 
-#    li $t4 spu_result
-#    ld $r0 $t4 0 # load result into r0
+    li $t0 spu_irq_happend
+_slen_wait:
+    ld $t1 $t0 0 
+    beqz $t1 _slen_wait
+    st $zero $t0 0 
+    li $t4 spu_result
+    ld $r0 $t4 0 # load result into r0
     nop
     nop
     nop
@@ -398,20 +410,20 @@ _strcmp_spu:
     nop
     nop
     scmp $a0 $a1 0 0
-#    li $t0 spu_irq_happend
-#_scmp_wait:
-#    ld $t1 $t0 0 
-#    beqz $t1 _scmp_wait
-#    st $zero $t0 0 
-#    li $t4 spu_result
-#    ld $r0 $t4 0 # load result into r0
+    li $t0 spu_irq_happend
+_scmp_wait:
+    ld $t1 $t0 0 
+    beqz $t1 _scmp_wait
+    st $zero $t0 0 
+    li $t4 spu_result
+    ld $r0 $t4 0 # load result into r0
     nop
     nop
     nop
     jr $ret
     
 _strchr_spu:
-    addi $t0 $zero 32 #op code 
+    addi $t0 $zero 35 #op code 
     slli $t0 $t0 26 #shift
     addi $t1 $zero 4 #src reg always a0
     slli $t1 $t1 21
@@ -423,29 +435,29 @@ _strchr_spu:
     slli $t1 $t1 8
     or $t0 $t0 $t1 
     or $t0 $t0 $a1 # char delim
-    li $t2 _strchr_inst
+    li $t2 _istr_chr_inst
     st $t0 $t2 0 #store the instruction
     nop
     nop
     nop
     nop
     nop
-_strchr_inst:
+_istr_chr_inst:
     nop 
-#    li $t0 spu_irq_happend
-#_strchr_wait:
-#    ld $t1 $t0 0 
-#    beqz $t1 _strchr_wait
-#    st $zero $t0 0 
-#    li $t4 spu_result
-#    ld $r0 $t4 0 # load result into r0
+    li $t0 spu_irq_happend
+_strchr_wait:
+    ld $t1 $t0 0 
+    beqz $t1 _strchr_wait
+    st $zero $t0 0 
+    li $t4 spu_result
+    ld $r0 $t4 0 # load result into r0
     nop
     nop
     nop
     jr $ret
     
 _strrchr_spu:
-    addi $t0 $zero 32 #op code 
+    addi $t0 $zero 35 #op code 
     slli $t0 $t0 26 #shift
     addi $t1 $zero 4 #src reg always a0
     slli $t1 $t1 21
@@ -457,22 +469,22 @@ _strrchr_spu:
     slli $t1 $t1 8
     or $t0 $t0 $t1 
     or $t0 $t0 $a1 # char delim
-    li $t2 _strrchr_inst
+    li $t2 _istr_rchr_inst
     st $t0 $t2 0 #store the instruction
     nop
     nop
     nop
     nop
     nop
-_strrchr_inst:
+_istr_rchr_inst:
     nop 
-#    li $t0 spu_irq_happend
-#_strrchr_wait:
-#    ld $t1 $t0 0 
-#    beqz $t1 _strrchr_wait
-#    st $zero $t0 0 
-#    li $t4 spu_result
-#    ld $r0 $t4 0 # load result into r0
+    li $t0 spu_irq_happend
+_strrchr_wait:
+    ld $t1 $t0 0 
+    beqz $t1 _strrchr_wait
+    st $zero $t0 0 
+    li $t4 spu_result
+    ld $r0 $t4 0 # load result into r0
     nop
     nop
     nop
@@ -480,7 +492,7 @@ _strrchr_inst:
     
     
 _strcchr_spu:
-    addi $t0 $zero 32 #op code 
+    addi $t0 $zero 35 #op code 
     slli $t0 $t0 26 #shift
     addi $t1 $zero 4 #src reg always a0
     slli $t1 $t1 21
@@ -492,22 +504,22 @@ _strcchr_spu:
     slli $t1 $t1 8
     or $t0 $t0 $t1 
     or $t0 $t0 $a1 # char delim
-    li $t2 _strcchr_inst
+    li $t2 _istr_cchr_inst
     st $t0 $t2 0 #store the instruction
     nop
     nop
     nop
     nop
     nop
-_strcchr_inst:
+_istr_cchr_inst:
     nop 
-#    li $t0 spu_irq_happend
-#_strcchr_wait:
-#    ld $t1 $t0 0 
-#    beqz $t1 _strcchr_wait
-#    st $zero $t0 0 
-#    li $t4 spu_result
-#    ld $r0 $t4 0 # load result into r0
+    li $t0 spu_irq_happend
+_strcchr_wait:
+    ld $t1 $t0 0 
+    beqz $t1 _strcchr_wait
+    st $zero $t0 0 
+    li $t4 spu_result
+    ld $r0 $t4 0 # load result into r0
     nop
     nop
     nop

@@ -1,0 +1,28 @@
+Command line:
+   \\userspace.cae.wisc.edu\people\j\jjbrand\554\project\ECE554-SPU\hw\test\mmu_test\test_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  55348
+
+Mon Dec 12 14:12:17 2016
+
+
+ Elaboration Time: 7.90925 sec
+
+ Current Memory Usage: 2323.13 Meg
+
+ Total Signals          : 350
+ Total Nets             : 2647
+ Total Signal Drivers   : 148
+ Total Blocks           : 38
+ Total Primitive Blocks : 30
+ Total Processes        : 173
+ Total Traceable Variables  : 691
+ Total Scalar Nets and Variables : 135044
+
+ Total Simulation Time: 8.12765 sec
+
+ Current Memory Usage: 1851.24 Meg
+
+Mon Dec 12 14:15:59 2016
+

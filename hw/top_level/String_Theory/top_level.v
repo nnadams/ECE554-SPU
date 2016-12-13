@@ -42,7 +42,9 @@ module top_level(
 	output clk_vga,
 	output clk_vga_n,
 	inout scl_tri, sda_tri,
-	output txd
+	output txd//,
+//output clk_out,
+  //  output rst_out
 );
 	
 	// Outputs From CPU 
@@ -89,8 +91,9 @@ module top_level(
 	assign clk_vga = clk_25mhz;
 	assign clk_vga_n = ~clk_25mhz;
 
-	wire locked_rst = rst; //| ~locked_dcm;
-	assign clk = clk_100mhz;
+    wire clk ;//= clk_100mhz;
+	wire locked_rst = rst | ~locked_dcm;
+	//assign clk = clk_100mhz;
 	/*vga_clk vga_clk_gen1(
 		.CLKIN_IN(clk_100mhz), 
 		.RST_IN(rst), 
@@ -99,7 +102,16 @@ module top_level(
 		.CLK0_OUT(clk), 
 		.LOCKED_OUT(locked_dcm)
 	);*/
-
+   // assign clk_out = clk;
+    //assign rst_out = locked_rst;
+    pll instance_name (
+    .CLKIN1_IN(clk_100mhz), 
+    .RST_IN(rst), 
+    .CLKOUT0_OUT(clk), 
+    .LOCKED_OUT(locked_dcm)
+    );
+    
+	 
 	 //LED Config 
 	led_controller leds(
 		 .clk(clk),
@@ -165,6 +177,7 @@ module top_level(
 		.cpu_we(data_mem_wr),
 		.spu_wdata(128'd0),
 		.spu_addr(spu_addr),
+        .spu_res_wr_en(spu_we),
 		.spu_res_addr(spu_res_addr),
 		.spu_res_data(spu_res_data),
 		.spart_tx_full(full),
@@ -237,12 +250,6 @@ module top_level(
 		.sda_tri(sda_tri)
 	);*/
 
-	clk_counter clock_count(
-		.clk(clk), 
-		.rst(locked_rst),
-		.halt(HALTED), 
-		.clk_cnt(clk_cnt)
-	);
     assign data_1 = vga_data_1_reg;
     assign data_2 = vga_data_2_reg;
     assign data_3 = vga_data_3_reg;	

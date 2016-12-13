@@ -36,8 +36,11 @@ module test(
 	wire GPIO_LED_7; 
 	wire txd;
 	wire rxd;
+	integer i; 
+	wire clk_out;
+	wire rst_out; 
 	
-top_level DUT(
+test_spu_top DUT(
 	.clk_100mhz(clk), 
 	.rst(rst),
 	.GPIO_LED_0(GPIO_LED_0), 
@@ -47,122 +50,16 @@ top_level DUT(
 	.GPIO_LED_4(GPIO_LED_4), 
 	.GPIO_LED_5(GPIO_LED_5),  
 	.GPIO_LED_6(GPIO_LED_6),   
-	.GPIO_LED_7(GPIO_LED_7),  
-	.txd(txd),
-	.rxd(rxd)
+	.GPIO_LED_7(GPIO_LED_7)
 );
-
-spart_tx test_spart(
-	.clk(clk),
-	.rst(rst),
-	.trmt(trmt),
-	.tx_data(tx_data),
-	.load_baud(1'b1),
-	.baud_val(16'h10),
-	.TBR(tbr),
-	.TX(rxd)
-);
-
 
    initial begin
       clk = 0; 
       rst = 1; 
-		trmt = 0; 
-		tx_data = 8'd03;
-      repeat (5) @(posedge clk);
-      rst = 0;
-		repeat (20) @(posedge clk);
-		
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-        tx_data = 8'd97; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-        
-		tx_data = 8'd01; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-		tx_data = 8'd96; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-
-		tx_data = 8'd97; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-		tx_data = 8'd98; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-		tx_data = 8'd0; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-		tx_data = 8'd02; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-		tx_data = 8'd96; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-
-		tx_data = 8'd97; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-		tx_data = 8'd98; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-		tx_data = 8'd0; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
-		
-	   tx_data = 8'd4; 
-		@(posedge tbr); 
-		repeat (50) @(posedge clk);
-		trmt = 1;
-		@(posedge clk);
-		trmt = 0;
+		repeat(5) @(posedge clk); 
+		rst = 0; 
+      repeat(2000) @(posedge clk);
+      $stop;
    end
 	
 	   

@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Sun Dec 11 22:09:31 2016
+# Date: Tue Dec 13 21:39:56 2016
 #
 ##############################################################
 #
@@ -46,7 +46,7 @@ CSET axi_id_width=4
 CSET axi_slave_type=Memory_Slave
 CSET axi_type=AXI4_Full
 CSET byte_size=8
-CSET coe_file=I:\ECE554-SPU\hw\top_level\imem.coe
+CSET coe_file=I:\554\project\ECE554-SPU\hw\top_level\imem.coe
 CSET collision_warnings=ALL
 CSET component_name=inst_mem
 CSET disable_collision_warnings=false
@@ -57,7 +57,7 @@ CSET enable_32bit_address=true
 CSET enable_a=Always_Enabled
 CSET enable_b=Always_Enabled
 CSET error_injection_type=Single_Bit_Error_Injection
-CSET fill_remaining_memory_locations=true
+CSET fill_remaining_memory_locations=false
 CSET interface_type=Native
 CSET load_init_file=true
 CSET mem_file=no_Mem_file_loaded
@@ -105,4 +105,4 @@ CSET write_width_b=32
 MISC pkg_timestamp=2012-11-19T16:22:25Z
 # END Extra information
 GENERATE
-# CRC: d960f52a
+# CRC: d17c8045

@@ -1,0 +1,156 @@
+Running: C:\ProgramData\App-V\DAA02E26-5322-4947-BF0F-062031F30E14\68790BDD-0F39-406E-A1BC-DAF286566E4F\Root\14.7\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -lib unisims_ver -lib unimacro_ver -lib xilinxcorelib_ver -lib secureip -o I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test_isim_beh.exe -prj I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test_beh.prj work.test work.glbl 
+ISim P.20131013 (signature 0x7708f090)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/spart_fifo.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/dff.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/shft8.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/shft4.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/shft2.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/shft16.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/shft1.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/reg_32.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/bit_counter.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/shifter.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/rf.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/ofl_detect.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/dff_en.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/btr32.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/add32.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/ZeroPriorityEnc.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/ZeroCounter.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/UpCounter.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/PriorityEnc.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/MSBZeroPriorityEnc.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/Comparator.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/transmit_control.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/shift_register.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/rx_shifter.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/receive_control.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/baud_rate_generator.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/writebackcontrol.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/rf_bypass.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/interrupt_controller.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/imm_decode.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/flag_instr_logic.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/alucontrol.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/alu.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/inst_mem.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/instr_fifo.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/data_mem.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/clk_counter.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/SPUCore.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/spart_tx.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/spart_rx.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/writeback.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/pipeReg_mem_wb.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/pipeReg_if_id.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/pipeReg_id_ex.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/pipeReg_ex_mem.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/mem.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/hazard_detect.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/fetch.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/execute.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/decode.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/branch_control.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/spart_rx_fifo.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/pll.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../SPU/verilog/SPU.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../MMU/verilog/mmu_hier.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/spart/verilog/spart_tx_fifo.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../intrf/leds/led_controller.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/../../CPU/verilog/proc.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/top_level.v" into library work
+Analyzing Verilog file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test.v" into library work
+Analyzing Verilog file "C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
+Starting static elaboration
+WARNING:HDLCompiler:1016 - "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test.v" Line 43: Port vga_cfg is not connected to this instance
+WARNING:HDLCompiler:189 - "N:/P.20131013/rtf/verilog/src/XilinxCoreLib/BLK_MEM_GEN_V7_3.v" Line 4104: Size mismatch in connection of port <ADDRB>. Formal port size is 15-bit while actual signal size is 17-bit.
+Completed static elaboration
+Compiling module IBUFG
+Compiling module BUFG
+Compiling module PLL_ADV(CLKFBOUT_MULT=8,CLKIN1_P...
+Compiling module pll
+Compiling module led_controller
+Compiling module dff
+Compiling module reg_32_default
+Compiling module add32
+Compiling module dff_en
+Compiling module interrupt_controller_default
+Compiling module fetch
+Compiling module pipeReg_if_id_default
+Compiling module rf
+Compiling module rf_bypass
+Compiling module alucontrol
+Compiling module writebackcontrol
+Compiling module imm_decode
+Compiling module decode
+Compiling module pipeReg_id_ex_default
+Compiling module shft1
+Compiling module shft2
+Compiling module shft4
+Compiling module shft8
+Compiling module shft16
+Compiling module shifter
+Compiling module btr32
+Compiling module ofl_detect
+Compiling module alu
+Compiling module execute
+Compiling module pipeReg_ex_mem_default
+Compiling module memory
+Compiling module branch_control
+Compiling module pipeReg_mem_wb_default
+Compiling module flag_instr_logic
+Compiling module writeback
+Compiling module hazard_detect
+Compiling module proc
+Compiling module BLK_MEM_GEN_V7_3_output_stage(C_...
+Compiling module BLK_MEM_GEN_V7_3_output_stage(C_...
+Compiling module BLK_MEM_GEN_V7_3_softecc_output_...
+Compiling module BLK_MEM_GEN_V7_3_mem_module(C_CO...
+Compiling module BLK_MEM_GEN_V7_3(C_FAMILY="virte...
+Compiling module data_mem
+Compiling module clk_counter
+Compiling module BLK_MEM_GEN_V7_3_output_stage(C_...
+Compiling module BLK_MEM_GEN_V7_3_softecc_output_...
+Compiling module BLK_MEM_GEN_V7_3_mem_module(C_CO...
+Compiling module BLK_MEM_GEN_V7_3(C_FAMILY="virte...
+Compiling module inst_mem
+Compiling module mmu_hier
+Compiling module fifo_generator_v9_3_bhv_ver_ss(C...
+Compiling module fifo_generator_v9_3_bhv_ver_prel...
+Compiling module FIFO_GENERATOR_V9_3_CONV_VER(C_C...
+Compiling module FIFO_GENERATOR_V9_3(C_COMMON_CLO...
+Compiling module instr_fifo
+Compiling module Comparator
+Compiling module UpCounter(LIMIT=15,MAXBITS=4)
+Compiling module PriorityEnc
+Compiling module ZeroPriorityEnc
+Compiling module MSBZeroPriorityEnc
+Compiling module ZeroCounter
+Compiling module SPUCore
+Compiling module UpCounter(LIMIT=2,MAXBITS=2)
+Compiling module SPU
+Compiling module fifo_generator_v9_3_bhv_ver_ss(C...
+Compiling module FIFO_GENERATOR_V9_3_CONV_VER(C_C...
+Compiling module FIFO_GENERATOR_V9_3(C_COMMON_CLO...
+Compiling module spart_fifo
+Compiling module bit_counter
+Compiling module transmit_control
+Compiling module shift_register
+Compiling module baud_rate_generator
+Compiling module spart_tx
+Compiling module spart_tx_fifo
+Compiling module receive_control
+Compiling module rx_shift_register
+Compiling module spart_rx
+Compiling module spart_rx_fifo
+Compiling module top_level
+Compiling module test
+Compiling module glbl
+Time Resolution for simulation is 1ps.
+Compiled 81 Verilog Units
+Built simulation executable I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test_isim_beh.exe
+Fuse Memory Usage: 57012 KB
+Fuse CPU Usage: 3805 ms

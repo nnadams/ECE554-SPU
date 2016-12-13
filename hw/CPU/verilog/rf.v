@@ -229,7 +229,7 @@ assign read1data =
 		(read1regsel == 5'b00000) ? 32'h0000:
 		(read1regsel == 5'b00001) ? r1Data:
 		(read1regsel == 5'b00010) ? r2Data:
-		(read1regsel == 5'b00011) ? r3Data:
+		(read1regsel == 5'b00011) ? 32'h00b00040:
 		(read1regsel == 5'b00100) ? r4Data:
 		(read1regsel == 5'b00101) ? r5Data:
 		(read1regsel == 5'b00110) ? r6Data:
@@ -254,7 +254,7 @@ assign read1data =
 		(read1regsel == 5'b11001) ? r25Data:
 		(read1regsel == 5'b11010) ? r26Data:
 		(read1regsel == 5'b11011) ? r27Data:
-		(read1regsel == 5'b11100) ? r28Data:
+		(read1regsel == 5'b11100) ? 32'h00b00000:
 		(read1regsel == 5'b11101) ? r29Data:
 		(read1regsel == 5'b11110) ? r30Data:
 		(read1regsel == 5'b11111) ? r31Data:
@@ -264,7 +264,7 @@ assign read2data =
 		(read2regsel == 5'b00000) ? 32'h0000:
 		(read2regsel == 5'b00001) ? r1Data:
 		(read2regsel == 5'b00010) ? r2Data:
-		(read2regsel == 5'b00011) ? r3Data:
+		(read2regsel == 5'b00011) ? 32'h00b00040:
 		(read2regsel == 5'b00100) ? r4Data:
 		(read2regsel == 5'b00101) ? r5Data:
 		(read2regsel == 5'b00110) ? r6Data:
@@ -289,7 +289,7 @@ assign read2data =
 		(read2regsel == 5'b11001) ? r25Data:
 		(read2regsel == 5'b11010) ? r26Data:
 		(read2regsel == 5'b11011) ? r27Data:
-		(read2regsel == 5'b11100) ? r28Data:
+		(read2regsel == 5'b11100) ? 32'h00b00000:
 		(read2regsel == 5'b11101) ? r29Data:
 		(read2regsel == 5'b11110) ? r31Data:
 		(read2regsel == 5'b11111) ? r31Data:

@@ -103,11 +103,11 @@ ENTITY blk_mem_gen_v7_3_exdes IS
       --Inputs - Port B
     RSTB           : IN STD_LOGIC;  --opt port
   
-    WEB            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    WEB            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     ADDRB          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
-    DINB           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    DOUTB          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    DINB           : IN STD_LOGIC_VECTOR(127 DOWNTO 0);
+    DOUTB          : OUT STD_LOGIC_VECTOR(127 DOWNTO 0);
     CLKB           : IN STD_LOGIC
 
   );
@@ -143,11 +143,11 @@ ARCHITECTURE xilinx OF blk_mem_gen_v7_3_exdes IS
       --Port B
     RSTB       : IN STD_LOGIC;  --opt port
   
-    WEB        : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    WEB        : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     ADDRB      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
-    DINB       : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    DOUTB      : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    DINB       : IN STD_LOGIC_VECTOR(127 DOWNTO 0);
+    DOUTB      : OUT STD_LOGIC_VECTOR(127 DOWNTO 0);
     CLKB       : IN STD_LOGIC
 
 

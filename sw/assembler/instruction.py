@@ -299,6 +299,8 @@ class PseudoInstruction:
     if name == "li":
       if label is not None:
         # get all fancy
+        #print label 
+        #print program.Label(label)
         self.instructions.append(Instruction(self.program, position,
           name="lbi", first=first,
           label=lambda: program.Label(label) >> 16 & 0xFFFF))

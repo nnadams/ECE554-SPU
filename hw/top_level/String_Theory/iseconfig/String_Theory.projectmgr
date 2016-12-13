@@ -17,6 +17,10 @@
          <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/MMU - mmu_hier</ClosedNode>
          <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc</ClosedNode>
          <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart_rx - spart_rx_fifo</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart_tx - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart_tx - spart_tx_fifo/spart - spart_tx</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spu - SPU/core1 - SPUCore</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/D - decode</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/EX - execute</ClosedNode>
@@ -55,34 +59,36 @@
          <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/PROC - proc/mem_wb - pipeReg_mem_wb</ClosedNode>
          <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/SPU - spu/core1 - spu_core</ClosedNode>
       </ClosedNodes>
-      <SelectedItems/>
+      <SelectedItems>
+         <SelectedItem>DUT - top_level (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</SelectedItem>
+      </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000015b000000020000000000000000000000000200000064ffffffff0000008100000003000000020000015b0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000170000000020000000000000000000000000200000064ffffffff000000810000000300000002000001700000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>DUT - top_level (I:/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</CurrentItem>
+      <CurrentItem>DUT - top_level (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/top_level.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Design Utilities</SelectedItem>
+         <SelectedItem>View Compilation Log</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000130000000010000000100000000000000000000000064ffffffff000000810000000000000001000001300000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000110000000010000000100000000000000000000000064ffffffff000000810000000000000001000001100000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Design Utilities</CurrentItem>
+      <CurrentItem>View Compilation Log</CurrentItem>
    </ItemView>
    <ItemView guiview="File" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems/>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >5</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000000000000010000000000000000000000000000000000000392000000040101000100000000000000000000000064ffffffff000000810000000000000004000000420000000100000000000000240000000100000000000000660000000100000000000002c60000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000000000000001000000000000000000000000000000000000019f000000040101000100000000000000000000000064ffffffff000000810000000000000004000000420000000100000000000000240000000100000000000000660000000100000000000000d30000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>add32.v</CurrentItem>
    </ItemView>
@@ -101,19 +107,19 @@
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VERILOG" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
-         <ClosedNode>Implement Design/Map</ClosedNode>
-         <ClosedNode>Implement Design/Place &amp; Route</ClosedNode>
+         <ClosedNode>Implement Design/Map/Generate Post-Map Static Timing</ClosedNode>
+         <ClosedNode>Implement Design/Place &amp; Route/Back-annotate Pin Locations</ClosedNode>
+         <ClosedNode>Implement Design/Place &amp; Route/Generate IBIS Model</ClosedNode>
          <ClosedNode>Implement Design/Translate</ClosedNode>
-         <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem>Manually Place &amp; Route (FPGA Editor)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >18</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000130000000010000000100000000000000000000000064ffffffff000000810000000000000001000001300000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000019f000000010000000100000000000000000000000064ffffffff0000008100000000000000010000019f0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem>Manually Place &amp; Route (FPGA Editor)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
@@ -135,7 +141,19 @@
          <ClosedNode>/spu_core_tb I:|ECE554-SPU|hw|top_level|String_Theory|spu_core_tb.v</ClosedNode>
          <ClosedNode>/spu_tb I:|ECE554-SPU|hw|SPU|test|spu_tb.v</ClosedNode>
          <ClosedNode>/spu_tb I:|ECE554-SPU|hw|top_level|String_Theory|spu_tb.v</ClosedNode>
-         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/D - decode</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/EX - execute</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/F - fetch</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/WB - writeback</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/bc - branch_control</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/ex_mem - pipeReg_ex_mem</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/hd - hazard_detect</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/id_ex - pipeReg_id_ex</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/if_id - pipeReg_if_id</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc/mem_wb - pipeReg_mem_wb</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart_rx - spart_rx_fifo</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart_tx - spart_tx_fifo</ClosedNode>
+         <ClosedNode>/test I:|554|project|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spu - SPU/core1 - SPUCore</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/PROC - proc</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spart - spart_tx_fifo</ClosedNode>
          <ClosedNode>/test I:|ECE554-SPU|hw|top_level|String_Theory|test.v/DUT - top_level/spu - SPU</ClosedNode>
@@ -161,19 +179,20 @@
          <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/SPU - spu/core1 - spu_core</ClosedNode>
          <ClosedNode>/top_level I:|ECE554-SPU|hw|top_level|String_Theory|top_level.v/spart - spart_tx_fifo/spart - spart_tx</ClosedNode>
          <ClosedNode>/tx_tb I:|554|project|ECE554-SPU|hw|intrf|spart|verilog|tx_tb.v</ClosedNode>
+         <ClosedNode>/vgamult I:|554|project|ECE554-SPU|hw|intrf|vga|src|vgamult.v</ClosedNode>
          <ClosedNode>/zero_counter_tb I:|ECE554-SPU|hw|SPU|test|zero_counter_tb.v</ClosedNode>
          <ClosedNode>/zero_counter_tb I:|ECE554-SPU|hw|top_level|String_Theory|zero_counter_tb.v</ClosedNode>
          <ClosedNode>/zero_priority_enc_tb I:|ECE554-SPU|hw|SPU|test|zero_priority_enc_tb.v</ClosedNode>
          <ClosedNode>/zero_priority_enc_tb I:|ECE554-SPU|hw|top_level|String_Theory|zero_priority_enc_tb.v</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>test (I:/ECE554-SPU/hw/top_level/String_Theory/test.v)</SelectedItem>
+         <SelectedItem>test (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000015b000000020000000000000000000000000200000064ffffffff0000008100000003000000020000015b0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000192000000020000000000000000000000000200000064ffffffff000000810000000300000002000001920000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>test (I:/ECE554-SPU/hw/top_level/String_Theory/test.v)</CurrentItem>
+      <CurrentItem>test (I:/554/project/ECE554-SPU/hw/top_level/String_Theory/test.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -182,26 +201,26 @@
          <ClosedNode>ModelSim Simulator</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000110000000010000000100000000000000000000000064ffffffff000000810000000000000001000001100000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="DESUT_VERILOG" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Simulate Behavioral Model</SelectedItem>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001b0000000010000000100000000000000000000000064ffffffff000000810000000000000001000001b00000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Simulate Behavioral Model</CurrentItem>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_BMM" guiview="Process" >
       <ClosedNodes>
@@ -217,29 +236,28 @@
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_UCF" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
-         <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000131000000010000000100000000000000000000000064ffffffff000000810000000000000001000001310000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001b0000000010000000100000000000000000000000064ffffffff000000810000000000000001000001b00000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XCO" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001b0000000010000000100000000000000000000000064ffffffff000000810000000000000001000001b00000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <SourceProcessView>000000ff00000000000000020000011b0000011b01000000050100000002</SourceProcessView>
    <CurrentView>Implementation</CurrentView>
@@ -248,13 +266,13 @@
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000138000000010000000100000000000000000000000064ffffffff000000810000000000000001000001380000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000110000000010000000100000000000000000000000064ffffffff000000810000000000000001000001100000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XAW" guiview="Process" >
       <ClosedNodes>
@@ -265,7 +283,20 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000130000000010000000100000000000000000000000064ffffffff000000810000000000000001000001300000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001b0000000010000000100000000000000000000000064ffffffff000000810000000000000001000001b00000000100000000</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
+      <CurrentItem></CurrentItem>
+   </ItemView>
+   <ItemView engineview="BehavioralSim" sourcetype="DESUT_XAW" guiview="Process" >
+      <ClosedNodes>
+         <ClosedNodesVersion>1</ClosedNodesVersion>
+      </ClosedNodes>
+      <SelectedItems>
+         <SelectedItem></SelectedItem>
+      </SelectedItems>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000110000000010000000100000000000000000000000064ffffffff000000810000000000000001000001100000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem></CurrentItem>
    </ItemView>

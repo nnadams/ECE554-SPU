@@ -1,0 +1,15 @@
+WARNING:coreutil:954 - Unable to map repository entry for IP
+   'xilinx.com:ip:blk_mem_gen:6.1' because the metadata file
+   'C:\ProgramData\App-V\DAA02E26-5322-4947-BF0F-062031F30E14\68790BDD-0F39-406E
+   -A1BC-DAF286566E4F\Root\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\
+   ip\blk_mem_gen_v6_1\component.xml' does not exist.
+WARNING:coreutil:954 - Unable to map repository entry for IP
+   'xilinx.com:ip:blk_mem_gen:6.2' because the metadata file
+   'C:\ProgramData\App-V\DAA02E26-5322-4947-BF0F-062031F30E14\68790BDD-0F39-406E
+   -A1BC-DAF286566E4F\Root\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\
+   ip\blk_mem_gen_v6_2\component.xml' does not exist.
+INFO:sim:172 - Generating IP...
+Applying current project options...
+Finished applying current project options.
+Cancelled executing Tcl generator.
+Wrote CGP file for project 'data_mem'.

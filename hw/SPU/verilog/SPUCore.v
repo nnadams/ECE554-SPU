@@ -43,15 +43,26 @@ localparam STRCCHR = 4'd4;
 localparam STRSTR  = 4'd5;
 localparam STRLST  = 4'd5;
 
+localparam ADDRINCAMT = 32'd16;
+
 reg noNullMatches;
-reg [2:0] state, nxstate;
-reg [3:0] operation, destination;
+reg [2:0] state;
+reg [2:0] nxstate;
+reg [3:0] operation;
+reg [3:0] destination;
 reg [7:0] immediate;
-reg [31:0] strAloc, strBloc, strCounter, strChunks;
+reg [31:0] strAloc;
+reg [31:0] strBloc;
+reg [31:0] strCounter;
+reg [31:0] strChunks;
 reg [127:0] stringB;
 reg [255:0] stringA;
 
-wire [4:0] zpenc_out, mpenc_out, zcnt_out, penc_out, zerospenc_out;
+wire [4:0] zpenc_out;
+wire [4:0] mpenc_out;
+wire [4:0] zcnt_out;
+wire [4:0] penc_out;
+wire [4:0] zerospenc_out;
 
 reg start_job, save_instr, working;
 reg save_stringA, save_stringB, zero_stringB, load_stringB, shift_stringA, append_stringA, save_stringA2;
@@ -59,10 +70,14 @@ reg inc_strAloc, inc_strBloc, clr_strCounter, inc_strCounter, neg_strCounter, se
 reg inc_strChunks, clr_strChunks;
 reg return_strCmp, return_strCounter;
 reg [7:0] searchChr;
-reg [31:0] penc_value, amt_inc_strCounter, amt_strCounter;
+reg [31:0] penc_value;
+reg [31:0] amt_inc_strCounter;
+reg [31:0] amt_strCounter;
 
 wire cmpr_done, cmpr_strAgte;
-wire [15:0] cmpr_out, cmpr_zerosA, cmpr_zerosB;
+wire [15:0] cmpr_out;
+wire [15:0] cmpr_zerosA;
+wire [15:0]  cmpr_zerosB;
 Comparator cmpr (
    .clk(clk),
    .rst(rst),
@@ -143,7 +158,7 @@ always @(posedge clk or posedge rst) begin
 	else if (save_instr)
 		strAloc <= i_strAlocation;
 	else if (inc_strAloc)
-		strAloc <= strAloc + 1'b1;
+		strAloc <= strAloc + ADDRINCAMT;
 end
 
 always @(posedge clk or posedge rst) begin
@@ -152,7 +167,7 @@ always @(posedge clk or posedge rst) begin
 	else if (save_instr)
 		strBloc <= i_strBlocation;
 	else if (inc_strBloc)
-		strBloc <= strBloc + 1'b1;
+		strBloc <= strBloc + ADDRINCAMT;
 end
 
 always @(posedge clk or posedge rst) begin
@@ -230,7 +245,8 @@ always @(*) begin
 	nxstate = state;
 	
 	start_job = 1'b0;
-	o_mem_addr = 32'h0000;
+	//o_mem_addr = 32'h0000;
+	o_mem_addr = strAloc + ADDRINCAMT;
 	o_mem_re = 1'b0;
 	o_sreg_we = 1'b0;
 	return_strCounter = 1'b0;
@@ -324,7 +340,6 @@ always @(*) begin
 				nxstate = FTCHA2;
 				save_stringB = 1'b1;
 				inc_strAloc = 1'b1;
-				o_mem_addr = strAloc + 1'b1;
 				o_mem_re = 1'b1;
 			end
 			else begin
@@ -353,7 +368,6 @@ always @(*) begin
 					else if (!isNullInStrA) begin  // No null chr, so get the next chunk
 						nxstate = FTCHA;
 						inc_strAloc = 1'b1;
-						o_mem_addr = strAloc + 1'b1;
 						o_mem_re = 1'b1;
 						inc_strCounter = 1'b1;
 					end
@@ -374,7 +388,6 @@ always @(*) begin
 						nxstate = FTCHA;
 						inc_strAloc = 1'b1;
 						inc_strBloc = 1'b1;
-						o_mem_addr = strAloc + 1'b1;
 						o_mem_re = 1'b1;
 					end
 				end
@@ -387,7 +400,6 @@ always @(*) begin
 					else if (!isNullInStrA) begin  // No null chr, so get the next chunk
 						nxstate = FTCHA;
 						inc_strAloc = 1'b1;
-						o_mem_addr = strAloc + 1'b1;
 						o_mem_re = 1'b1;
 						inc_strCounter = 1'b1;
 					end
@@ -405,7 +417,6 @@ always @(*) begin
 					if (!isNullInStrA) begin  // No null chr, so get the next chunk
 						nxstate = FTCHA;
 						inc_strAloc = 1'b1;
-						o_mem_addr = strAloc + 1'b1;
 						o_mem_re = 1'b1;
 						inc_strChunks = 1'b1;
 					end
@@ -422,7 +433,6 @@ always @(*) begin
 					if (!isNullInStrA) begin  // No null chr, so get the next chunk
 						nxstate = FTCHA;
 						inc_strAloc = 1'b1;
-						o_mem_addr = strAloc + 1'b1;
 						o_mem_re = 1'b1;
 					end
 					else begin					 // Done
@@ -452,7 +462,6 @@ always @(*) begin
 							en_strALenCounter = 1'b1;
 							if (strAFetch) begin // going to need to get more of strA
 								inc_strAloc = 1'b1;
-								o_mem_addr = strAloc + 1'b1;
 								o_mem_re = 1'b1;
 							end
 							else if (strASave) begin
