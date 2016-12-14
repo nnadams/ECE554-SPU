@@ -45,6 +45,9 @@ class Spinner:
 def get_cpu_speed():
     return cpuinfo.get_cpu_info()['hz_advertised_raw'][0]
 
+def strcchr(str1,str2):
+    return str1.count(str2)
+
 def strchr(str1,str2):
     return str1.find(str2)
 
@@ -77,6 +80,8 @@ def execute_command(cmd, imm):
     elif cmd == 3:
         ret_val = strrchr(A, imm)
     elif cmd == 4:
+        ret_val = strcchr(A,imm)
+    elif cmd == 5:
         ret_val = strstr(A,B)
     else:
         ret_val = None
@@ -99,7 +104,8 @@ Select a Function:
 1: STRCMP
 2: STRCHR
 3: STRRCHR
-4: STRSTR
+4: STRCCHR
+5: STRSTR
 """)
         get_cpu_speed()
         cmd = int(input("Enter a number to indicate a command: "))
