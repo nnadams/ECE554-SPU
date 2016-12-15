@@ -25,17 +25,17 @@ def main(args):
         data.extend(ch)
      
     
-    op = 3
+    op = 0
     delim = ord('b')
     data = bytearray()
     data.append(op)
     data.append(delim)
     data.append(1)
-    for i in range(0,128*300 - 1):
+    for i in range(0,128*1 - 1):
         data.append(ord('b'))
     data.append(0)
     data.append(2)
-    for i in range(0,128*300 - 2):
+    for i in range(0,128*1 - 2):
         data.append(ord('b'))
     data.append(ord('f'))
     data.append(4)

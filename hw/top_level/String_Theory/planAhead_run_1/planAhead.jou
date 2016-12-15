@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# PlanAhead v14.7 (64-bit)
+# Build 321239 by xbuild on Fri Sep 27 19:29:51 MDT 2013
+# Start of session at: Thu Dec 15 13:48:18 2016
+# Process ID: 5344
+# Log file: I:/554/project/ECE554-SPU/hw/top_level/String_Theory/planAhead_run_1/planAhead.log
+# Journal file: I:/554/project/ECE554-SPU/hw/top_level/String_Theory/planAhead_run_1/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source I:/554/project/ECE554-SPU/hw/top_level/String_Theory/pa.fromNetlist.tcl

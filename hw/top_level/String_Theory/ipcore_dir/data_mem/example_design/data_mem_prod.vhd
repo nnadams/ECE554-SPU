@@ -101,8 +101,8 @@
 --    C_WRITE_MODE_A              :  WRITE_FIRST 
 --    C_WRITE_WIDTH_A             :  32 
 --    C_READ_WIDTH_A              :  32 
---    C_WRITE_DEPTH_A             :  150000 
---    C_READ_DEPTH_A              :  150000 
+--    C_WRITE_DEPTH_A             :  140000 
+--    C_READ_DEPTH_A              :  140000 
 --    C_ADDRA_WIDTH               :  32 
 --    C_HAS_RSTB                  :  1 
 --    C_RST_PRIORITY_B            :  CE 
@@ -111,12 +111,12 @@
 --    C_HAS_ENB                   :  0 
 --    C_HAS_REGCEB                :  0 
 --    C_USE_BYTE_WEB              :  1 
---    C_WEB_WIDTH                 :  4 
+--    C_WEB_WIDTH                 :  16 
 --    C_WRITE_MODE_B              :  WRITE_FIRST 
---    C_WRITE_WIDTH_B             :  32 
---    C_READ_WIDTH_B              :  32 
---    C_WRITE_DEPTH_B             :  150000 
---    C_READ_DEPTH_B              :  150000 
+--    C_WRITE_WIDTH_B             :  128 
+--    C_READ_WIDTH_B              :  128 
+--    C_WRITE_DEPTH_B             :  35000 
+--    C_READ_DEPTH_B              :  35000 
 --    C_ADDRB_WIDTH               :  32 
 --    C_HAS_MEM_OUTPUT_REGS_A     :  0 
 --    C_HAS_MEM_OUTPUT_REGS_B     :  0 
@@ -165,10 +165,10 @@ ENTITY data_mem_prod IS
     RSTB       : IN STD_LOGIC;  --opt port
     ENB        : IN STD_LOGIC;  --optional port
     REGCEB     : IN STD_LOGIC;  --optional port
-    WEB        : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    WEB        : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     ADDRB      : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    DINB       : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    DOUTB      : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    DINB       : IN STD_LOGIC_VECTOR(127 DOWNTO 0);
+    DOUTB      : OUT STD_LOGIC_VECTOR(127 DOWNTO 0);
 
     --ECC
     INJECTSBITERR  : IN STD_LOGIC; --optional port
@@ -206,7 +206,7 @@ ENTITY data_mem_prod IS
     S_AXI_ARVALID                  : IN  STD_LOGIC;
     S_AXI_ARREADY                  : OUT STD_LOGIC;
     S_AXI_RID                      : OUT STD_LOGIC_VECTOR(3  DOWNTO 0):= (OTHERS => '0');
-    S_AXI_RDATA                    : OUT STD_LOGIC_VECTOR(31  DOWNTO 0);
+    S_AXI_RDATA                    : OUT STD_LOGIC_VECTOR(127  DOWNTO 0);
     S_AXI_RRESP                    : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     S_AXI_RLAST                    : OUT STD_LOGIC;
     S_AXI_RVALID                   : OUT STD_LOGIC;
@@ -248,11 +248,11 @@ ARCHITECTURE xilinx OF data_mem_prod IS
       --Port B
     RSTB           : IN STD_LOGIC;  --opt port
   
-    WEB            : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    WEB            : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     ADDRB          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
   
-    DINB           : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    DOUTB          : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    DINB           : IN STD_LOGIC_VECTOR(127 DOWNTO 0);
+    DOUTB          : OUT STD_LOGIC_VECTOR(127 DOWNTO 0);
     CLKB           : IN STD_LOGIC
 
 

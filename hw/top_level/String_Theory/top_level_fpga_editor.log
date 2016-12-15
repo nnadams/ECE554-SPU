@@ -1,0 +1,102 @@
+#:C39    
+#Xilinx FPGA Editor Command Log File
+#Editor Version:
+#:V   NT M2.1 P.20131013
+#Current Working Directory:
+#:D   I:\554\project\ECE554-SPU\hw\top_level\String_Theory
+#Date/Time:
+#:T   Thu Dec 15 13:54:42 2016
+#------------------------------
+	#Reading top_level.ncd...
+	#Loading device for application Rf_Device from file '5vlx110t.nph' in environment C:\ProgramData\App-V\DAA02E26-5322-4947-BF0F-062031F30E14\68790BDD-0F39-406E-A1BC-DAF286566E4F\Root\14.7\ISE_DS\ISE\.
+	#   "top_level" is an NCD, version 3.2, device xc5vlx110t, package ff1136, speed -1
+	#Design creation date: 2016.12.15.19.29.21
+	#Building chip graphics...
+	#Loading speed info...
+	#1
+setattr main edit-mode no-logic-changes
+	#2
+setattr main disable_draw on
+	#3
+setattr layer user_rpms view on
+	#4
+setattr main disable_draw off
+	#Hint: change the visibility of more than one layer at a time by clicking on the apply button, clicking two or more layer buttons, and then clicking on the apply button again.
+	#5
+setattr main disable_draw on
+	#6
+setattr layer user_rpms view off
+	#7
+setattr main disable_draw off
+	#8
+setattr main disable_draw on
+	#9
+setattr layer clock_regions view on
+	#10
+setattr main disable_draw off
+	#11
+setattr main disable_draw on
+	#12
+setattr layer clock_regions view off
+	#13
+setattr main disable_draw off
+	#14
+setattr main disable_draw on
+	#15
+setattr layer clock_regions view on
+	#16
+setattr main disable_draw off
+	#17
+setattr main disable_draw on
+	#18
+setattr layer clock_regions view off
+	#19
+setattr main disable_draw off
+	#20
+setattr main disable_draw on
+	#21
+setattr layer switch_boxes view on
+	#22
+setattr main disable_draw off
+	#23
+setattr main disable_draw on
+	#24
+setattr layer sites view off
+	#25
+setattr main disable_draw off
+	#26
+setattr main disable_draw on
+	#27
+setattr layer routes view on
+	#28
+setattr main disable_draw off
+	#29
+setattr main disable_draw on
+	#30
+setattr layer ratsnests view on
+	#31
+setattr main disable_draw off
+	#32
+setattr main disable_draw on
+	#33
+setattr layer ratsnests view off
+	#34
+setattr main disable_draw off
+	#35
+setattr main disable_draw on
+	#36
+setattr layer ratsnests view on
+	#37
+setattr main disable_draw off
+	#38
+unselect -all
+	#39
+select site 'SLICE_X55Y80'
+	#site "SLICE_X55Y80",  type = SLICEL  (RPM grid X139Y160)
+	#40
+unselect -all
+	#41
+select site 'SLICE_X55Y80'
+	#site "SLICE_X55Y80",  type = SLICEL  (RPM grid X139Y160)
+	#42
+post block

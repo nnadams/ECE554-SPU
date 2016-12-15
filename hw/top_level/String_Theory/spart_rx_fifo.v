@@ -27,7 +27,7 @@ module spart_rx_fifo(
 		.clk(clk),
 		.rst(rst),
 		.load_baud(1'b1),
-		.baud_val(16'h0516),
+		.baud_val(16'd2473),
 		//.baud_val(16'h0010),
 		.rx_data(_spart_rx_data),
 		.RX(rxd), 

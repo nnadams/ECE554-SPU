@@ -93,7 +93,6 @@ module top_level(
 
     wire clk ;//= clk_100mhz;
 	wire locked_rst = rst | ~locked_dcm;
-	//assign clk = clk_100mhz;
 	/*vga_clk vga_clk_gen1(
 		.CLKIN_IN(clk_100mhz), 
 		.RST_IN(rst), 

@@ -59,17 +59,21 @@ s_type = {
   # String instrucitons
   "slen":    (0b100011, ["rs"]),
   "scmp":    (0b100011, ["rs", "rt"]),
-  "scat":    (0b100011, ["rs", "rt"]),
-  "stok":    (0b100011, ["rs", "rt"]),
+  "strchr":    (0b100011, ["rs"]),
+  "strrchr":    (0b100011, ["rs"]),
+  "strcchr":    (0b100011, ["rs"]),
+  "strstr":    (0b100011, ["rs", "rt"]),
 }
 
 s_type_op = {
   # String instrucitons opcode 2
-  "slen":    0b0000,
-  "scmp":    0b0001,
-  "scat":    0b0010,
-  "stok":    0b0011,
-
+  "slen":      0b0000,
+  "scmp":      0b0001,
+  "strchr":    0b0010,
+  "strrchr":    0b0011,
+  "strcchr":    0b0100,
+  "strstr":    0b0101,
+ 
 }
 
 r_type = {

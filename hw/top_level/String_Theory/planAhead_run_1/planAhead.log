@@ -1,0 +1,142 @@
+#-----------------------------------------------------------
+# PlanAhead v14.7 (64-bit)
+# Build 321239 by xbuild on Fri Sep 27 19:29:51 MDT 2013
+# Start of session at: Thu Dec 15 13:48:18 2016
+# Process ID: 5344
+# Log file: I:/554/project/ECE554-SPU/hw/top_level/String_Theory/planAhead_run_1/planAhead.log
+# Journal file: I:/554/project/ECE554-SPU/hw/top_level/String_Theory/planAhead_run_1/planAhead.jou
+#-----------------------------------------------------------
+INFO: [Common 17-78] Attempting to get a license: PlanAhead
+INFO: [Common 17-290] Got license for PlanAhead
+INFO: [Common 17-86] Your PlanAhead license expires in -290 day(s)
+INFO: [Device 21-36] Loading parts and site information from C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data/parts/arch.xml
+Parsing RTL primitives file [C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+Finished parsing RTL primitives file [C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+start_gui
+source I:/554/project/ECE554-SPU/hw/top_level/String_Theory/pa.fromNetlist.tcl
+# create_project -name String_Theory -dir "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/planAhead_run_1" -part xc5vlx110tff1136-1
+# set_property design_mode GateLvl [get_property srcset [current_run -impl]]
+# set_property edif_top_file "I:/554/project/ECE554-SPU/hw/top_level/String_Theory/top_level.ngc" [ get_property srcset [ current_run ] ]
+# add_files -norecurse { {I:/554/project/ECE554-SPU/hw/top_level/String_Theory} {ipcore_dir} }
+# add_files [list {ipcore_dir/main_mem.ncf}] -fileset [get_property constrset [current_run]]
+# add_files [list {ipcore_dir/inst_mem.ncf}] -fileset [get_property constrset [current_run]]
+# add_files [list {ipcore_dir/spart_fifo.ncf}] -fileset [get_property constrset [current_run]]
+# add_files [list {ipcore_dir/data_mem.ncf}] -fileset [get_property constrset [current_run]]
+# add_files [list {ipcore_dir/instr_fifo.ncf}] -fileset [get_property constrset [current_run]]
+# set_property target_constrs_file "I:/554/project/ECE554-SPU/hw/top_level/top_level_constraints.ucf" [current_fileset -constrset]
+Adding file 'I:/554/project/ECE554-SPU/hw/top_level/top_level_constraints.ucf' to fileset 'constrs_1'
+# add_files [list {I:/554/project/ECE554-SPU/hw/top_level/top_level_constraints.ucf}] -fileset [get_property constrset [current_run]]
+# link_design
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+Design is defaulting to project part: xc5vlx110tff1136-1
+Release 14.7 - ngc2edif P.20131013 (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+Reading design top_level.ngc ...
+WARNING:NetListWriters:298 - No output is written to top_level.xncf, ignored.
+Processing design ...
+   Preping design's networks ...
+   Preping design's macros ...
+WARNING:NetListWriters:306 - Signal bus PROC/F/PC_INT<31 : 2> on block top_level
+   is not reconstructed, because there are some missing bus signals.
+WARNING:NetListWriters:306 - Signal bus PROC/F/int_control/next_state<8 : 0> on
+   block top_level is not reconstructed, because there are some missing bus
+   signals.
+WARNING:NetListWriters:306 - Signal bus PROC/if_id/if_instruction_in<31 : 0> on
+   block top_level is not reconstructed, because there are some missing bus
+   signals.
+WARNING:NetListWriters:306 - Signal bus spu/core1/cmpr/bitsA<127 : 11> on block
+   top_level is not reconstructed, because there are some missing bus signals.
+WARNING:NetListWriters:306 - Signal bus spu/core1/cmpr/bitsB<127 : 10> on block
+   top_level is not reconstructed, because there are some missing bus signals.
+WARNING:NetListWriters:306 - Signal bus spu/core1/penc_out<3 : 1> on block
+   top_level is not reconstructed, because there are some missing bus signals.
+WARNING:NetListWriters:306 - Signal bus spu/core1/zerospenc_out<3 : 1> on block
+   top_level is not reconstructed, because there are some missing bus signals.
+  finished :Prep
+Writing EDIF netlist file top_level.edif ...
+ngc2edif: Total memory usage is 131024 kilobytes
+
+Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/top_level_ngc_zx.edif]
+Finished Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/top_level_ngc_zx.edif]
+Release 14.7 - ngc2edif P.20131013 (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+Reading design spart_fifo.ngc ...
+WARNING:NetListWriters:298 - No output is written to spart_fifo.xncf, ignored.
+Processing design ...
+   Preping design's networks ...
+   Preping design's macros ...
+WARNING:NetListWriters:306 - Signal bus
+   U0/xst_fifo_generator/gconvfifo.rf/grf.rf/rstblk/rd_rst_reg<2 : 0> on block
+   spart_fifo is not reconstructed, because there are some missing bus signals.
+  finished :Prep
+Writing EDIF netlist file spart_fifo.edif ...
+ngc2edif: Total memory usage is 106640 kilobytes
+
+Reading core file 'I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/spart_fifo.ngc' for (cell view 'spart_fifo', library 'top_level_lib', file 'top_level.ngc')
+Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/spart_fifo_ngc_zx.edif]
+Finished Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/spart_fifo_ngc_zx.edif]
+Release 14.7 - ngc2edif P.20131013 (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+Reading design inst_mem.ngc ...
+WARNING:NetListWriters:298 - No output is written to inst_mem.xncf, ignored.
+Processing design ...
+   Preping design's networks ...
+   Preping design's macros ...
+  finished :Prep
+Writing EDIF netlist file inst_mem.edif ...
+ngc2edif: Total memory usage is 106640 kilobytes
+
+Reading core file 'I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/inst_mem.ngc' for (cell view 'inst_mem', library 'top_level_lib', file 'top_level.ngc')
+Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/inst_mem_ngc_zx.edif]
+Finished Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/inst_mem_ngc_zx.edif]
+Release 14.7 - ngc2edif P.20131013 (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+Reading design data_mem.ngc ...
+WARNING:NetListWriters:298 - No output is written to data_mem.xncf, ignored.
+Processing design ...
+   Preping design's networks ...
+   Preping design's macros ...
+  finished :Prep
+Writing EDIF netlist file data_mem.edif ...
+ngc2edif: Total memory usage is 131024 kilobytes
+
+Reading core file 'I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/data_mem.ngc' for (cell view 'data_mem', library 'top_level_lib', file 'top_level.ngc')
+Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/data_mem_ngc_zx.edif]
+Finished Parsing EDIF File [./planAhead_run_1/String_Theory.data/cache/data_mem_ngc_zx.edif]
+INFO: [Designutils 20-910] Reading macro library C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn
+Parsing EDIF File [C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn]
+Finished Parsing EDIF File [C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn]
+WARNING: [Netlist 29-43] Netlist 'top_level' is not ideal for floorplanning, since the cellview 'top_level' defined in file 'top_level.ngc' contains large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Device 21-21] Reading bus macro file C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/pr_bus_macros.xml
+Loading clock regions from C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx110t/ClockRegion.xml
+Loading clock buffers from C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx110t/ClockBuffers.xml
+Loading package from C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx110t/ff1136/Package.xml
+Loading io standards from C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/IOStandards.xml
+INFO: [Device 21-19] Loading pkg sso from C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx110t/ff1136/SSORules.xml
+Loading list of drcs for the architecture : C:/ProgramData/App-V/DAA02E26-5322-4947-BF0F-062031F30E14/68790BDD-0F39-406E-A1BC-DAF286566E4F/Root/14.7/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/drc.xml
+Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/inst_mem.ncf]
+Finished Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/inst_mem.ncf]
+Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/spart_fifo.ncf]
+Finished Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/spart_fifo.ncf]
+Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/spart_fifo.ncf]
+Finished Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/spart_fifo.ncf]
+Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/data_mem.ncf]
+Finished Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/String_Theory/ipcore_dir/data_mem.ncf]
+Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/top_level_constraints.ucf]
+Finished Parsing UCF File [I:/554/project/ECE554-SPU/hw/top_level/top_level_constraints.ucf]
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Phase 0 | Netlist Checksum: 4687038d
+link_design: Time (s): elapsed = 00:00:36 . Memory (MB): peak = 827.941 ; gain = 331.484
+exit
+ERROR: [PlanAhead 12-106] *** Exception: ui.h.b: Found deleted key in HTclEventBroker. Verify if the classes listed here call cleanup()
+HTclEvent: SIGNAL_MODIFY   Classes: ui.views.aR 
+HTclEvent: DEBUG_PORT_CONFIG_CHANGE   Classes: ui.views.aR 
+HTclEvent: SIGNAL_BUS_MODIFY   Classes: ui.views.aR 
+HTclEvent: DEBUG_CORE_CONFIG_CHANGE   Classes: ui.views.aR 
+ (See I:/554/project/ECE554-SPU/hw/top_level/String_Theory\planAhead_pid5344.debug)
+ERROR: [Common 17-39] 'stop_gui' failed due to earlier errors.
+INFO: [Common 17-206] Exiting PlanAhead at Thu Dec 15 13:50:52 2016...
+INFO: [Common 17-83] Releasing license: PlanAhead

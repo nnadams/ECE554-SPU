@@ -357,14 +357,16 @@ _J2:
 
 _strrchr_nospu:
     add $r0 $zero $zero 
+    add $t0 $zero $zero
 _P0:
     lb $t1, $a0 0 # load the next character into t1
     beqz $t1, _P2 # check for the null character
     sub $t2 $t1 $a1 #check if its the character
     bnez $t2, _P1
-    add $r0 $zero $a0
+    add $r0 $zero $t0
 _P1:
     addi $a0, $a0, 1 # increment the string pointer
+    addi $t0 $t0 1
     j _P0 # return to the top of the loop
 _P2:
     jr $ret
@@ -384,7 +386,39 @@ _M2:
     jr $ret
     
 _strstr_nospu:
+    addi $r0 $zero -1 
+    add $s0 $a0 $zero 
+    add $s1 $a1 $zero 
+    add $t0 $zero $zero 
+    add $t1 $zero $zero 
+    
+_outer_loop:
+    add $t2 $t0 $s0 
+    lb $t2 $t2 0 
+    beqz $t2 _endstrstr
+    add $t1 $zero $zero 
+inner_loop:
+    add $t3 $t1 $s1 
+    lb $t3 $t3 0 
+    add $t4 $t0 $t1 
+    add $t4 $t4 $s0 
+    lb $t4 $t4 0
+    beqz $t3 end_outer_loop
+    sub $t5 $t3 $t4 
+    bnez $t5 end_outer_loop
+    addi $t1 $t1 1 
+    j inner_loop
+    
+end_outer_loop:
+    beqz $t3 found 
+    addi $t0 $t0 1 
+    j _outer_loop 
 
+found:
+    add $r0 $t0 $zero 
+_endstrstr:
+    jr $ret 
+    
 ################################################
 ######SPU ROUTINES##############################
 ################################################ 
@@ -526,3 +560,18 @@ _strcchr_wait:
     jr $ret
 
 _strstr_spu:
+    nop
+    nop
+    nop
+    strstr $a0 $a1 0 0
+    li $t0 spu_irq_happend
+_strstr_wait:
+    ld $t1 $t0 0 
+    beqz $t1 _strstr_wait
+    st $zero $t0 0 
+    li $t4 spu_result
+    ld $r0 $t4 0 # load result into r0
+    nop
+    nop
+    nop
+    jr $ret
