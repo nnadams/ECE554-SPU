@@ -343,20 +343,24 @@ _S3:
 	jr $ret
 
 _strchr_nospu:
-    add $r0 $zero $zero
+    addi $r0 $zero -1
+    add $t0 $zero $zero 
 _J0:
     lb $t1, $a0 0 # load the next character into t1
     beqz $t1, _J2 # check for the null character
     sub $t2 $t1 $a1 #check if its the character
-    beqz $t2, _J2 
+    bnez $t2, _J1
+    add $r0 $zero $t0 
+    j _J2
+_J1:
     addi $a0, $a0, 1 # increment the string pointer
-    addi $r0 $r0 1 #increment index 
+    addi $t0 $t0 1 #increment index 
     j _J0 # return to the top of the loop
 _J2:
     jr $ret
 
 _strrchr_nospu:
-    add $r0 $zero $zero 
+    addi $r0 $zero -1 
     add $t0 $zero $zero
 _P0:
     lb $t1, $a0 0 # load the next character into t1
