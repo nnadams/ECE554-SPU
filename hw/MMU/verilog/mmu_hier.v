@@ -42,8 +42,8 @@ module mmu_hier(
     output [31:0]  vga_data_2,
     output [31:0]  vga_data_3,
     output [7:0]   spart_tx_data,
-	 output         spart_trmt,
-	 output 			 spart_rd
+    output         spart_trmt,
+    output           spart_rd
     );
      
     reg [31:0] spu_reg [0:15];
@@ -111,6 +111,8 @@ wire rst_clk_cnt;
 assign rst_clk_cnt = &cpu_we & ((cpu_addr == 32'h00B00040) || (cpu_addr == 32'h00B00044));
 clk_counter cnt(.clk(clk), .rst(rst), .soft_rst(rst_clk_cnt) , .clk_cnt(clk_cnt));
 
+clk_counter cnt(clk, (rst|| ((cpu_addr == 32'h00B00040) || (cpu_addr == 32'h00B00044))) , clk_cnt);
+
 inst_mem imem(
   .clka(clk), // input clka
   .addra(PC), // input [31 : 0] addra
@@ -174,8 +176,8 @@ inst_mem imem(
         spart_tx_reg = 8'h0;
         mem_mapped_reg = 32'h0;
         spart_trmt_reg = 1'b0; 
-		  spart_rd_reg = 1'b0;
-		  
+        spart_rd_reg = 1'b0;
+          
         case(cpu_addr[23:20])
             4'h0 : begin
                 cpu_inst_read = 1'b1;
@@ -194,13 +196,14 @@ inst_mem imem(
                     4'h4 : mem_mapped_reg = {31'h0,spart_tx_full};
                     4'h8 : mem_mapped_reg = {31'h0,spart_rx_empty};
                     4'hC : begin 
-								mem_mapped_reg = {24'h0,spart_rx_data};
-								spart_rd_reg = 1'b1;
-							end
+                                mem_mapped_reg = {24'h0,spart_rx_data};
+                                spart_rd_reg = 1'b1;
+                            end
                 endcase
             end
             4'hB : begin
                 spu_res_mapped_read = 1'b1;
+
             end
             default : begin
                 //memory fault
